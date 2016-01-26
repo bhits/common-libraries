@@ -26,6 +26,7 @@
 		<module>resource-url</module>
 		<module>common-util</module>
 		<module>xml-validation</module>
+		<module>consent-gen</module>
 	</modules>
 
 	<properties>
@@ -43,7 +44,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-parent</artifactId>
+				<artifactId>spring-boot-dependencies</artifactId>
 				<scope>import</scope>
 				<type>pom</type>
 				<version>${spring.boot.version}</version>
