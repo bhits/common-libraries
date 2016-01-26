@@ -11,6 +11,25 @@
 	<packaging>pom</packaging>
 	<name>Common Libraries</name>
 
+	<scm>
+		<url>https://github.com/FEISystems/common-libraries</url>
+		<connection>scm:git:https://github.com/FEISystems/common-libraries.git</connection>
+		<developerConnection>scm:git:https://github.com/FEISystems/common-libraries.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://${maven.nexus.servername}/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://${maven.nexus.servername}/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<modules>
 		<module>audit-service</module>
 		<module>document-accessor</module>
