@@ -11,10 +11,6 @@
 	<name>Common Unit</name>
 	<packaging>jar</packaging>
 
-	<properties>
-		<xmlunit.version>1.5</xmlunit.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -27,7 +23,7 @@
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>

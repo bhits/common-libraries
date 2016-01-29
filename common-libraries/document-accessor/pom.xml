@@ -15,7 +15,6 @@
 		<dependency>
 			<groupId>gov.samhsa.mhc</groupId>
 			<artifactId>namespace</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<!-- Test -->
@@ -26,7 +25,6 @@
 		<dependency>
 			<groupId>gov.samhsa.mhc</groupId>
 			<artifactId>document-converter</artifactId>
-			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

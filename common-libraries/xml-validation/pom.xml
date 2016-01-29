@@ -15,7 +15,6 @@
 		<dependency>
 			<groupId>gov.samhsa.mhc</groupId>
 			<artifactId>logger-wrapper</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>gov.samhsa.mhc</groupId>

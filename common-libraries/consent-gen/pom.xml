@@ -11,10 +11,6 @@
 	<name>Consent Generator</name>
 	<packaging>jar</packaging>
 
-	<properties>
-		<hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -23,7 +19,6 @@
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>${hibernate-jpa-2.1-api.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -33,12 +28,10 @@
 		<dependency>
 			<groupId>gov.samhsa.mhc</groupId>
 			<artifactId>document-transformer</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>gov.samhsa.mhc</groupId>
 			<artifactId>resource-url</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 

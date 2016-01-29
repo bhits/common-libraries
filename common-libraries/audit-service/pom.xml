@@ -11,22 +11,15 @@
 	<name>Audit Service</name>
 	<packaging>jar</packaging>
 
-	<properties>
-		<logback.version>1.0.11</logback.version>
-		<logback-audit.version>0.6</logback-audit.version>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>audit-client</artifactId>
-			<version>${logback-audit.version}</version>
 		</dependency>
 
 		<!-- Test -->
