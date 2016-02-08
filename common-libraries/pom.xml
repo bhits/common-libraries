@@ -46,6 +46,7 @@
 		<module>common-util</module>
 		<module>xml-validation</module>
 		<module>consent-gen</module>
+		<module>xdm</module>
 	</modules>
 
 	<properties>
