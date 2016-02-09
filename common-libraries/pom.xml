@@ -56,6 +56,7 @@
         <apache.commons.version>3.3.2</apache.commons.version>
         <apache.commons-io.version>2.4</apache.commons-io.version>
         <apache.commons-codec.version>1.10</apache.commons-codec.version>
+        <xmlsec.version>2.0.6</xmlsec.version>
         <Saxon-HE.version>9.6.0-3</Saxon-HE.version>
         <xerces.version>2.11.0</xerces.version>
         <logback.version>1.0.11</logback.version>
@@ -89,6 +90,11 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${apache.commons-codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.santuario</groupId>
+                <artifactId>xmlsec</artifactId>
+                <version>${xmlsec.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.saxon</groupId>
