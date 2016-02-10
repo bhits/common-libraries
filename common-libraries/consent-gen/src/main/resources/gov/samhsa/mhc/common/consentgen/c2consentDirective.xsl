@@ -161,6 +161,59 @@
         </entry>
         </xsl:for-each>
     </xsl:variable>
+
+    <xsl:variable name="custodian">
+    <xsl:for-each select="//IndividualProvidersPermittedToDiscloseList/IndividualProvidersPermittedToDisclose">
+        <custodian>
+            <assignedCustodian>
+                <representedCustodianOrganization>
+                    <id root="1.3.6.4.1.4.1.2835.2" extension="npi"/>
+                    <name><xsl:value-of select="concat(firstName,' ', lastName)"/></name>
+                    <addr>
+                        <streetAddressLine>
+                            <xsl:value-of select="firstLinePracticeLocationAddress"/>
+                        </streetAddressLine>
+                        <city>
+                            <xsl:value-of select="practiceLocationAddressCityName"/>
+                        </city>
+                        <state>
+                            <xsl:value-of select="practiceLocationAddressStateName"/>
+                        </state>
+                        <postalCode>
+                            <xsl:value-of select="practiceLocationAddressPostalCode"/>
+                        </postalCode>
+                    </addr>
+                </representedCustodianOrganization>
+            </assignedCustodian>
+        </custodian>
+    </xsl:for-each>
+    <xsl:for-each
+            select="//OrganizationalProvidersPermittedToDiscloseList/OrganizationalProvidersPermittedToDisclose">
+        <custodian>
+            <assignedCustodian>
+                <representedCustodianOrganization>
+                    <id root="1.3.6.4.1.4.1.2835.2" extension="npi"/>
+                    <name><xsl:value-of select="orgName"/></name>
+                    <addr>
+                        <streetAddressLine>
+                            <xsl:value-of select="firstLinePracticeLocationAddress"/>
+                        </streetAddressLine>
+                        <city>
+                            <xsl:value-of select="practiceLocationAddressCityName"/>
+                        </city>
+                        <state>
+                            <xsl:value-of select="practiceLocationAddressStateName"/>
+                        </state>
+                        <postalCode>
+                            <xsl:value-of select="practiceLocationAddressPostalCode"/>
+                        </postalCode>
+                    </addr>
+                </representedCustodianOrganization>
+            </assignedCustodian>
+        </custodian>
+    </xsl:for-each>
+    </xsl:variable>
+
     
     <xsl:variable name="xacml">
         
@@ -530,46 +583,6 @@
                     </representedOrganization>
                 </assignedAuthor>
             </author>
-            <!-- Clerk who entered or scanned the consent (optional)-->
-            <!--dataEnterer typeCode="ENT" contextControlCode="OP">
-                <time value="200910262244+050"/>
-                <assignedEntity>
-                    <id extension="22222222" root="1.3.6.4.1.4.1.2835.2"/>
-                    <assignedPerson>
-                        <name>
-                            <prefix>Ms.</prefix>
-                            <given>Joan</given>
-                            <family>Clerk</family>
-                        </name>
-                    </assignedPerson>
-                </assignedEntity>
-            </dataEnterer-->
-            <!-- Information Custodian -->
-           <!-- <custodian>
-                <assignedCustodian>
-                    <representedCustodianOrganization>
-                        <id root="1.3.6.4.1.4.1.2835.2" extension="980983"/>
-                        <name><xsl:value-of select="concat($patient/firstName,' ', $patient/lastName)"/></name>
-                        <addr>
-                            <streetAddressLine>
-                                <xsl:value-of select="$patient/addressStreetAddressLine"/>
-                            </streetAddressLine>
-                            <city>
-                                <xsl:value-of select="$patient/addressCity"/>
-                            </city>
-                            <state>
-                                <xsl:value-of select="$patient/addressStateCode"/>
-                            </state>
-                            <postalCode>
-                                <xsl:value-of select="$patient/addressPostalCode"/>
-                            </postalCode>
-                            <country>
-                                <xsl:value-of select="$patient/addressCountryCode"/>
-                            </country>
-                        </addr>
-                    </representedCustodianOrganization>
-                </assignedCustodian>
-            </custodian>-->
 
             <xsl:for-each select="//IndividualProvidersPermittedToDiscloseList/IndividualProvidersPermittedToDisclose">
                 <custodian>
@@ -622,8 +635,6 @@
                         </representedCustodianOrganization>
                     </assignedCustodian>
                 </custodian>
-
-
             </xsl:for-each>
             <!-- Information Recipient - may be both Consent Directive receiver and intended information receiver  -->
             <xsl:for-each select="//IndividualProvidersDisclosureIsMadeToList/IndividualProvidersDisclosureIsMadeTo">
@@ -663,7 +674,6 @@
                     </intendedRecipient>
                 </informationRecipient>
             </xsl:for-each>
-
             <xsl:for-each
                 select="//OrganizationalProvidersDisclosureIsMadeToList/OrganizationalProvidersDisclosureIsMadeTo">
                 <informationRecipient typeCode="PRCP">
