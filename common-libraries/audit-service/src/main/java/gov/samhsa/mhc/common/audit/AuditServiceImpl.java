@@ -32,6 +32,8 @@ import ch.qos.logback.audit.client.AuditorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -112,6 +114,7 @@ public class AuditServiceImpl implements AuditService {
      * @see gov.samhsa.acs.audit.AuditService#init()
      */
     @Override
+    @PostConstruct
     public void init() throws AuditException {
         AuditorFactory.setApplicationName(applicationName);
     }
@@ -122,6 +125,7 @@ public class AuditServiceImpl implements AuditService {
      * @see gov.samhsa.acs.audit.AuditService#destroy()
      */
     @Override
+    @PreDestroy
     public void destroy() {
         AuditorFactory.reset();
     }

@@ -11,4 +11,10 @@
 	<name>Common Utils</name>
 	<packaging>jar</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.santuario</groupId>
+			<artifactId>xmlsec</artifactId>
+		</dependency>
+	</dependencies>
 </project>
