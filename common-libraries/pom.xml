@@ -47,6 +47,7 @@
         <module>xml-validation</module>
         <module>consent-gen</module>
         <module>xdm</module>
+        <module>validator-extension</module>
     </modules>
 
     <properties>
@@ -111,7 +112,6 @@
                 <artifactId>hibernate-jpa-2.1-api</artifactId>
                 <version>${hibernate-jpa-2.1-api.version}</version>
             </dependency>
-
 
             <!-- Logback -->
             <dependency>
