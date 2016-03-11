@@ -17,6 +17,7 @@ public class OAuth2ScopeUtils {
     public static final String AND = " and ";
 
     public static final String hasScope(String scope) {
+        Assert.hasText(scope, "scope must have text");
         return "#oauth2.hasScope('" + scope + "')";
     }
 
