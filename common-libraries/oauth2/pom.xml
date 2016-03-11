@@ -20,6 +20,16 @@
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 		</dependency>
+		<!-- Test -->
+		<dependency>
+			<groupId>gov.samhsa.mhc</groupId>
+			<artifactId>common-unit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>
