@@ -17,6 +17,7 @@ The versioning convention for common libraries:
 2. Create a temporary branch for the release from the selected commit
 3. Checkout the temporary branch
 4. Set the version to release (ie: if it was `1.0.3-SNAPSHOT`, move it to `1.0.3`)
+	+ *HINT: `mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$new_version`*
 5. Commit the release version on the temporary branch. The commit message should be something like `Release version 1.0.3`
 6. Tag this final release commit with the version number (ie: `1.0.3`)
 7. Delete the temporary branch
