@@ -29,8 +29,10 @@ import ch.qos.logback.audit.Application;
 import ch.qos.logback.audit.AuditException;
 import ch.qos.logback.audit.client.AuditorFacade;
 import ch.qos.logback.audit.client.AuditorFactory;
+import ch.qos.logback.audit.client.ImprovedAuditorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -50,6 +52,10 @@ public class AuditServiceImpl implements AuditService {
     /** The application name. */
     private String applicationName;
 
+    private String host;
+
+    private int port;
+
     /**
      * Instantiates a new audit service impl.
      *
@@ -61,6 +67,15 @@ public class AuditServiceImpl implements AuditService {
     public AuditServiceImpl(String applicationName) throws AuditException {
         super();
         this.applicationName = applicationName;
+        this.host = null;
+        this.port = 0;
+    }
+
+    public AuditServiceImpl(String applicationName, String host, int port) throws AuditException {
+        super();
+        this.applicationName = applicationName;
+        this.host = host;
+        this.port = port;
     }
 
     /*
@@ -116,7 +131,11 @@ public class AuditServiceImpl implements AuditService {
     @Override
     @PostConstruct
     public void init() throws AuditException {
-        AuditorFactory.setApplicationName(applicationName);
+        if(StringUtils.hasText(host) && port > 0){
+            ImprovedAuditorFactory.setApplicationNameWithHostAndPort(applicationName, host, port);
+        } else {
+            AuditorFactory.setApplicationName(applicationName);
+        }
     }
 
     /*
