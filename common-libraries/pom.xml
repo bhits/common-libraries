@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<groupId>gov.samhsa.mhc</groupId>
+	<groupId>gov.samhsa.c2s</groupId>
 	<artifactId>common-libraries</artifactId>
 	<version>1.5.0-SNAPSHOT</version>
 
@@ -127,84 +127,84 @@
 
             <!-- MHC Common Libraries -->
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>audit-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>consent-gen</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-accessor</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-converter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-transformer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>logger-wrapper</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>marshaller</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>namespace</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>oauth2</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>param</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>resource-url</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>xml-validation</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>xdm</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- MHC Common Libraries for Testing -->
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-unit</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>gov.samhsa.mhc</groupId>
+                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>file-reader</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
