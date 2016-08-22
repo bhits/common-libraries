@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>gov.samhsa.mhc</groupId>
+		<groupId>gov.samhsa.c2s</groupId>
 		<artifactId>common-libraries</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
@@ -13,34 +13,34 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>param</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>logger-wrapper</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>marshaller</artifactId>
 		</dependency>
 
 		<!-- Test -->
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>common-unit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>file-reader</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>common-util</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>gov.samhsa.mhc</groupId>
+			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>document-converter</artifactId>
 			<scope>test</scope>
 		</dependency>
