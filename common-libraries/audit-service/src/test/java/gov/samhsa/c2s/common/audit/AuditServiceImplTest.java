@@ -22,8 +22,15 @@ public class AuditServiceImplTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private String applicationNameMock = "applicationNameMock";
+    private String hostMock = "hostMock";
+    private int portMock = 8080;
+
     @InjectMocks
-    private AuditServiceImpl sut;
+    private AuditServiceImpl sut = new AuditServiceImpl(applicationNameMock, hostMock, portMock);
+
+    public AuditServiceImplTest() throws AuditException {
+    }
 
     @Test
     public void testAudit() throws AuditException {

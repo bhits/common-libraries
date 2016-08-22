@@ -4,11 +4,32 @@
 	<parent>
 		<groupId>gov.samhsa.c2s</groupId>
 		<artifactId>common-libraries</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>oauth2</artifactId>
 
 	<name>OAuth2 Utils</name>
 	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+		<!-- Test -->
+		<dependency>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>common-unit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 </project>

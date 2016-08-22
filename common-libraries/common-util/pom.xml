@@ -4,11 +4,17 @@
 	<parent>
 		<groupId>gov.samhsa.c2s</groupId>
 		<artifactId>common-libraries</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>common-util</artifactId>
 
 	<name>Common Utils</name>
 	<packaging>jar</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.santuario</groupId>
+			<artifactId>xmlsec</artifactId>
+		</dependency>
+	</dependencies>
 </project>
