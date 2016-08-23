@@ -2,6 +2,7 @@ package gov.samhsa.mhc.common.xdm;
 
 import java.io.IOException;
 
+import gov.samhsa.c2s.common.xdm.XdmZipUtils;
 import gov.samhsa.mhc.common.xdm.tools.ArrayHelper;
 import gov.samhsa.mhc.common.xdm.tools.RandomGenerator;
 import org.apache.commons.codec.binary.Hex;
