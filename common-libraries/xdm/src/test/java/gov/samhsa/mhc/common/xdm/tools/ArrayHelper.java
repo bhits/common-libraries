@@ -30,7 +30,7 @@ import java.io.InputStream;
 
 import java.util.Arrays;
 
-import gov.samhsa.mhc.common.xdm.XdmZipUtilsException;
+import gov.samhsa.c2s.common.xdm.XdmZipUtilsException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 

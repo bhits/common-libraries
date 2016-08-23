@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-package gov.samhsa.mhc.common.util;
+package gov.samhsa.c2s.common.util;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
