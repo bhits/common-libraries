@@ -1,5 +1,6 @@
 package gov.samhsa.mhc.common.util;
 
+import gov.samhsa.c2s.common.util.EncryptTool;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,7 +9,7 @@ public class EncryptToolTest {
 
 	@Test
 	public void testConstructor(){
-		EncryptTool encryptTool=new EncryptTool (); 
+		EncryptTool encryptTool=new EncryptTool ();
 	}
 	
 	@Test
