@@ -1,4 +1,4 @@
-package gov.samhsa.mhc.common.xdm.tools;
+package gov.samhsa.c2s.common.xdm.tools;
 
 import java.util.Random;
 

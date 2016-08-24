@@ -1,4 +1,4 @@
-package gov.samhsa.mhc.common.util;
+package gov.samhsa.c2s.common.util;
 
 import gov.samhsa.c2s.common.util.EncryptTool;
 import org.junit.Test;

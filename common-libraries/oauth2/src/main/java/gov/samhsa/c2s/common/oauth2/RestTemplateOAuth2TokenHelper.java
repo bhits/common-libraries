@@ -1,4 +1,4 @@
-package gov.samhsa.mhc.common.oauth2;
+package gov.samhsa.c2s.common.oauth2;
 
 import org.springframework.http.*;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

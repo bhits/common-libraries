@@ -125,7 +125,7 @@
                 <version>${logback-audit.version}</version>
             </dependency>
 
-            <!-- MHC Common Libraries -->
+            <!-- C2S Common Libraries -->
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>audit-service</artifactId>
@@ -196,7 +196,7 @@
                 <artifactId>xdm</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- MHC Common Libraries for Testing -->
+            <!-- C2S Common Libraries for Testing -->
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-unit</artifactId>
