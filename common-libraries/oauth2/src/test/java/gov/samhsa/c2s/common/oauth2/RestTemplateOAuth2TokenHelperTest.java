@@ -1,7 +1,5 @@
 package gov.samhsa.c2s.common.oauth2;
 
-import gov.samhsa.mhc.common.oauth2.OAuth2AuthenticationException;
-import gov.samhsa.mhc.common.oauth2.RestTemplateOAuth2TokenHelper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

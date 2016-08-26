@@ -1,4 +1,4 @@
-package gov.samhsa.mhc.common.validator;
+package gov.samhsa.c2s.common.validator;
 
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 import org.hibernate.validator.spi.time.TimeProvider;
