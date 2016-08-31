@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0"  xmlns:mhc="http://mhc" xmlns="urn:hl7-org:v3"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0"  xmlns:c2s="http://c2s" xmlns="urn:hl7-org:v3"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <xsl:output indent="yes"/>
 
@@ -8,7 +8,7 @@
     <xsl:variable name="effectivelowUTC" select="/ConsentExport/consentStart"/>
     <xsl:variable name="effectivehighUTC" select="/ConsentExport/consentEnd"/>
 
-    <xsl:function name="mhc:transformDateTime" as="xs:string">
+    <xsl:function name="c2s:transformDateTime" as="xs:string">
         <xsl:param name="dateTimeUtc"/>
         <xsl:variable name="dateTimeTemp" select="translate($dateTimeUtc,':T.GM','')"/>
         <xsl:value-of select="concat((translate(substring($dateTimeTemp, 1, 10),'-','')),substring($dateTimeTemp, 11))"/>
@@ -459,7 +459,7 @@
             <code code="57016-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
                 displayName="Privacy Policy Acknowledgement Document"/>
             <title representation="TXT" mediaType="text/plain">Privacy Consent Authorization</title>
-            <effectiveTime value="{mhc:transformDateTime($currentDateTimeUtc)}"/>
+            <effectiveTime value="{c2s:transformDateTime($currentDateTimeUtc)}"/>
             <confidentialityCode code="N"/>
             <!-- Client/Record Target  Reference-->
             <recordTarget>
@@ -504,7 +504,7 @@
                     displayName="healthcare power of attorney consent author"
                     codeSystem="2.16.840.1.113883.1.11.19930"
                     codeSystemName="ConsenterParticipationFunction Decision Maker"/>
-                <time value="{mhc:transformDateTime($currentDateTimeUtc)}"/>
+                <time value="{c2s:transformDateTime($currentDateTimeUtc)}"/>
                 <assignedAuthor>
                     <id extension="{$patient/medicalRecordNumber}" root="1.3.5.35.1.4436.7"/>
                     <assignedPerson classCode="PSN">
@@ -546,7 +546,7 @@
                               displayName="healthcare power of attorney consent author"
                               codeSystem="2.16.840.1.113883.1.11.19930"
                               codeSystemName="ConsenterParticipationFunction Decision Maker"/>
-                <time value="{mhc:transformDateTime($currentDateTimeUtc)}"/>
+                <time value="{c2s:transformDateTime($currentDateTimeUtc)}"/>
                 <assignedAuthor>
                     <id extension="{$patient/medicalRecordNumber}" root="1.3.5.35.1.4436.7"/>
 
@@ -742,8 +742,8 @@
                     <code code="57016-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
                         displayName="Privacy Policy Acknowledgement Document"/>
                     <effectiveTime>
-                        <low value="{mhc:transformDateTime($effectivelowUTC)}"/>
-                        <high value="{mhc:transformDateTime($effectivehighUTC)}"/>
+                        <low value="{c2s:transformDateTime($effectivelowUTC)}"/>
+                        <high value="{c2s:transformDateTime($effectivehighUTC)}"/>
                     </effectiveTime>
                 </serviceEvent>
             </documentationOf>
