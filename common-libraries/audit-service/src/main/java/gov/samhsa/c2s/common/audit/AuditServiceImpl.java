@@ -46,10 +46,14 @@ import java.util.Map;
  */
 public class AuditServiceImpl implements AuditService {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    /** The application name. */
+    /**
+     * The application name.
+     */
     private String applicationName;
 
     private String host;
@@ -59,10 +63,8 @@ public class AuditServiceImpl implements AuditService {
     /**
      * Instantiates a new audit service impl.
      *
-     * @param applicationName
-     *            the application name
-     * @throws AuditException
-     *             the audit exception
+     * @param applicationName the application name
+     * @throws AuditException the audit exception
      */
     public AuditServiceImpl(String applicationName) throws AuditException {
         super();
@@ -112,7 +114,7 @@ public class AuditServiceImpl implements AuditService {
      */
     @Override
     public Map<PredicateKey, String> createPredicateMap() {
-        return new HashMap<PredicateKey, String>();
+        return new HashMap<>();
     }
 
     /*
@@ -131,7 +133,7 @@ public class AuditServiceImpl implements AuditService {
     @Override
     @PostConstruct
     public void init() throws AuditException {
-        if(StringUtils.hasText(host) && port > 0){
+        if (StringUtils.hasText(host) && port > 0) {
             ImprovedAuditorFactory.setApplicationNameWithHostAndPort(applicationName, host, port);
         } else {
             AuditorFactory.setApplicationName(applicationName);
@@ -153,7 +155,7 @@ public class AuditServiceImpl implements AuditService {
      * Creates the application.
      *
      * @param auditingObject the auditing object
-     * @param hostAddress the host address
+     * @param hostAddress    the host address
      * @return the application
      */
     Application createApplication(Object auditingObject, String hostAddress) {
@@ -172,8 +174,8 @@ public class AuditServiceImpl implements AuditService {
      * Creates the auditor facade.
      *
      * @param subject the subject
-     * @param verb the verb
-     * @param object the object
+     * @param verb    the verb
+     * @param object  the object
      * @return the auditor facade
      */
     AuditorFacade createAuditorFacade(String subject, AuditVerb verb,
@@ -186,15 +188,14 @@ public class AuditServiceImpl implements AuditService {
     /**
      * Map key to string.
      *
-     * @param predicateMap
-     *            the predicate map
+     * @param predicateMap the predicate map
      * @return the map
      */
     private Map<String, String> mapKeyToString(
             Map<PredicateKey, String> predicateMap) {
         Map<String, String> stringMap = null;
         if (predicateMap != null) {
-            stringMap = new HashMap<String, String>();
+            stringMap = new HashMap<>();
             for (PredicateKey key : predicateMap.keySet()) {
                 stringMap.put(key.getPredicateKey(), predicateMap.get(key));
             }

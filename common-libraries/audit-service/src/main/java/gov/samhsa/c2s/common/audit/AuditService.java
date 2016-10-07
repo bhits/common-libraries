@@ -37,46 +37,41 @@ public interface AuditService {
     /**
      * Audit.
      *
-     * @param auditingObject
-     *            the auditing object
-     * @param subject
-     *            the subject
-     * @param verb
-     *            the verb
-     * @param object
-     *            the object
-     * @param predicateMap
-     *            the predicate map
-     * @throws AuditException
-     *             the audit exception
+     * @param auditingObject the auditing object
+     * @param subject        the subject
+     * @param verb           the verb
+     * @param object         the object
+     * @param predicateMap   the predicate map
+     * @throws AuditException the audit exception
      */
-    public abstract void audit(Object auditingObject, String subject,
-                               AuditVerb verb, String object,
-                               Map<PredicateKey, String> predicateMap) throws AuditException;
+    void audit(Object auditingObject, String subject,
+               AuditVerb verb, String object,
+               Map<PredicateKey, String> predicateMap) throws AuditException;
 
     /**
      * Creates the predicate map.
      *
      * @return the map
      */
-    public abstract Map<PredicateKey, String> createPredicateMap();
+    Map<PredicateKey, String> createPredicateMap();
 
     /**
      * Gets the application name.
      *
      * @return the application name
      */
-    public abstract String getApplicationName();
+    String getApplicationName();
 
     /**
      * Initialize.
+     *
      * @throws AuditException
      */
-    public abstract void init() throws AuditException;
+    void init() throws AuditException;
 
     /**
      * Destroy.
      */
-    public abstract void destroy();
+    void destroy();
 
 }
