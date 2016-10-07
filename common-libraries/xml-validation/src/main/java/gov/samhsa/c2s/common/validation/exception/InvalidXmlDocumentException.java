@@ -29,8 +29,6 @@ import org.xml.sax.SAXException;
 
 public class InvalidXmlDocumentException extends SAXException {
 
-    private static final long serialVersionUID = 2609351371522032713L;
-
     public InvalidXmlDocumentException() {
         super();
     }

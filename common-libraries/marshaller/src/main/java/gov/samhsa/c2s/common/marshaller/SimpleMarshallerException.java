@@ -4,8 +4,6 @@ import javax.xml.bind.JAXBException;
 
 public class SimpleMarshallerException extends JAXBException {
 
-	private static final long serialVersionUID = -6728449516693987525L;
-
 	public SimpleMarshallerException(String message, String errorCode,
 			Throwable exception) {
 		super(message, errorCode, exception);		

@@ -2,8 +2,6 @@ package gov.samhsa.c2s.common.util;
 
 public class UniqueValueGeneratorException extends RuntimeException {
 
-    private static final long serialVersionUID = -4376077150096446144L;
-
     public UniqueValueGeneratorException() {
         super();
     }

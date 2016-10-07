@@ -29,8 +29,6 @@ import org.xml.sax.SAXException;
 
 public class XmlSchemaFailureException extends SAXException {
 
-    private static final long serialVersionUID = 2030669797364236436L;
-
     public XmlSchemaFailureException() {
         super();
     }

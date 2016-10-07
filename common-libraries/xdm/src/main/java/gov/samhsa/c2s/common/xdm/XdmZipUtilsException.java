@@ -30,9 +30,6 @@ package gov.samhsa.c2s.common.xdm;
  */
 public class XdmZipUtilsException extends RuntimeException {
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -6820537577171759098L;
-
     /**
      * Instantiates a new d s4 p exception.
      */

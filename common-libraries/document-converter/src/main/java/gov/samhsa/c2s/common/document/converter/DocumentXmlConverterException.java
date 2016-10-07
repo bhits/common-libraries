@@ -2,8 +2,6 @@ package gov.samhsa.c2s.common.document.converter;
 
 public class DocumentXmlConverterException extends RuntimeException {
 
-    private static final long serialVersionUID = -7533194938812238191L;
-
     public DocumentXmlConverterException() {
         super();
     }

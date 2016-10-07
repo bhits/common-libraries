@@ -29,8 +29,6 @@ import java.io.IOException;
 
 public class XmlDocumentReadFailureException extends IOException {
 
-    private static final long serialVersionUID = -119468259220219953L;
-
     public XmlDocumentReadFailureException() {
         super();
     }
