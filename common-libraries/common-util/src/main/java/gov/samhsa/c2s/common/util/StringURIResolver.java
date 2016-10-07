@@ -1,17 +1,17 @@
 /*******************************************************************************
  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
- * 
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the <organization> nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- * 
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Neither the name of the <organization> nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,44 +25,43 @@
  ******************************************************************************/
 package gov.samhsa.c2s.common.util;
 
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The Class StringURIResolver.
  */
 public final class StringURIResolver implements URIResolver {
-	
-	/** The documents. */
-	Map<String, String> documents = new HashMap<String, String>();
 
-	/**
-	 * Put.
-	 *
-	 * @param href the href
-	 * @param document the document
-	 * @return the string uri resolver
-	 */
-	public StringURIResolver put(final String href, final String document) {
-		documents.put(href, document);
-		return this;
-	}
+    /** The documents. */
+    Map<String, String> documents = new HashMap<>();
 
-	/* (non-Javadoc)
-	 * @see javax.xml.transform.URIResolver#resolve(java.lang.String, java.lang.String)
-	 */
-	public Source resolve(final String href, final String base)
-			throws TransformerException {
-		final String s = documents.get(href);
-		if (s != null) {
-			return new StreamSource(new StringReader(s));
-		}
-		return null;
-	}
+    /**
+     * Put.
+     *
+     * @param href the href
+     * @param document the document
+     * @return the string uri resolver
+     */
+    public StringURIResolver put(final String href, final String document) {
+        documents.put(href, document);
+        return this;
+    }
+
+    /* (non-Javadoc)
+     * @see javax.xml.transform.URIResolver#resolve(java.lang.String, java.lang.String)
+     */
+    public Source resolve(final String href, final String base)
+            throws TransformerException {
+        final String s = documents.get(href);
+        if (s != null) {
+            return new StreamSource(new StringReader(s));
+        }
+        return null;
+    }
 }
