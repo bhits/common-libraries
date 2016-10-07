@@ -39,9 +39,9 @@ public interface SimpleMarshaller {
      * @return the string
      * @throws SimpleMarshallerException the simple marshaller exception
      */
-    public abstract String marshal(Object obj) throws SimpleMarshallerException;
+    String marshal(Object obj) throws SimpleMarshallerException;
 
-    public abstract ByteArrayOutputStream marshalAsByteArrayOutputStream(
+    ByteArrayOutputStream marshalAsByteArrayOutputStream(
             Object obj) throws SimpleMarshallerException;
 
     /**
@@ -52,7 +52,7 @@ public interface SimpleMarshaller {
      * @return the string
      * @throws SimpleMarshallerException the simple marshaller exception
      */
-    public abstract <T> String marshalWithoutRootElement(T obj)
+    <T> String marshalWithoutRootElement(T obj)
             throws SimpleMarshallerException;
 
     /**
@@ -64,6 +64,6 @@ public interface SimpleMarshaller {
      * @return the t
      * @throws SimpleMarshallerException the simple marshaller exception
      */
-    public abstract <T> T unmarshalFromXml(Class<T> clazz, String xml)
+    <T> T unmarshalFromXml(Class<T> clazz, String xml)
             throws SimpleMarshallerException;
 }

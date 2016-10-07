@@ -77,7 +77,7 @@ public class SimpleMarshallerImpl implements SimpleMarshaller {
     @Override
     public <T> String marshalWithoutRootElement(T obj)
             throws SimpleMarshallerException {
-        final JAXBElement<T> wrappedJaxbElement = new JAXBElement<T>(new QName(
+        final JAXBElement<T> wrappedJaxbElement = new JAXBElement<>(new QName(
                 obj.getClass().getSimpleName()), (Class<T>) obj.getClass(), obj);
         return marshal(wrappedJaxbElement, obj.getClass());
     }
@@ -104,15 +104,11 @@ public class SimpleMarshallerImpl implements SimpleMarshaller {
     /**
      * Marshal.
      *
-     * @param <T>
-     *            the generic type
-     * @param obj
-     *            the obj
-     * @param contextClass
-     *            the context class
+     * @param <T>          the generic type
+     * @param obj          the obj
+     * @param contextClass the context class
      * @return the string
-     * @throws SimpleMarshallerException
-     *             the simple marshaller exception
+     * @throws SimpleMarshallerException the simple marshaller exception
      */
     private <T> String marshal(Object obj, Class<T> contextClass)
             throws SimpleMarshallerException {
@@ -140,17 +136,12 @@ public class SimpleMarshallerImpl implements SimpleMarshaller {
     /**
      * Unmarshal from xml.
      *
-     * @param <T>
-     *            the generic type
-     * @param context
-     *            the context
-     * @param clazz
-     *            the clazz
-     * @param xml
-     *            the xml
+     * @param <T>     the generic type
+     * @param context the context
+     * @param clazz   the clazz
+     * @param xml     the xml
      * @return the t
-     * @throws SimpleMarshallerException
-     *             the simple marshaller exception
+     * @throws SimpleMarshallerException the simple marshaller exception
      */
     @SuppressWarnings("unchecked")
     private <T> T unmarshalFromXml(JAXBContext context, Class<T> clazz,
