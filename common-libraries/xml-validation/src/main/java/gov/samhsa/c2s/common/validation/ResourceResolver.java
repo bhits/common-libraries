@@ -25,10 +25,10 @@
  ******************************************************************************/
 package gov.samhsa.c2s.common.validation;
 
-import gov.samhsa.c2s.common.log.Logger;
-import gov.samhsa.c2s.common.log.LoggerFactory;
 import gov.samhsa.c2s.common.filereader.FileReader;
 import gov.samhsa.c2s.common.filereader.FileReaderImpl;
+import gov.samhsa.c2s.common.log.Logger;
+import gov.samhsa.c2s.common.log.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -43,16 +43,24 @@ import java.util.Scanner;
  */
 public class ResourceResolver implements LSResourceResolver {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    /** The schema base path. */
+    /**
+     * The schema base path.
+     */
     private final String schemaBasePath;
 
-    /** The path map. */
+    /**
+     * The path map.
+     */
     private Map<String, String> pathMap;
 
-    /** The file reader. */
+    /**
+     * The file reader.
+     */
     private FileReader fileReader;
 
     /**
@@ -152,7 +160,7 @@ public class ResourceResolver implements LSResourceResolver {
     /**
      * Gets the normalized path.
      *
-     * @param basePath the base path
+     * @param basePath     the base path
      * @param relativePath the relative path
      * @return the normalized path
      */

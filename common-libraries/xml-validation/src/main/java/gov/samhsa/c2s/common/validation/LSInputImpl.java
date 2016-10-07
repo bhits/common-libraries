@@ -38,29 +38,33 @@ import java.io.Reader;
  */
 public class LSInputImpl implements LSInput {
 
-    /** The public id. */
+    /**
+     * The public id.
+     */
     private String publicId;
 
-    /** The system id. */
+    /**
+     * The system id.
+     */
     private String systemId;
 
-    /** The input stream. */
+    /**
+     * The input stream.
+     */
     private BufferedInputStream inputStream;
 
-    /** The file reader. */
+    /**
+     * The file reader.
+     */
     private FileReader fileReader;
 
     /**
      * Instantiates a new lS input impl.
      *
-     * @param publicId
-     *            the public id
-     * @param sysId
-     *            the sys id
-     * @param input
-     *            the input
-     * @param fileReader
-     *            the file reader
+     * @param publicId   the public id
+     * @param sysId      the sys id
+     * @param input      the input
+     * @param fileReader the file reader
      */
     public LSInputImpl(String publicId, String sysId, InputStream input,
                        FileReader fileReader) {
@@ -238,8 +242,7 @@ public class LSInputImpl implements LSInput {
     /**
      * Sets the input stream.
      *
-     * @param inputStream
-     *            the new input stream
+     * @param inputStream the new input stream
      */
     public void setInputStream(BufferedInputStream inputStream) {
         this.inputStream = inputStream;
