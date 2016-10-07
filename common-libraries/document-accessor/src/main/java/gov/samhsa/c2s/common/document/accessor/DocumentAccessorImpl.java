@@ -25,8 +25,8 @@
  ******************************************************************************/
 package gov.samhsa.c2s.common.document.accessor;
 
-import java.util.Optional;
-import java.util.stream.Stream;
+import gov.samhsa.c2s.common.namespace.DefaultNamespaceContext;
+import org.w3c.dom.*;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,13 +35,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
-import gov.samhsa.c2s.common.namespace.DefaultNamespaceContext;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.ProcessingInstruction;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The Class DocumentAccessorImpl.
@@ -166,12 +161,12 @@ public class DocumentAccessorImpl implements DocumentAccessor {
         return DocumentAccessor.toNodeStream(nodeList);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.samhsa.acs.common.tool.DocumentAccessor#getProcessingInstruction(
-     * org.w3c.dom.Document, java.lang.String, java.lang.String[])
+    /**
+     * @param xmlDocument the xml document
+     * @param xPathExpr   the x path expr
+     * @param arguments   the arguments
+     * @return
+     * @throws DocumentAccessorException
      */
     @Override
     public Optional<ProcessingInstruction> getProcessingInstruction(
@@ -188,10 +183,8 @@ public class DocumentAccessorImpl implements DocumentAccessor {
     /**
      * Sets the xpath arguments.
      *
-     * @param xPath
-     *            the x path
-     * @param arguments
-     *            the arguments
+     * @param xPath     the x path
+     * @param arguments the arguments
      * @return the string
      */
     private String setXpathArguments(String xPath, String... arguments) {
