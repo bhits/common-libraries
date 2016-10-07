@@ -71,7 +71,7 @@ public final class RestTemplateOAuth2TokenHelper {
     private static final void assertArguments(RestTemplate restTemplate, OAuth2Authentication oAuth2Authentication, String url) {
         Assert.notNull(restTemplate, "restTemplate cannot be null");
         Assert.hasText(url, "url must have text");
-        if(oAuth2Authentication == null){
+        if (oAuth2Authentication == null) {
             throw new OAuth2AuthenticationException("oAuth2Authentication cannot be null");
         }
     }
