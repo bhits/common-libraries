@@ -38,9 +38,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * The Class ConsentExportDto.
- */
+
 @XmlRootElement(name = "ConsentExport")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ConsentDto {
@@ -317,9 +315,8 @@ public class ConsentDto {
 
 	/**
 	 * Sets the do not share for purpose of use codes.
-	 * 
-	 * @param doNotShareForPurposeOfUseCodes
-	 *            the new do not share for purpose of use codes
+	 *
+	 * @param shareForPurposeOfUseCodes
 	 */
 	public void setShareForPurposeOfUseCodes(
 			Set<TypeCodesDto> shareForPurposeOfUseCodes) {

@@ -1,17 +1,17 @@
 /*******************************************************************************
  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
- * 
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the <organization> nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- * 
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Neither the name of the <organization> nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,7 +25,7 @@
  ******************************************************************************/
 package gov.samhsa.c2s.common.consentgen;
 
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 /**
  * The Class PatientExportDto.
@@ -44,365 +43,358 @@ import org.springframework.format.annotation.DateTimeFormat;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PatientDto {
 
-	/** The first name. */
-	private String firstName;
+    /** The first name. */
+    private String firstName;
 
-	/** The last name. */
-	private String lastName;
+    /** The last name. */
+    private String lastName;
 
-	/** The prefix. */
-	@Size(max = 30)
-	private String prefix;
+    /** The prefix. */
+    @Size(max = 30)
+    private String prefix;
 
-	/** The address street address line. */
-	private String addressStreetAddressLine;
+    /** The address street address line. */
+    private String addressStreetAddressLine;
 
-	/** The address city. */
-	private String addressCity;
+    /** The address city. */
+    private String addressCity;
 
-	/** The address state code. */
-	private String addressStateCode;
+    /** The address state code. */
+    private String addressStateCode;
 
-	/** The address postal code. */
-	@Pattern(regexp = "(^\\d{5}$|^\\d{5}-\\d{4})*")
-	private String addressPostalCode;
+    /** The address postal code. */
+    @Pattern(regexp = "(^\\d{5}$|^\\d{5}-\\d{4})*")
+    private String addressPostalCode;
 
-	/** The address country code. */
-	private String addressCountryCode;
+    /** The address country code. */
+    private String addressCountryCode;
 
-	/** The birth date. */
-	@Past
-	@DateTimeFormat(pattern = "yyyyMMdd")
-	@XmlJavaTypeAdapter(XMLIntegerDateAdapter.class)
-	private Date birthDate;
+    /** The birth date. */
+    @Past
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    @XmlJavaTypeAdapter(XMLIntegerDateAdapter.class)
+    private Date birthDate;
+    /** The administrative gender code. */
+    private String administrativeGenderCode;
+    /** The telephone type telephone. */
+    @Pattern(regexp = "(^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))*")
+    private String telephoneTypeTelephone;
+    /** The email. */
+    private String email;
+    /** The social security number. */
+    @Pattern(regexp = "(\\d{3}-?\\d{2}-?\\d{4})*")
+    private String socialSecurityNumber;
+    /** The medical record number. */
+    @Size(max = 30)
+    private String medicalRecordNumber;
+    /** The enterprise identifier. */
+    @Size(max = 255)
+    private String enterpriseIdentifier;
+    /** The patient id number. */
+    @Size(max = 30)
+    private String patientIdNumber;
 
-	/**
-	 * Gets the address street address line.
-	 * 
-	 * @return the address street address line
-	 */
-	public String getAddressStreetAddressLine() {
-		return addressStreetAddressLine;
-	}
+    /**
+     * Gets the address street address line.
+     *
+     * @return the address street address line
+     */
+    public String getAddressStreetAddressLine() {
+        return addressStreetAddressLine;
+    }
 
-	/**
-	 * Sets the address street address line.
-	 * 
-	 * @param addressStreetAddressLine
-	 *            the new address street address line
-	 */
-	public void setAddressStreetAddressLine(String addressStreetAddressLine) {
-		this.addressStreetAddressLine = addressStreetAddressLine;
-	}
+    /**
+     * Sets the address street address line.
+     *
+     * @param addressStreetAddressLine
+     *            the new address street address line
+     */
+    public void setAddressStreetAddressLine(String addressStreetAddressLine) {
+        this.addressStreetAddressLine = addressStreetAddressLine;
+    }
 
-	/**
-	 * Gets the address city.
-	 * 
-	 * @return the address city
-	 */
-	public String getAddressCity() {
-		return addressCity;
-	}
+    /**
+     * Gets the address city.
+     *
+     * @return the address city
+     */
+    public String getAddressCity() {
+        return addressCity;
+    }
 
-	/**
-	 * Sets the address city.
-	 * 
-	 * @param addressCity
-	 *            the new address city
-	 */
-	public void setAddressCity(String addressCity) {
-		this.addressCity = addressCity;
-	}
+    /**
+     * Sets the address city.
+     *
+     * @param addressCity
+     *            the new address city
+     */
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
 
-	/**
-	 * Gets the address state code.
-	 * 
-	 * @return the address state code
-	 */
-	public String getAddressStateCode() {
-		return addressStateCode;
-	}
+    /**
+     * Gets the address state code.
+     *
+     * @return the address state code
+     */
+    public String getAddressStateCode() {
+        return addressStateCode;
+    }
 
-	/**
-	 * Sets the address state code.
-	 * 
-	 * @param addressStateCode
-	 *            the new address state code
-	 */
-	public void setAddressStateCode(String addressStateCode) {
-		this.addressStateCode = addressStateCode;
-	}
+    /**
+     * Sets the address state code.
+     *
+     * @param addressStateCode
+     *            the new address state code
+     */
+    public void setAddressStateCode(String addressStateCode) {
+        this.addressStateCode = addressStateCode;
+    }
 
-	/**
-	 * Gets the address postal code.
-	 * 
-	 * @return the address postal code
-	 */
-	public String getAddressPostalCode() {
-		return addressPostalCode;
-	}
+    /**
+     * Gets the address postal code.
+     *
+     * @return the address postal code
+     */
+    public String getAddressPostalCode() {
+        return addressPostalCode;
+    }
 
-	/**
-	 * Sets the address postal code.
-	 * 
-	 * @param addressPostalCode
-	 *            the new address postal code
-	 */
-	public void setAddressPostalCode(String addressPostalCode) {
-		this.addressPostalCode = addressPostalCode;
-	}
+    /**
+     * Sets the address postal code.
+     *
+     * @param addressPostalCode
+     *            the new address postal code
+     */
+    public void setAddressPostalCode(String addressPostalCode) {
+        this.addressPostalCode = addressPostalCode;
+    }
 
-	/**
-	 * Gets the address country code.
-	 * 
-	 * @return the address country code
-	 */
-	public String getAddressCountryCode() {
-		return addressCountryCode;
-	}
+    /**
+     * Gets the address country code.
+     *
+     * @return the address country code
+     */
+    public String getAddressCountryCode() {
+        return addressCountryCode;
+    }
 
-	/**
-	 * Sets the address country code.
-	 * 
-	 * @param addressCountryCode
-	 *            the new address country code
-	 */
-	public void setAddressCountryCode(String addressCountryCode) {
-		this.addressCountryCode = addressCountryCode;
-	}
+    /**
+     * Sets the address country code.
+     *
+     * @param addressCountryCode
+     *            the new address country code
+     */
+    public void setAddressCountryCode(String addressCountryCode) {
+        this.addressCountryCode = addressCountryCode;
+    }
 
-	/** The administrative gender code. */
-	private String administrativeGenderCode;
+    /**
+     * Gets the first name.
+     *
+     * @return the first name
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/** The telephone type telephone. */
-	@Pattern(regexp = "(^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4}))*")
-	private String telephoneTypeTelephone;
+    /**
+     * Sets the first name.
+     *
+     * @param firstName
+     *            the new first name
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	/** The email. */
-	private String email;
+    /**
+     * Gets the last name.
+     *
+     * @return the last name
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	/** The social security number. */
-	@Pattern(regexp = "(\\d{3}-?\\d{2}-?\\d{4})*")
-	private String socialSecurityNumber;
+    /**
+     * Sets the last name.
+     *
+     * @param lastName
+     *            the new last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	/** The medical record number. */
-	@Size(max = 30)
-	private String medicalRecordNumber;
+    /**
+     * Gets the prefix.
+     *
+     * @return the prefix
+     */
+    public String getPrefix() {
+        return prefix;
+    }
 
-	/** The enterprise identifier. */
-	@Size(max = 255)
-	private String enterpriseIdentifier;
+    /**
+     * Sets the prefix.
+     *
+     * @param prefix
+     *            the new prefix
+     */
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
 
-	/** The patient id number. */
-	@Size(max = 30)
-	private String patientIdNumber;
+    /**
+     * Gets the birth date.
+     *
+     * @return the birth date
+     */
+    public Date getBirthDate() {
+        return birthDate;
+    }
 
-	/**
-	 * Gets the first name.
-	 * 
-	 * @return the first name
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * Sets the birth date.
+     *
+     * @param birthDate
+     *            the new birth date
+     */
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
-	/**
-	 * Sets the first name.
-	 * 
-	 * @param firstName
-	 *            the new first name
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * Gets the administrative gender code.
+     *
+     * @return the administrative gender code
+     */
+    public String getAdministrativeGenderCode() {
+        return administrativeGenderCode;
+    }
 
-	/**
-	 * Gets the last name.
-	 * 
-	 * @return the last name
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * Sets the administrative gender code.
+     *
+     * @param administrativeGenderCode
+     *            the new administrative gender code
+     */
+    public void setAdministrativeGenderCode(String administrativeGenderCode) {
+        this.administrativeGenderCode = administrativeGenderCode;
+    }
 
-	/**
-	 * Sets the last name.
-	 * 
-	 * @param lastName
-	 *            the new last name
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * Gets the telephone type telephone.
+     *
+     * @return the telephone type telephone
+     */
+    public String getTelephoneTypeTelephone() {
+        return telephoneTypeTelephone;
+    }
 
-	/**
-	 * Gets the prefix.
-	 * 
-	 * @return the prefix
-	 */
-	public String getPrefix() {
-		return prefix;
-	}
+    /**
+     * Sets the telephone type telephone.
+     *
+     * @param telephoneTypeTelephone
+     *            the new telephone type telephone
+     */
+    public void setTelephoneTypeTelephone(String telephoneTypeTelephone) {
+        this.telephoneTypeTelephone = telephoneTypeTelephone;
+    }
 
-	/**
-	 * Sets the prefix.
-	 * 
-	 * @param prefix
-	 *            the new prefix
-	 */
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
+    /**
+     * Gets the email.
+     *
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * Gets the birth date.
-	 * 
-	 * @return the birth date
-	 */
-	public Date getBirthDate() {
-		return birthDate;
-	}
+    /**
+     * Sets the email.
+     *
+     * @param email
+     *            the new email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	/**
-	 * Sets the birth date.
-	 * 
-	 * @param birthDate
-	 *            the new birth date
-	 */
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
+    /**
+     * Gets the social security number.
+     *
+     * @return the social security number
+     */
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
 
-	/**
-	 * Gets the administrative gender code.
-	 * 
-	 * @return the administrative gender code
-	 */
-	public String getAdministrativeGenderCode() {
-		return administrativeGenderCode;
-	}
+    /**
+     * Sets the social security number.
+     *
+     * @param socialSecurityNumber
+     *            the new social security number
+     */
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
 
-	/**
-	 * Sets the administrative gender code.
-	 * 
-	 * @param administrativeGenderCode
-	 *            the new administrative gender code
-	 */
-	public void setAdministrativeGenderCode(String administrativeGenderCode) {
-		this.administrativeGenderCode = administrativeGenderCode;
-	}
+    /**
+     * Gets the medical record number.
+     *
+     * @return the medical record number
+     */
+    public String getMedicalRecordNumber() {
+        return medicalRecordNumber;
+    }
 
-	/**
-	 * Gets the telephone type telephone.
-	 * 
-	 * @return the telephone type telephone
-	 */
-	public String getTelephoneTypeTelephone() {
-		return telephoneTypeTelephone;
-	}
+    /**
+     * Sets the medical record number.
+     *
+     * @param medicalRecordNumber
+     *            the new medical record number
+     */
+    public void setMedicalRecordNumber(String medicalRecordNumber) {
+        this.medicalRecordNumber = medicalRecordNumber;
+    }
 
-	/**
-	 * Sets the telephone type telephone.
-	 * 
-	 * @param telephoneTypeTelephone
-	 *            the new telephone type telephone
-	 */
-	public void setTelephoneTypeTelephone(String telephoneTypeTelephone) {
-		this.telephoneTypeTelephone = telephoneTypeTelephone;
-	}
+    /**
+     * Gets the patient id number.
+     *
+     * @return the patient id number
+     */
+    public String getPatientIdNumber() {
+        return patientIdNumber;
+    }
 
-	/**
-	 * Gets the email.
-	 * 
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Sets the patient id number.
+     *
+     * @param patientIdNumber
+     *            the new patient id number
+     */
+    public void setPatientIdNumber(String patientIdNumber) {
+        this.patientIdNumber = patientIdNumber;
+    }
 
-	/**
-	 * Sets the email.
-	 * 
-	 * @param email
-	 *            the new email
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Gets the enterprise identifier.
+     *
+     * @return the enterprise identifier
+     */
+    public String getEnterpriseIdentifier() {
+        return enterpriseIdentifier;
+    }
 
-	/**
-	 * Gets the social security number.
-	 * 
-	 * @return the social security number
-	 */
-	public String getSocialSecurityNumber() {
-		return socialSecurityNumber;
-	}
-
-	/**
-	 * Sets the social security number.
-	 * 
-	 * @param socialSecurityNumber
-	 *            the new social security number
-	 */
-	public void setSocialSecurityNumber(String socialSecurityNumber) {
-		this.socialSecurityNumber = socialSecurityNumber;
-	}
-
-	/**
-	 * Gets the medical record number.
-	 * 
-	 * @return the medical record number
-	 */
-	public String getMedicalRecordNumber() {
-		return medicalRecordNumber;
-	}
-
-	/**
-	 * Sets the medical record number.
-	 * 
-	 * @param medicalRecordNumber
-	 *            the new medical record number
-	 */
-	public void setMedicalRecordNumber(String medicalRecordNumber) {
-		this.medicalRecordNumber = medicalRecordNumber;
-	}
-
-	/**
-	 * Gets the patient id number.
-	 * 
-	 * @return the patient id number
-	 */
-	public String getPatientIdNumber() {
-		return patientIdNumber;
-	}
-
-	/**
-	 * Sets the patient id number.
-	 * 
-	 * @param patientIdNumber
-	 *            the new patient id number
-	 */
-	public void setPatientIdNumber(String patientIdNumber) {
-		this.patientIdNumber = patientIdNumber;
-	}
-
-	/**
-	 * Gets the enterprise identifier.
-	 * 
-	 * @return the enterprise identifier
-	 */
-	public String getEnterpriseIdentifier() {
-		return enterpriseIdentifier;
-	}
-
-	/**
-	 * Sets the enterprise identifier.
-	 * 
-	 * @param enterpriseIdentifier
-	 *            the new enterprise identifier
-	 */
-	public void setEnterpriseIdentifier(String enterpriseIdentifier) {
-		this.enterpriseIdentifier = enterpriseIdentifier;
-	}
+    /**
+     * Sets the enterprise identifier.
+     *
+     * @param enterpriseIdentifier
+     *            the new enterprise identifier
+     */
+    public void setEnterpriseIdentifier(String enterpriseIdentifier) {
+        this.enterpriseIdentifier = enterpriseIdentifier;
+    }
 }

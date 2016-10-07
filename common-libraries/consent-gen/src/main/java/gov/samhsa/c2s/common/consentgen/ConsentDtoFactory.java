@@ -29,9 +29,8 @@ package gov.samhsa.c2s.common.consentgen;
 
 public interface ConsentDtoFactory {
 
-	public ConsentDto createConsentDto(long consentId);
+	ConsentDto createConsentDto(long consentId);
 	
-	public ConsentDto createConsentDto(Object obj);	
+	ConsentDto createConsentDto(Object obj);
 
-	
 }

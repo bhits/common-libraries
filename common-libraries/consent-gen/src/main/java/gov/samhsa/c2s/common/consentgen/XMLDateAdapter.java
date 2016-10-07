@@ -1,17 +1,17 @@
 /*******************************************************************************
  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
- * 
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the <organization> nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- * 
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Neither the name of the <organization> nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,24 +25,23 @@
  ******************************************************************************/
 package gov.samhsa.c2s.common.consentgen;
 
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 public class XMLDateAdapter extends XmlAdapter<String, Date> {
 
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-	
-	@Override
-	public Date unmarshal(String v) throws Exception {
-		return dateFormat.parse(v);
-	}
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
-	@Override
-	public String marshal(Date v) throws Exception {
-		
-		return (v != null) ? dateFormat.format(v) : null;
-	}
+    @Override
+    public Date unmarshal(String v) throws Exception {
+        return dateFormat.parse(v);
+    }
+
+    @Override
+    public String marshal(Date v) throws Exception {
+
+        return (v != null) ? dateFormat.format(v) : null;
+    }
 
 }

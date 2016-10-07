@@ -1,17 +1,17 @@
 /*******************************************************************************
  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
- * 
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the <organization> nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- * 
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * * Neither the name of the <organization> nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,28 +27,11 @@ package gov.samhsa.c2s.common.consentgen;
 
 public class ConsentGenException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7117496966566747248L;
-
-	
-	/**
-	 * Instantiates a new ConsentGenException exception.
-	 *
-	 * @param msg the msg
-	 * @param t the t
-	 */
-	public ConsentGenException(String msg, Throwable t) {
+    public ConsentGenException(String msg, Throwable t) {
         super(msg, t);
     }
-	
-	/**
-	 * Instantiates a new ConsentGenException.
-	 *
-	 * @param msg the msg
-	 */
-	public ConsentGenException(String msg) {
+
+    public ConsentGenException(String msg) {
         super(msg);
-    }	
+    }
 }
