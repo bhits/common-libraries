@@ -42,7 +42,7 @@ public interface FileReader {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public abstract String readFile(String filename) throws IOException;
+    String readFile(String filename) throws IOException;
 
     /**
      * Read input stream as string.
@@ -51,5 +51,5 @@ public interface FileReader {
      *            the input stream
      * @return the string
      */
-    public abstract String readInputStreamAsString(InputStream inputStream);
+    String readInputStreamAsString(InputStream inputStream);
 }

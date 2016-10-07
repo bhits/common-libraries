@@ -38,7 +38,9 @@ import java.io.InputStreamReader;
  */
 public class FileReaderImpl implements FileReader {
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /*

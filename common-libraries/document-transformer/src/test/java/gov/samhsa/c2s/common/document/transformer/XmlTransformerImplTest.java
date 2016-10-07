@@ -1,22 +1,5 @@
 package gov.samhsa.c2s.common.document.transformer;
 
-import static gov.samhsa.c2s.common.unit.xml.XmlComparator.compareXMLs;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.URIResolver;
-import javax.xml.transform.stream.StreamSource;
-
 import gov.samhsa.c2s.common.document.converter.DocumentXmlConverter;
 import gov.samhsa.c2s.common.document.converter.DocumentXmlConverterImpl;
 import gov.samhsa.c2s.common.filereader.FileReader;
@@ -38,6 +21,22 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
+import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static gov.samhsa.c2s.common.unit.xml.XmlComparator.compareXMLs;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class XmlTransformerImplTest {
 
@@ -47,13 +46,13 @@ public class XmlTransformerImplTest {
     private static final String PARAM_NAME_PURPOSE_OF_USE = "purposeOfUse";
     private static final String PARAM_NAME_INTENDED_RECIPIENT = "intendedRecipient";
     private static final String PARAM_NAME_AUTHOR_TELECOMMUNICATION = "authorTelecommunication";
-    final String senderEmailAddress = "senderEmailAddress";
-    final String recipientEmailAddress = "recipientEmailAddress";
-    final String purposeOfUse = "purposeOfUse";
-    final String messageId = "messageId";
-    final String xdsDocumentEntryUniqueId = "xdsDocumentEntryUniqueId";
-    final String ruleExecutionResponseContainer = "<ruleExecutionContainer><executionResponseList><executionResponse><c32SectionLoincCode>11450-4</c32SectionLoincCode><code>66214007</code><codeSystem>2.16.840.1.113883.6.96</codeSystem><displayName>Substance Abuse Disorder</displayName><documentObligationPolicy>ENCRYPT</documentObligationPolicy><documentRefrainPolicy>NODSCLCD</documentRefrainPolicy><impliedConfSection>R</impliedConfSection><observationId>e11275e7-67ae-11db-bd13-0800200c9a66b827vs52h7</observationId><sensitivity>ETH</sensitivity><USPrivacyLaw>42CFRPart2</USPrivacyLaw></executionResponse><executionResponse><c32SectionLoincCode>11450-4</c32SectionLoincCode><code>111880001</code><codeSystem>2.16.840.1.113883.6.96</codeSystem><displayName>Acute HIV</displayName><documentObligationPolicy>ENCRYPT</documentObligationPolicy><documentRefrainPolicy>NODSCLCD</documentRefrainPolicy><impliedConfSection>V</impliedConfSection><observationId>d11275e7-67ae-11db-bd13-0800200c9a66</observationId><sensitivity>HIV</sensitivity><USPrivacyLaw>42CFRPart2</USPrivacyLaw></executionResponse></executionResponseList></ruleExecutionContainer>";
-    final Optional<Params> params = Optional.of(ParamsBuilder
+    private final String senderEmailAddress = "senderEmailAddress";
+    private final String recipientEmailAddress = "recipientEmailAddress";
+    private final String purposeOfUse = "purposeOfUse";
+    private final String messageId = "messageId";
+    private final String xdsDocumentEntryUniqueId = "xdsDocumentEntryUniqueId";
+    private final String ruleExecutionResponseContainer = "<ruleExecutionContainer><executionResponseList><executionResponse><c32SectionLoincCode>11450-4</c32SectionLoincCode><code>66214007</code><codeSystem>2.16.840.1.113883.6.96</codeSystem><displayName>Substance Abuse Disorder</displayName><documentObligationPolicy>ENCRYPT</documentObligationPolicy><documentRefrainPolicy>NODSCLCD</documentRefrainPolicy><impliedConfSection>R</impliedConfSection><observationId>e11275e7-67ae-11db-bd13-0800200c9a66b827vs52h7</observationId><sensitivity>ETH</sensitivity><USPrivacyLaw>42CFRPart2</USPrivacyLaw></executionResponse><executionResponse><c32SectionLoincCode>11450-4</c32SectionLoincCode><code>111880001</code><codeSystem>2.16.840.1.113883.6.96</codeSystem><displayName>Acute HIV</displayName><documentObligationPolicy>ENCRYPT</documentObligationPolicy><documentRefrainPolicy>NODSCLCD</documentRefrainPolicy><impliedConfSection>V</impliedConfSection><observationId>d11275e7-67ae-11db-bd13-0800200c9a66</observationId><sensitivity>HIV</sensitivity><USPrivacyLaw>42CFRPart2</USPrivacyLaw></executionResponse></executionResponseList></ruleExecutionContainer>";
+    private final Optional<Params> params = Optional.of(ParamsBuilder
             .withParam(PARAM_NAME_AUTHOR_TELECOMMUNICATION, senderEmailAddress)
             .and(PARAM_NAME_INTENDED_RECIPIENT, recipientEmailAddress)
             .and(PARAM_NAME_PURPOSE_OF_USE, purposeOfUse)
@@ -61,7 +60,7 @@ public class XmlTransformerImplTest {
             .and(PARAM_NAME_XDS_DOCUMENT_ENTRY_UNIQUE_ID,
                     xdsDocumentEntryUniqueId));
 
-    final Optional<URIResolver> uriResolver = Optional
+    private final Optional<URIResolver> uriResolver = Optional
             .of(new StringURIResolver().put(
                     URI_RESOLVER_HREF_RULE_EXECUTION_RESPONSE_CONTAINER,
                     ruleExecutionResponseContainer));
@@ -72,22 +71,19 @@ public class XmlTransformerImplTest {
 
     private final FileReader fileReader = new FileReaderImpl();
     private final DocumentXmlConverter documentXmlConverter = new DocumentXmlConverterImpl();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Mock
-    private SimpleMarshaller marshaller;
-
-    @InjectMocks
-    private XmlTransformerImpl sut;
     private final String xslName = "AdditonalMetadataStylesheetForProcessedC32.xsl";
     private final String docName = "c32.xml";
     private final String docNameTransformed = "c32Transformed.xml";
-    private String doc;
-    private String docTransformed;
     private final String xslUrl = Thread.currentThread()
             .getContextClassLoader().getResource(xslName).toString();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    @Mock
+    private SimpleMarshaller marshaller;
+    @InjectMocks
+    private XmlTransformerImpl sut;
+    private String doc;
+    private String docTransformed;
 
     @Before
     public void setUp() throws Exception {
