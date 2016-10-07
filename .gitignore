@@ -58,12 +58,14 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!maven-wrapper.jar
 
 # Gradle #
 ##################################
 
 .gradle
-build/
+
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -167,9 +169,9 @@ fabric.properties
 
 *.pydevproject
 .metadata
-bin
-tmp/
-*.tmp
+
+
+
 *.bak
 *.swp
 *~.nib
@@ -212,9 +214,9 @@ local.properties
 ##################################
 
 nbproject/private/
-build/
+
 nbbuild/
-dist/
+
 nbdist/
 nbactions.xml
 .nb-gradle/
@@ -228,6 +230,10 @@ nbactions.xml
 
 # Miscellaneous #
 ##################################
+build/
+dist/
+tmp/
+bin
 *.roo
 *.tmp
 *.zip
