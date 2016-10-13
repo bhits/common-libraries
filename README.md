@@ -1,25 +1,25 @@
 Common Libraries
 =================================
 
-Common libraries is a collection of useful libraries that are used by C2S (Consent2Share) APIs. It is made up of the following:
+Common libraries is a collection of useful libraries that are used by Consent2Share (C2S) APIs. It is made up of the following:
 
 + audit-service: The audit server client.
-+ common-unit: Utility library for unit test. It has resource file reader, class to compare xml etc.
-+ common-util: Utility library which contains tools to encrypt, manage Strings and generate unique value. 
-+ consent-gen: Provides a feature to generates XACML from consent;
-+ document-accessor: Provides methods to access XML document.
-+ document-converter: Converts XML document to String and vice versa.
++ common-unit: Utility library for unit test. It has resource file reader, class to compare xml and etc.
++ common-util: Utility library which contains tools to encrypt, manage Strings, and generate unique value. 
++ consent-gen: Provides a feature to generates XACML from consent.
++ document-accessor: Provides methods to access an XML document.
++ document-converter: Converts an XML document to String and vice versa.
 + document-transformer: Utility library to perform transform XML document.
 + file-reader: Utility library to read file.
 + logger-wrapper: A [SLF4J](http://www.slf4j.org/) (Simple Logging Facade for Java) logger that wraps the [Supplier functional interface](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html).
 + marshaller: Responsible for marshalling and unmarshalling XML.
-+ namespace: Sets the default name space and provides methods to get the prefixes and name space URI
++ namespace: Sets the default name space and provides methods to get the prefixes and name space URI.
 + oauth2: Contains OAuth2 libraries to verify scopes and to manage OAuth2 tokens.
-+ param: Library to manage a key-value parameter pairs. It has methods to set, get parameters etc.
++ param: Library to manage a key-value parameter pairs. It has methods to set, get parameters, and so on.
 + resource-url: Compose resource URL. 
 + validator-extension: Library to validate date. For example past and future dates.
-+ xdm(eXtreme Download Manager): provides zip utilities.
-+ xml-validation: provides utility libraries to validate XML.
++ xdm(eXtreme Download Manager): Provides zip utilities.
++ xml-validation: Provides utility libraries to validate XML.
 
 
 ## Build
@@ -81,11 +81,11 @@ Example: If a hot fix is required in an older `1.2.x` branch with the final rele
  3. Merge `1.2.x` to `1.3.x`, merge `1.3.x` to `1.4.x` ...etc
  5. Finally merge `1.4.x` to `master`
 
- **NOTE: It is highly recommended to use the    most recent releases of the most recent versions in the client projects.** 
+ **NOTE: It is highly recommended to use the most recent releases of the most recent versions in the client projects.** 
 
 ## Contact
 
-If you have any questions, comments, or concerns please see [Consent2Share]() project site.
+If you have any questions, comments, or concerns please see the [Consent2Share]() project site.
 
 ## Report Issues
 
