@@ -2,23 +2,23 @@
 
 The Common Libraries is a collection of useful libraries that are used by the Consent2Share (C2S) APIs. The Common Libraries contains a parent `pom.xml` file that aggregates the following libraries:
 
-+ audit-service: Wrapper library for Logback Audit client.
-+ common-unit: Utility library for unit testing. Contains utilities for reading resources, comparing and asserting XMLs, and `ArgumentMatcher` factory method using `java.util.function.Predicate` to support lambda expressions.
-+ common-util: Utility library which contains the tools to encrypt, manage Strings, and generate unique values. 
-+ consent-gen: Library to generate XACML from a `ConsentDto` object model.
-+ document-accessor: Provides methods to access `org.w3c.dom.Document` typed XML document nodes.
-+ document-converter: Converts an XML document from `org.w3c.dom.Document` type to `String` and vice versa.
-+ document-transformer: Utility library to perform XML document transforms.
-+ file-reader: Utility library to read files.
-+ logger-wrapper: An [SLF4J](http://www.slf4j.org/) (Simple Logging Facade for Java) logger wrapper to add support for [Supplier functional interface](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html) arguments for lazy computation while logging.
-+ marshaller: Responsible for marshalling and unmarshalling XML.
-+ namespace: An implementation of `javax.xml.namespace.NamespaceContext` that can be used as the default implementation for commonly used namespaces and URIs in C2S.
-+ oauth2: Contains utilities for building OAuth2 security expressions.
-+ param: Library to manage key-value parameter pairs.
-+ resource-url: Library to compose the resource URL of a given filename within a given package.
-+ validator-extension: Extension library to `hibernate-validator` to add support for using `@Past` and `@Future` with `java.time.LocalDate`.
-+ xdm (eXtreme Download Manager): Provides zip utilities.
-+ xml-validation: Provides utilities to validate XML files against a schema.
++ audit-service: Wrapper library for Logback Audit client
++ common-unit: Utility library for unit testing. It contains utilities for reading resources, comparing and asserting XMLs, and `ArgumentMatcher` factory method using `java.util.function.Predicate` to support lambda expressions.
++ common-util: Utility library that contains the tools to encrypt, manage Strings, and generate unique values
++ consent-gen: Library to generate XACML from a `ConsentDto` object model
++ document-accessor: Provides methods to access `org.w3c.dom.Document` typed XML document nodes
++ document-converter: Converts an XML document from `org.w3c.dom.Document` type to `String` and vice versa
++ document-transformer: Utility library to perform XML document transforms
++ file-reader: Utility library to read files
++ logger-wrapper: An [SLF4J](http://www.slf4j.org/) (Simple Logging Facade for Java) logger wrapper to add support for [Supplier functional interface](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html) arguments for lazy computation while logging
++ marshaller: Responsible for marshalling and unmarshalling XML
++ namespace: An implementation of `javax.xml.namespace.NamespaceContext` that can be used as the default implementation for commonly used namespaces and URIs in C2S
++ oauth2: Contains utilities for building OAuth2 security expressions
++ param: Library to manage key-value parameter pairs
++ resource-url: Library to compose the resource URL of a given filename within a given package
++ validator-extension: Extension library to `hibernate-validator` to add support for using `@Past` and `@Future` with `java.time.LocalDate`
++ xdm (eXtreme Download Manager): Provides zip utilities
++ xml-validation: Provides utilities to validate XML files against a schema
 
 ## Build
 
@@ -33,8 +33,8 @@ This is a Maven project and requires [Apache Maven](https://maven.apache.org/) 3
 To build the project, navigate to the folder that contains the parent `pom.xml` file using terminal/command line.
 
 + To build a JAR:
-    + For Windows, run `mvnw.cmd clean install`
-    + For *nix systems, run `mvnw clean install`
+  + For Windows, run `mvnw.cmd clean install`
+  + For *nix systems, run `mvnw clean install`
 
 **NOTE: The common libraries need to be built and installed to the local Maven repository or deployed to the Maven repository used in your enterprise development environment before building any other C2S microservices, in order to prevent any dependency resolution issues.**
 
@@ -42,8 +42,8 @@ To build the project, navigate to the folder that contains the parent `pom.xml` 
 
 The versioning convention for common libraries:
 
- + Releases: `<MajorVersion>.<MinorVersion>.<IncrementalVersion>`
- + Snapshots: `<MajorVersion>.<MinorVersion>.<IncrementalVersion>-SNAPSHOT`
++ Releases: `<MajorVersion>.<MinorVersion>.<IncrementalVersion>`
++ Snapshots: `<MajorVersion>.<MinorVersion>.<IncrementalVersion>-SNAPSHOT`
 
 ## Manual Release Process
 
@@ -51,7 +51,7 @@ The versioning convention for common libraries:
 2. Create a temporary branch for the release from the selected commit
 3. Checkout the temporary branch
 4. Set the version to release (ie: if it was `1.0.3-SNAPSHOT`, move it to `1.0.3`)
-	+ *HINT: `mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$new_version`*
+    + *HINT: `mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$new_version`*
 5. Commit the release version on the temporary branch. The commit message should be something like `Release version 1.0.3`
 6. Tag this final release commit with the version number (ie: `1.0.3`)
 7. Delete the temporary branch
@@ -71,12 +71,12 @@ If there is any development required in an older version, all the new commits mu
 
 Example: If a hot fix is required in an older `1.2.x` branch with the final released version `1.2.4` and current development version `1.2.5-SNAPSHOT`:
 
- 1. Fix the bug on `1.2.x` branch
- 2. Release version `1.2.5` by following the manual release process
- 3. Merge `1.2.x` to `1.3.x`, merge `1.3.x` to `1.4.x` ...etc
- 5. Finally merge `1.4.x` to `master`
+1. Fix the bug on `1.2.x` branch
+2. Release version `1.2.5` by following the manual release process
+3. Merge `1.2.x` to `1.3.x`, merge `1.3.x` to `1.4.x` ...etc
+5. Finally merge `1.4.x` to `master`
 
- **NOTE: It is highly recommended to use the most recent releases of the most recent versions in the client projects.** 
+**NOTE: It is highly recommended to use the most recent releases of the most recent versions in the client projects.** 
 
 ## Contact
 
