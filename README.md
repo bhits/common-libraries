@@ -80,10 +80,10 @@ Example: If a hot fix is required in an older `1.2.x` branch with the final rele
 
 ## Contact
 
-If you have any questions, comments, or concerns please see the [Consent2Share]() project site.
+If you have any questions, comments, or concerns please see the [Consent2Share](https://bhits.github.io/consent2share/) project site.
 
 ## Report Issues
 
-Please use [GitHub Issues](https://github.com/bhits/phr-api/issues) page to report issues.
+Please use [GitHub Issues](https://github.com/bhits/common-libraries/issues) page to report issues.
 
 [//]: # (License)
