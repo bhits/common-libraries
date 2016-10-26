@@ -78,6 +78,9 @@ Example: If a hot fix is required in an older `1.2.x` branch with the final rele
 
 **NOTE: It is highly recommended to use the most recent releases of the most recent versions in the client projects.** 
 
+## License
+View [license](https://github.com/FEISystems/common-libraries/blob/master/LICENSE) information for the software contained in this repository.
+
 ## Contact
 
 If you have any questions, comments, or concerns please see the [Consent2Share](https://bhits.github.io/consent2share/) project site.
