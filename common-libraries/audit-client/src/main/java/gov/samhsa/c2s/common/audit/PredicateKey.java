@@ -26,15 +26,14 @@
 package gov.samhsa.c2s.common.audit;
 
 /**
- * The Interface AuditVerb.
+ * The Interface PredicateKey.
  */
-public interface AuditVerb {
+public interface PredicateKey {
 
     /**
-     * Gets the audit verb.
+     * Gets the predicate key.
      *
-     * @return the audit verb
+     * @return the predicate key
      */
-    public String getAuditVerb();
-
+    String getPredicateKey();
 }

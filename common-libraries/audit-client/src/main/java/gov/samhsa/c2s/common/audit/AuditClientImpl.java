@@ -42,9 +42,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The Class AuditServiceImpl.
+ * The Class AuditClientImpl.
  */
-public class AuditServiceImpl implements AuditService {
+public class AuditClientImpl implements AuditClient {
 
     /**
      * The logger.
@@ -61,32 +61,38 @@ public class AuditServiceImpl implements AuditService {
     private int port;
 
     /**
-     * Instantiates a new audit service impl.
+     * Instantiates a new audit client.
+     * This constructor depends on a <code>applicationName/logback-audit.xml</code>
+     * file in the classpath for host and port configuration.
      *
      * @param applicationName the application name
      * @throws AuditException the audit exception
      */
-    public AuditServiceImpl(String applicationName) throws AuditException {
+    public AuditClientImpl(String applicationName) throws AuditException {
         super();
         this.applicationName = applicationName;
         this.host = null;
         this.port = 0;
     }
 
-    public AuditServiceImpl(String applicationName, String host, int port) throws AuditException {
+    /**
+     * Instantiates a new audit client.
+     * This constructor does not depend on any configuration files in the classpath.
+     * It uses the constructor arguments {@link AuditClientImpl#host} and {@link AuditClientImpl#port}
+     * to configure the audit client.
+     *
+     * @param applicationName the application name
+     * @param host the host for the audit server
+     * @param port the port that the audit server listens to
+     * @throws AuditException
+     */
+    public AuditClientImpl(String applicationName, String host, int port) throws AuditException {
         super();
         this.applicationName = applicationName;
         this.host = host;
         this.port = port;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.samhsa.acs.audit.AuditService#audit(java.lang.Object,
-     * java.lang.String, gov.samhsa.acs.audit.AuditVerb, java.lang.String,
-     * java.util.Map)
-     */
     @Override
     public void audit(Object auditingObject, String subject, AuditVerb verb,
                       String object, Map<PredicateKey, String> predicateMap)
@@ -107,29 +113,16 @@ public class AuditServiceImpl implements AuditService {
         af.audit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.samhsa.acs.audit.AuditService#createPredicateMap()
-     */
     @Override
     public Map<PredicateKey, String> createPredicateMap() {
         return new HashMap<>();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.samhsa.acs.audit.AuditService#getApplicationName()
-     */
     @Override
     public String getApplicationName() {
         return applicationName;
     }
 
-    /* (non-Javadoc)
-     * @see gov.samhsa.acs.audit.AuditService#init()
-     */
     @Override
     @PostConstruct
     public void init() throws AuditException {
@@ -140,11 +133,6 @@ public class AuditServiceImpl implements AuditService {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.samhsa.acs.audit.AuditService#destroy()
-     */
     @Override
     @PreDestroy
     public void destroy() {

@@ -57,7 +57,7 @@
     </distributionManagement>
 
     <modules>
-        <module>audit-service</module>
+        <module>audit-client</module>
         <module>document-accessor</module>
         <module>document-converter</module>
         <module>document-transformer</module>

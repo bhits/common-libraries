@@ -25,15 +25,53 @@
  ******************************************************************************/
 package gov.samhsa.c2s.common.audit;
 
+import ch.qos.logback.audit.AuditException;
+
+import java.util.Map;
+
 /**
- * The Interface PredicateKey.
+ * The Interface AuditClient.
  */
-public interface PredicateKey {
+public interface AuditClient {
 
     /**
-     * Gets the predicate key.
+     * Audit.
      *
-     * @return the predicate key
+     * @param auditingObject the auditing object
+     * @param subject        the subject
+     * @param verb           the verb
+     * @param object         the object
+     * @param predicateMap   the predicate map
+     * @throws AuditException the audit exception
      */
-    public String getPredicateKey();
+    void audit(Object auditingObject, String subject,
+               AuditVerb verb, String object,
+               Map<PredicateKey, String> predicateMap) throws AuditException;
+
+    /**
+     * Creates the predicate map.
+     *
+     * @return the map
+     */
+    Map<PredicateKey, String> createPredicateMap();
+
+    /**
+     * Gets the application name.
+     *
+     * @return the application name
+     */
+    String getApplicationName();
+
+    /**
+     * Initialize.
+     *
+     * @throws AuditException
+     */
+    void init() throws AuditException;
+
+    /**
+     * Destroy.
+     */
+    void destroy();
+
 }

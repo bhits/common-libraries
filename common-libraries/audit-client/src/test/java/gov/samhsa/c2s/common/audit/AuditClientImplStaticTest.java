@@ -24,7 +24,7 @@ import static org.mockito.Mockito.times;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({AuditorFactory.class, ImprovedAuditorFactory.class})
-public class AuditServiceImplStaticTest {
+public class AuditClientImplStaticTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -33,9 +33,9 @@ public class AuditServiceImplStaticTest {
     private int portMock = 8080;
 
     @InjectMocks
-    private AuditServiceImpl sut = new AuditServiceImpl(applicationNameMock, hostMock, portMock);
+    private AuditClientImpl sut = new AuditClientImpl(applicationNameMock, hostMock, portMock);
 
-    public AuditServiceImplStaticTest() throws AuditException {
+    public AuditClientImplStaticTest() throws AuditException {
     }
 
     @Test

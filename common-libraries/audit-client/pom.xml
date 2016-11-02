@@ -6,9 +6,9 @@
 		<artifactId>common-libraries</artifactId>
 		<version>1.9.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>audit-service</artifactId>
+	<artifactId>audit-client</artifactId>
 
-	<name>Audit Service</name>
+	<name>Audit Client</name>
 	<packaging>jar</packaging>
 
 	<dependencies>

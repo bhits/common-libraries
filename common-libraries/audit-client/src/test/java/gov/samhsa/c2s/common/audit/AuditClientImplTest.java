@@ -2,9 +2,6 @@ package gov.samhsa.c2s.common.audit;
 
 import ch.qos.logback.audit.AuditException;
 import ch.qos.logback.audit.client.AuditorFacade;
-import gov.samhsa.c2s.common.audit.AuditServiceImpl;
-import gov.samhsa.c2s.common.audit.AuditVerb;
-import gov.samhsa.c2s.common.audit.PredicateKey;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,7 +15,7 @@ import java.util.Map;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AuditServiceImplTest {
+public class AuditClientImplTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -27,15 +24,15 @@ public class AuditServiceImplTest {
     private int portMock = 8080;
 
     @InjectMocks
-    private AuditServiceImpl sut = new AuditServiceImpl(applicationNameMock, hostMock, portMock);
+    private AuditClientImpl sut = new AuditClientImpl(applicationNameMock, hostMock, portMock);
 
-    public AuditServiceImplTest() throws AuditException {
+    public AuditClientImplTest() throws AuditException {
     }
 
     @Test
     public void testAudit() throws AuditException {
         // Arrange
-        AuditServiceImpl spy = spy(sut);
+        AuditClientImpl spy = spy(sut);
         Object auditingObjectMock = this;
         String subjectMock = "subjectMock";
         AuditVerb auditVerbMock = () -> "DEPLOY_POLICY";
