@@ -79,7 +79,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <spring.boot.version>1.4.1.RELEASE</spring.boot.version>
+        <spring.boot.version>1.4.2.RELEASE</spring.boot.version>
         <apache.commons.version>3.3.2</apache.commons.version>
         <apache.commons-io.version>2.4</apache.commons-io.version>
         <apache.commons-codec.version>1.10</apache.commons-codec.version>
@@ -262,6 +262,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
