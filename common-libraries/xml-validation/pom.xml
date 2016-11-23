@@ -13,6 +13,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>logger-wrapper</artifactId>
 		</dependency>
