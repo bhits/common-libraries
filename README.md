@@ -28,7 +28,7 @@ The Common Libraries is a collection of useful libraries that are used by the Co
 
 ### Commands
 
-This is a Maven project and requires [Apache Maven](https://maven.apache.org/) 3.3.3 or greater to build it. It is recommended to use the *Maven Wrapper* scripts provided with this project. *Maven Wrapper* requires an internet connection to download Maven and project dependencies for the very first build.
+This is a Maven project and requires [Apache Maven](https://maven.apache.org/) 3.3.3 or greater to build it. It is recommended to use the *Maven Wrapper* scripts provided with this project. *Maven Wrapper* requires an Internet connection to download Maven and project dependencies for the very first build.
 
 To build the project, navigate to the folder that contains the parent `pom.xml` file using terminal/command line.
 
@@ -79,7 +79,7 @@ Example: If a hot fix is required in an older `1.2.x` branch with the final rele
 **NOTE: It is highly recommended to use the most recent releases of the most recent versions in the client projects.** 
 
 ## License
-View [license](https://github.com/FEISystems/common-libraries/blob/master/LICENSE) information for the software contained in this repository.
+View [license](LICENSE) information for the software contained in this repository.
 
 ## Contact
 
