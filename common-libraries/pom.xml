@@ -143,17 +143,7 @@
             <!-- C2S Common Libraries -->
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>audit-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-util</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>consent-gen</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -204,11 +194,6 @@
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>xml-validation</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>xdm</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- C2S Common Libraries for Testing -->
