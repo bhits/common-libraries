@@ -56,6 +56,17 @@ public interface ConsentBuilder {
     String buildConsent2Xacml(Object obj) throws ConsentGenException;
 
     /**
+     * Builds the FHIR Consent to ConsentDto.
+     *
+     * @param obj
+     *            the obj
+     * @return the ConsentDto
+     * @throws ConsentGenException
+     *             the consent gen exception
+     */
+    ConsentDto buildFhirConsent2ConsentDto(Object obj) throws ConsentGenException;
+
+    /**
      * Builds the consent2 xacml for consentFrom provider. to give access to
      * consent pdf from C2S Health
      *

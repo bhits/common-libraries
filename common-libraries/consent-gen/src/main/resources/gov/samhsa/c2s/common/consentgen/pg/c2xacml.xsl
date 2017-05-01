@@ -10,10 +10,9 @@
 	<xsl:template match="/">
 		<xsl:variable name="countDoNotShareClinicalDocumentSectionTypeCodes"
 			select="count(//doNotShareClinicalDocumentSectionTypeCodesList/doNotShareClinicalDocumentSectionTypeCodes)+count(//doNotShareSensitivityPolicyCodesList/doNotShareSensitivityPolicyCodes)+count(//doNotShareClinicalConceptCodesList/doNotShareClinicalConceptCodes)+count(//doNotShareClinicalDocumentTypeCodesList/doNotShareClinicalDocumentTypeCodes)" />
-		<xsl:variable name="countDoNotShareSensitivityPolicyCodes" select="count(//doNotShareSensitivityPolicyCodesList/doNotShareSensitivityPolicyCodes)"
-			/>
-		<!-- <xsl:variable name="countDoNotShareClinicalConceptCodes" select="count(//doNotShareClinicalConceptCodesList/doNotShareClinicalConceptCodes)"
-			/> -->
+		<xsl:variable name="countDoNotShareSensitivityPolicyCodes" select="count(//doNotShareSensitivityPolicyCodesList/doNotShareSensitivityPolicyCodes)"/>
+		<xsl:variable name="countShareSensitivityPolicyCodes" select="count(//shareSensitivityPolicyCodesList/shareSensitivityPolicyCodes)"/>
+		<!-- <xsl:variable name="countDoNotShareClinicalConceptCodes" select="count(//doNotShareClinicalConceptCodesList/doNotShareClinicalConceptCodes)"/> -->
 		<xsl:variable name="consentId" select="ConsentExport/id" />
 		<xsl:variable name="patientId" select="ConsentExport/Patient/email" />
 		<xsl:variable name="resourceId">
@@ -242,6 +241,18 @@
 						</Obligation>
 					</xsl:for-each>
 
+					<xsl:for-each
+							select="//shareSensitivityPolicyCodesList/shareSensitivityPolicyCodes">
+						<Obligation
+								ObligationId="urn:samhsa:names:tc:consent2share:1.0:obligation:share-sensitivity-policy-code"
+								FulfillOn="Permit">
+							<AttributeAssignment
+									AttributeId="urn:oasis:names:tc:xacml:3.0:example:attribute:text"
+									DataType="http://www.w3.org/2001/XMLSchema#string">
+								<xsl:value-of select="code" />
+							</AttributeAssignment>
+						</Obligation>
+					</xsl:for-each>
 
 					<xsl:for-each
 						select="//doNotShareClinicalDocumentTypeCodesList/doNotShareClinicalDocumentTypeCodes">

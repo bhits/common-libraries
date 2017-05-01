@@ -1,37 +1,26 @@
-/*******************************************************************************
- * Open Behavioral Health Information Technology Architecture (OBHITA.org)
- * <p>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * * Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- * * Neither the name of the <organization> nor the
- * names of its contributors may be used to endorse or promote products
- * derived from this software without specific prior written permission.
- * <p>
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
 package gov.samhsa.c2s.common.consentgen;
-
 
 import gov.samhsa.c2s.common.document.transformer.XmlTransformer;
 import gov.samhsa.c2s.common.param.ParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.hl7.fhir.dstu3.model.Identifier;
+import org.hl7.fhir.dstu3.model.ResourceType;
 import org.springframework.util.Assert;
 
+import org.hl7.fhir.dstu3.model.CodeableConcept;
+import org.hl7.fhir.dstu3.model.Coding;
+import org.hl7.fhir.dstu3.model.Consent;
+import org.hl7.fhir.dstu3.model.HumanName;
+import org.hl7.fhir.dstu3.model.IdType;
+import org.hl7.fhir.dstu3.model.Organization;
+import org.hl7.fhir.dstu3.model.Patient;
+import org.hl7.fhir.dstu3.model.Practitioner;
+import org.hl7.fhir.dstu3.model.Reference;
+import org.hl7.fhir.dstu3.model.codesystems.V3ActCode;
+
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * The Class ConsentBuilderImpl.
@@ -46,6 +35,9 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
     /** The Constant PARAM_POLICY_ID. */
     public final static String PARAM_POLICY_ID = "policyId";
+
+    /** The Constant PROVIDER_ID_CODE_SYSTEM, which indicates the code system used to express whatever id is used to identify providers */
+    final static String PROVIDER_ID_CODE_SYSTEM = "http://hl7.org/fhir/sid/us-npi";   // Code system for NPI
 
     /** The c2s account org. */
     private final String c2sAccountOrg;
@@ -132,6 +124,67 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                             .getPatientDto().getMedicalRecordNumber())),
                     Optional.empty());
             return xacml;
+        } catch (final Exception e) {
+            throw new ConsentGenException(e.getMessage(), e);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.samhsa.consent.ConsentBuilder#buildFhirConsent2ConsentDto(java.lang.Object)
+     */
+    @Override
+    public ConsentDto buildFhirConsent2ConsentDto(Object obj) throws ConsentGenException {
+        try {
+            Consent fhirConsent;
+
+            if(obj.getClass() == Consent.class){
+                fhirConsent = (Consent) obj;
+            }else{
+                throw new ConsentGenException("Invalid Object type passed to 'buildFhirConsent2ConsentDto' method; Object type must be 'org.hl7.fhir.dstu3.model.Consent'");
+            }
+
+            ConsentDto consentDto = new ConsentDto();
+
+            // Map FHIR consent fields to ConsentDto fields
+            consentDto.setConsentStart(fhirConsent.getPeriod().getStart());
+            consentDto.setConsentEnd(fhirConsent.getPeriod().getEnd());
+            consentDto.setConsentReferenceid(fhirConsent.getIdentifier().getValue());
+            consentDto.setSignedDate(fhirConsent.getDateTime());
+
+            Organization fhirFromProvider = fhirConsent.getOrganizationTarget();
+
+            String fhirFromProviderNpi = fhirFromProvider.getIdentifier().stream()
+                    .filter(i -> (i.hasSystem()) && (i.getSystem().equalsIgnoreCase(PROVIDER_ID_CODE_SYSTEM)))
+                    .findFirst()
+                    .map(Identifier::getValue)
+                    .orElseThrow(() ->
+                            new ConsentGenException("Unable to find a provider identifier in the FHIR consent which is under the code system " + PROVIDER_ID_CODE_SYSTEM)
+                    );
+
+            if(fhirFromProvider.getResourceType() == ResourceType.Organization){
+                OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
+                organizationalProviderDto.setNpi(fhirFromProviderNpi);
+
+                Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
+                organizationalProviderDtoSet.add(organizationalProviderDto);
+
+                consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
+            }else if(fhirFromProvider.getResourceType() == ResourceType.Practitioner){
+                IndividualProviderDto individualProviderDto = new IndividualProviderDto();
+                individualProviderDto.setNpi(fhirFromProviderNpi);
+
+                Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
+                individualProviderDtoSet.add(individualProviderDto);
+
+                consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
+            }else{
+                throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; must be either 'Organization' or 'Practitioner'");
+            }
+
+            return consentDto;
         } catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
