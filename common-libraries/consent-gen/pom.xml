@@ -33,6 +33,22 @@
 			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>resource-url</artifactId>
 		</dependency>
+
+		<!-- HAPI FHIR JARS -->
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>hapi-fhir-base</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>hapi-fhir-validation-resources-dstu3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>hapi-fhir-structures-dstu3</artifactId>
+		</dependency>
+		<!-- HAPI FHIR JARS -->
+
 	</dependencies>
 
 </project>
