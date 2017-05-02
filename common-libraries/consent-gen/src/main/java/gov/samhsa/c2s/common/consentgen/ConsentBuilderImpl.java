@@ -8,16 +8,9 @@ import org.hl7.fhir.dstu3.model.Identifier;
 import org.hl7.fhir.dstu3.model.ResourceType;
 import org.springframework.util.Assert;
 
-import org.hl7.fhir.dstu3.model.CodeableConcept;
-import org.hl7.fhir.dstu3.model.Coding;
 import org.hl7.fhir.dstu3.model.Consent;
-import org.hl7.fhir.dstu3.model.HumanName;
-import org.hl7.fhir.dstu3.model.IdType;
 import org.hl7.fhir.dstu3.model.Organization;
-import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.dstu3.model.Practitioner;
-import org.hl7.fhir.dstu3.model.Reference;
-import org.hl7.fhir.dstu3.model.codesystems.V3ActCode;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -155,17 +148,14 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             consentDto.setConsentReferenceid(fhirConsent.getIdentifier().getValue());
             consentDto.setSignedDate(fhirConsent.getDateTime());
 
-            Organization fhirFromProvider = fhirConsent.getOrganizationTarget();
+            DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
 
-            String fhirFromProviderNpi = fhirFromProvider.getIdentifier().stream()
-                    .filter(i -> (i.hasSystem()) && (i.getSystem().equalsIgnoreCase(PROVIDER_ID_CODE_SYSTEM)))
-                    .findFirst()
-                    .map(Identifier::getValue)
-                    .orElseThrow(() ->
-                            new ConsentGenException("Unable to find a provider identifier in the FHIR consent which is under the code system " + PROVIDER_ID_CODE_SYSTEM)
-                    );
+            String fhirFromProviderNpi = extractNpiFromProviderResource(fhirFromProviderResource);
 
-            if(fhirFromProvider.getResourceType() == ResourceType.Organization){
+            consentDto.setProvidersPermittedToDisclose(new HashSet<>());
+            consentDto.setOrganizationalProvidersPermittedToDisclose(new HashSet<>());
+
+            if(fhirFromProviderResource.getResourceType() == ResourceType.Organization){
                 OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
                 organizationalProviderDto.setNpi(fhirFromProviderNpi);
 
@@ -173,7 +163,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                 organizationalProviderDtoSet.add(organizationalProviderDto);
 
                 consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
-            }else if(fhirFromProvider.getResourceType() == ResourceType.Practitioner){
+            }else if(fhirFromProviderResource.getResourceType() == ResourceType.Practitioner){
                 IndividualProviderDto individualProviderDto = new IndividualProviderDto();
                 individualProviderDto.setNpi(fhirFromProviderNpi);
 
@@ -182,7 +172,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
                 consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
             }else{
-                throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; must be either 'Organization' or 'Practitioner'");
+                throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
             }
 
             return consentDto;
