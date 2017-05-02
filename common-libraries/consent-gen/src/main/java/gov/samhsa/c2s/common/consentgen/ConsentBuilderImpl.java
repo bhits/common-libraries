@@ -3,6 +3,7 @@ package gov.samhsa.c2s.common.consentgen;
 import gov.samhsa.c2s.common.document.transformer.XmlTransformer;
 import gov.samhsa.c2s.common.param.ParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.hl7.fhir.dstu3.model.DomainResource;
 import org.hl7.fhir.dstu3.model.Identifier;
 import org.hl7.fhir.dstu3.model.ResourceType;
 import org.springframework.util.Assert;
@@ -291,5 +292,43 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         policyId = StringUtils.join(pTokens, "&");
 
         return policyId;
+    }
+
+    /**
+     * Extract the NPI from a provider resource object
+     *
+     * @param providerResource - An 'Organization' or 'Practitioner' object from which to extract the provider NPI
+     * @return a string representation of the extracted provider NPI
+     * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
+     */
+    private String extractNpiFromProviderResource(DomainResource providerResource) throws ConsentGenException{
+        ResourceType providerResourceType = providerResource.getResourceType();
+        String providerNpi;
+
+        if(providerResourceType == ResourceType.Organization){
+            Organization providerOrgResource = (Organization) providerResource;
+            providerNpi = providerOrgResource.getIdentifier().stream()
+                    .filter(i -> (i.hasSystem()) && (i.getSystem().equalsIgnoreCase(PROVIDER_ID_CODE_SYSTEM)))
+                    .findFirst()
+                    .map(Identifier::getValue)
+                    .orElseThrow(() ->
+                            new ConsentGenException("Unable to find a provider identifier in the FHIR consent which is under the code system " + PROVIDER_ID_CODE_SYSTEM)
+                    );
+
+        }else if(providerResourceType == ResourceType.Practitioner){
+            Practitioner providerIndvResource = (Practitioner) providerResource;
+            providerNpi = providerIndvResource.getIdentifier().stream()
+                    .filter(i -> (i.hasSystem()) && (i.getSystem().equalsIgnoreCase(PROVIDER_ID_CODE_SYSTEM)))
+                    .findFirst()
+                    .map(Identifier::getValue)
+                    .orElseThrow(() ->
+                            new ConsentGenException("Unable to find a provider identifier in the FHIR consent which is under the code system " + PROVIDER_ID_CODE_SYSTEM)
+                    );
+
+        }else{
+            throw new ConsentGenException("Invalid provider resource type passed to extractNpiFromProviderResource; ResourceType of providerResource must be either 'Organization' or 'Practitioner'");
+        }
+
+        return providerNpi;
     }
 }
