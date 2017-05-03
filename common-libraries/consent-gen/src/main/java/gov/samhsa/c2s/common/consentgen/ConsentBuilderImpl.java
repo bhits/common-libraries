@@ -152,7 +152,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             consentDto.setConsentEnd(fhirConsent.getPeriod().getEnd());
             consentDto.setSignedDate(fhirConsent.getDateTime());
 
-            // Map from providers
+            // Map providers permitted to disclose (i.e. "from" providers)
             DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
             String fhirFromProviderNpi = extractNpiFromProviderResource(fhirFromProviderResource);
 
