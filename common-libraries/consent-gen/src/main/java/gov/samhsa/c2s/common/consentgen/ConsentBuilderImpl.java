@@ -5,6 +5,7 @@ import gov.samhsa.c2s.common.param.ParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.dstu3.model.DomainResource;
 import org.hl7.fhir.dstu3.model.Identifier;
+import org.hl7.fhir.dstu3.model.Reference;
 import org.hl7.fhir.dstu3.model.ResourceType;
 import org.springframework.util.Assert;
 
@@ -12,7 +13,10 @@ import org.hl7.fhir.dstu3.model.Consent;
 import org.hl7.fhir.dstu3.model.Organization;
 import org.hl7.fhir.dstu3.model.Practitioner;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -154,6 +158,9 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
             // Map providers permitted to disclose (i.e. "from" providers)
             consentDto = mapProvidersPermittedToDisclose(consentDto, fhirConsent);
+
+            // Map providers to which disclosure is made (i.e. "to" providers)
+            consentDto = mapProvidersDisclosureIsMadeTo(consentDto, fhirConsent);
 
             return consentDto;
         } catch (final Exception e) {
@@ -337,6 +344,56 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         }else{
             throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
         }
+
+        return consentDto;
+    }
+
+    /**
+     * Maps the providers disclosure is made to (i.e. the "to" providers) from the
+     * FHIR Consent object to the ConsentDto object.
+     *
+     * @param consentDto - The ConsentDto object into which the providers should be mapped
+     * @param fhirConsent - The FHIR Consent object which contains the providers to be mapped into consentDto
+     * @return The ConsentDto object which contains the mapped providers
+     * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
+     */
+    private ConsentDto mapProvidersDisclosureIsMadeTo(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
+        List<DomainResource> fhirToProviderResourceList = new ArrayList<>();
+
+        if(fhirConsent.hasRecipient()){
+            List<Reference> fhirToProviderReferenceList = fhirConsent.getRecipient();
+            fhirToProviderReferenceList.forEach(fhirToProviderReference ->
+                    fhirToProviderResourceList.add((DomainResource) fhirToProviderReference.getResource()));
+        }else{
+            throw new ConsentGenException("The FHIR consent does not have any recipient(s) specified");
+        }
+
+        consentDto.setProvidersDisclosureIsMadeTo(new HashSet<>());
+        consentDto.setOrganizationalProvidersDisclosureIsMadeTo(new HashSet<>());
+
+        Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
+        Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
+
+        for (DomainResource fhirToProviderResource : fhirToProviderResourceList) {
+            String fhirFromProviderNpi = extractNpiFromProviderResource(fhirToProviderResource);
+
+            if (fhirToProviderResource.getResourceType() == ResourceType.Organization) {
+                OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
+                organizationalProviderDto.setNpi(fhirFromProviderNpi);
+
+                organizationalProviderDtoSet.add(organizationalProviderDto);
+            } else if (fhirToProviderResource.getResourceType() == ResourceType.Practitioner) {
+                IndividualProviderDto individualProviderDto = new IndividualProviderDto();
+                individualProviderDto.setNpi(fhirFromProviderNpi);
+
+                individualProviderDtoSet.add(individualProviderDto);
+            } else {
+                throw new ConsentGenException("Invalid to provider resource(s) type found in FHIR consent; ResourceType of fhirToProviderResource must be either 'Organization' or 'Practitioner'");
+            }
+        }
+
+        consentDto.setOrganizationalProvidersDisclosureIsMadeTo(organizationalProviderDtoSet);
+        consentDto.setProvidersDisclosureIsMadeTo(individualProviderDtoSet);
 
         return consentDto;
     }
