@@ -153,31 +153,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             consentDto.setSignedDate(fhirConsent.getDateTime());
 
             // Map providers permitted to disclose (i.e. "from" providers)
-            DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
-            String fhirFromProviderNpi = extractNpiFromProviderResource(fhirFromProviderResource);
-
-            consentDto.setProvidersPermittedToDisclose(new HashSet<>());
-            consentDto.setOrganizationalProvidersPermittedToDisclose(new HashSet<>());
-
-            if(fhirFromProviderResource.getResourceType() == ResourceType.Organization){
-                OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
-                organizationalProviderDto.setNpi(fhirFromProviderNpi);
-
-                Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
-                organizationalProviderDtoSet.add(organizationalProviderDto);
-
-                consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
-            }else if(fhirFromProviderResource.getResourceType() == ResourceType.Practitioner){
-                IndividualProviderDto individualProviderDto = new IndividualProviderDto();
-                individualProviderDto.setNpi(fhirFromProviderNpi);
-
-                Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
-                individualProviderDtoSet.add(individualProviderDto);
-
-                consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
-            }else{
-                throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
-            }
+            consentDto = mapProvidersPermittedToDisclose(consentDto, fhirConsent);
 
             return consentDto;
         } catch (final Exception e) {
@@ -324,5 +300,44 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         }
 
         return providerNpi;
+    }
+
+    /**
+     * Maps the providers permitted to disclose (i.e. the "from" providers) from the
+     * FHIR Consent object to the ConsentDto object.
+     *
+     * @param consentDto - The ConsentDto object into which the providers should be mapped
+     * @param fhirConsent - The FHIR Consent object which contains the providers to be mapped into consentDto
+     * @return The ConsentDto object which contains the mapped providers
+     * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
+     */
+    private ConsentDto mapProvidersPermittedToDisclose(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
+        DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
+        String fhirFromProviderNpi = extractNpiFromProviderResource(fhirFromProviderResource);
+
+        consentDto.setProvidersPermittedToDisclose(new HashSet<>());
+        consentDto.setOrganizationalProvidersPermittedToDisclose(new HashSet<>());
+
+        if(fhirFromProviderResource.getResourceType() == ResourceType.Organization){
+            OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
+            organizationalProviderDto.setNpi(fhirFromProviderNpi);
+
+            Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
+            organizationalProviderDtoSet.add(organizationalProviderDto);
+
+            consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
+        }else if(fhirFromProviderResource.getResourceType() == ResourceType.Practitioner){
+            IndividualProviderDto individualProviderDto = new IndividualProviderDto();
+            individualProviderDto.setNpi(fhirFromProviderNpi);
+
+            Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
+            individualProviderDtoSet.add(individualProviderDto);
+
+            consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
+        }else{
+            throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
+        }
+
+        return consentDto;
     }
 }
