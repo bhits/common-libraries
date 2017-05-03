@@ -142,14 +142,18 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
             ConsentDto consentDto = new ConsentDto();
 
-            // Map FHIR consent fields to ConsentDto fields
+            /* Map FHIR consent fields to ConsentDto fields */
+
+            //Map consent reference ID
+            consentDto.setConsentReferenceid(fhirConsent.getIdentifier().getValue());
+
+            // Map consent start, end, and signed dates
             consentDto.setConsentStart(fhirConsent.getPeriod().getStart());
             consentDto.setConsentEnd(fhirConsent.getPeriod().getEnd());
-            consentDto.setConsentReferenceid(fhirConsent.getIdentifier().getValue());
             consentDto.setSignedDate(fhirConsent.getDateTime());
 
+            // Map from providers
             DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
-
             String fhirFromProviderNpi = extractNpiFromProviderResource(fhirFromProviderResource);
 
             consentDto.setProvidersPermittedToDisclose(new HashSet<>());
