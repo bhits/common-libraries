@@ -155,12 +155,6 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             ConsentDto consentDto = new ConsentDto();
 
             // temp init
-            consentDto.setSignedDate(new Date(0));
-            consentDto.setRevocationDate(new Date(0));
-            consentDto.setDoNotShareClinicalConceptCodes(new HashSet<>());
-            consentDto.setDoNotShareClinicalDocumentSectionTypeCodes(new HashSet<>());
-            consentDto.setDoNotShareClinicalDocumentTypeCodes(new HashSet<>());
-            consentDto.setDoNotShareSensitivityPolicyCodes(new HashSet<>());
             consentDto.setShareForPurposeOfUseCodes(new HashSet<>());
             consentDto.setShareSensitivityPolicyCodes(new HashSet<>());
 
