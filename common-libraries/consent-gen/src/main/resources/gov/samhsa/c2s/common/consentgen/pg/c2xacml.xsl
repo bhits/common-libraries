@@ -242,19 +242,6 @@
 					</xsl:for-each>
 
 					<xsl:for-each
-							select="//shareSensitivityPolicyCodesList/shareSensitivityPolicyCodes">
-						<Obligation
-								ObligationId="urn:samhsa:names:tc:consent2share:1.0:obligation:share-sensitivity-policy-code"
-								FulfillOn="Permit">
-							<AttributeAssignment
-									AttributeId="urn:oasis:names:tc:xacml:3.0:example:attribute:text"
-									DataType="http://www.w3.org/2001/XMLSchema#string">
-								<xsl:value-of select="code" />
-							</AttributeAssignment>
-						</Obligation>
-					</xsl:for-each>
-
-					<xsl:for-each
 						select="//doNotShareClinicalDocumentTypeCodesList/doNotShareClinicalDocumentTypeCodes">
 						<Obligation
 							ObligationId="urn:samhsa:names:tc:consent2share:1.0:obligation:redact-document-section-code"
@@ -285,6 +272,24 @@
 
 
 
+				</Obligations>
+			</xsl:if>
+
+
+			<xsl:if test="$countShareSensitivityPolicyCodes > 0">
+				<Obligations>
+					<xsl:for-each
+							select="//shareSensitivityPolicyCodesList/shareSensitivityPolicyCodes">
+						<Obligation
+								ObligationId="urn:samhsa:names:tc:consent2share:1.0:obligation:share-sensitivity-policy-code"
+								FulfillOn="Permit">
+							<AttributeAssignment
+									AttributeId="urn:oasis:names:tc:xacml:3.0:example:attribute:text"
+									DataType="http://www.w3.org/2001/XMLSchema#string">
+								<xsl:value-of select="code" />
+							</AttributeAssignment>
+						</Obligation>
+					</xsl:for-each>
 				</Obligations>
 			</xsl:if>
 
