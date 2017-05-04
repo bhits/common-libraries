@@ -12,6 +12,7 @@ import org.hl7.fhir.dstu3.model.ResourceType;
 import org.springframework.util.Assert;
 
 import org.hl7.fhir.dstu3.model.Consent;
+import org.hl7.fhir.dstu3.model.Consent.ExceptComponent;
 import org.hl7.fhir.dstu3.model.Organization;
 import org.hl7.fhir.dstu3.model.Practitioner;
 
@@ -20,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The Class ConsentBuilderImpl.
@@ -153,10 +155,6 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             }
 
             ConsentDto consentDto = new ConsentDto();
-
-            // temp init
-            consentDto.setShareSensitivityPolicyCodes(new HashSet<>());
-
             PatientDto patientDto = new PatientDto();
 
             // TODO: Search through all Patient identifiers to find the one matching the specific configured code system for MRN
@@ -185,6 +183,9 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
             // Map share for purpose of use codes
             consentDto = mapShareForPurposeOfUseCodes(consentDto, fhirConsent);
+
+            // Map share sensitivity policy codes
+            consentDto = mapShareSensitivityPolicyCodes(consentDto, fhirConsent);
 
             return consentDto;
         } catch (final Exception e) {
@@ -458,6 +459,67 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         }
 
         consentDto.setShareForPurposeOfUseCodes(consentDtoShareForPurposeOfUseCodes);
+
+        return consentDto;
+    }
+
+    /**
+     * Maps the share sensitivity policy codes from the FHIR Consent object to the ConsentDto object.
+     *
+     * @param consentDto - The ConsentDto object into which the sensitivity policy codes should be mapped
+     * @param fhirConsent - The FHIR Consent object which contains the sensitivity policy codes to be mapped into consentDto
+     * @return The ConsentDto object which contains the mapped sensitivity policy codes
+     * @throws ConsentGenException - Thrown when FHIR consent contains no 'except' anr/or 'securityLabel' codes, when the codes in the FHIR
+     *                               consent are of a type other than 'permit', or when the extracted sensitivity policy codes set size is != 1
+     */
+    private ConsentDto mapShareSensitivityPolicyCodes(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
+        List<ExceptComponent> fhirExceptComponentsList;
+        Set<Coding> fhirShareSensitivityPolicyCodes;
+        Set<TypeCodesDto> consentDtoShareSensitivityPolicyCodes = new HashSet<>();
+
+        if(fhirConsent.hasExcept()){
+            fhirExceptComponentsList = fhirConsent.getExcept();
+        }else{
+            throw new ConsentGenException("FHIR consent does not contain any 'except' codes");
+        }
+
+        List<ExceptComponent> filteredFhirExceptComponentsList = fhirExceptComponentsList.stream()
+                .filter(ExceptComponent::hasType)
+                .filter(exceptComponent -> exceptComponent.getType() == Consent.ConsentExceptType.PERMIT)
+                .collect(Collectors.toList());
+
+        ExceptComponent fhirPermitTypeExceptComponenet;
+
+        if(filteredFhirExceptComponentsList.size() == 1){
+            fhirPermitTypeExceptComponenet = filteredFhirExceptComponentsList.get(0);
+        }else{
+            throw new ConsentGenException("FHIR consent 'except' list contains no except components with type='permit', or it contains more than 1");
+        }
+
+        if(fhirPermitTypeExceptComponenet.hasSecurityLabel()){
+            fhirShareSensitivityPolicyCodes = new HashSet<>(fhirPermitTypeExceptComponenet.getSecurityLabel());
+        }else{
+            throw new ConsentGenException("FHIR consent 'except' component with type='permit' does not contain any 'securityLabel' codes");
+        }
+
+        if(fhirShareSensitivityPolicyCodes.size() > 0){
+            fhirShareSensitivityPolicyCodes.forEach(sensitivityPolicyCode -> {
+                TypeCodesDto sensitivityPolicyCodeDto = new TypeCodesDto();
+
+                sensitivityPolicyCodeDto.setCodeSystem(sensitivityPolicyCode.getSystem());
+                sensitivityPolicyCodeDto.setCode(sensitivityPolicyCode.getCode());
+
+                if(sensitivityPolicyCode.hasDisplay()){
+                    sensitivityPolicyCodeDto.setDisplayName(sensitivityPolicyCode.getDisplay());
+                }
+
+                consentDtoShareSensitivityPolicyCodes.add(sensitivityPolicyCodeDto);
+            });
+        }else{
+            throw new ConsentGenException("Sensitivity policy codes set extracted from FHIR consent is an empty set");
+        }
+
+        consentDto.setShareSensitivityPolicyCodes(consentDtoShareSensitivityPolicyCodes);
 
         return consentDto;
     }
