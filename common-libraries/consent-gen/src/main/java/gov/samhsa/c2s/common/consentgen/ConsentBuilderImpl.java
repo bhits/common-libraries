@@ -3,6 +3,7 @@ package gov.samhsa.c2s.common.consentgen;
 import gov.samhsa.c2s.common.document.transformer.XmlTransformer;
 import gov.samhsa.c2s.common.param.ParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.hl7.fhir.dstu3.model.Coding;
 import org.hl7.fhir.dstu3.model.DomainResource;
 import org.hl7.fhir.dstu3.model.Identifier;
 import org.hl7.fhir.dstu3.model.Patient;
@@ -154,10 +155,10 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             ConsentDto consentDto = new ConsentDto();
 
             // temp init
-            consentDto.setShareForPurposeOfUseCodes(new HashSet<>());
             consentDto.setShareSensitivityPolicyCodes(new HashSet<>());
 
             PatientDto patientDto = new PatientDto();
+
             // TODO: Search through all Patient identifiers to find the one matching the specific configured code system for MRN
             patientDto.setMedicalRecordNumber(fhirPatient.getIdentifier().get(0).getValue());
             patientDto.setLastName(fhirPatient.getNameFirstRep().getFamily());
@@ -181,6 +182,9 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
             // Map providers to which disclosure is made (i.e. "to" providers)
             consentDto = mapProvidersDisclosureIsMadeTo(consentDto, fhirConsent);
+
+            // Map share for purpose of use codes
+            consentDto = mapShareForPurposeOfUseCodes(consentDto, fhirConsent);
 
             return consentDto;
         } catch (final Exception e) {
@@ -414,6 +418,46 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
         consentDto.setOrganizationalProvidersDisclosureIsMadeTo(organizationalProviderDtoSet);
         consentDto.setProvidersDisclosureIsMadeTo(individualProviderDtoSet);
+
+        return consentDto;
+    }
+
+    /**
+     * Maps the share for purpose of use codes from the FHIR Consent object to the ConsentDto object.
+     *
+     * @param consentDto - The ConsentDto object into which the share for purpose of use codes should be mapped
+     * @param fhirConsent - The FHIR Consent object which contains the share for purpose of use codes to be mapped into consentDto
+     * @return The ConsentDto object which contains the mapped share for purpose of use codes
+     * @throws ConsentGenException - Thrown when FHIR consent contains no 'purpose' codes, or when extracted purpose of use codes set is empty
+     */
+    private ConsentDto mapShareForPurposeOfUseCodes(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
+        Set<Coding> fhirShareForPurposeOfUseCodes;
+        Set<TypeCodesDto> consentDtoShareForPurposeOfUseCodes = new HashSet<>();
+
+        if(fhirConsent.hasPurpose()){
+            fhirShareForPurposeOfUseCodes = new HashSet<>(fhirConsent.getPurpose());
+        }else{
+            throw new ConsentGenException("FHIR consent does not contain any 'purpose' codes");
+        }
+
+        if(fhirShareForPurposeOfUseCodes.size() > 0){
+            fhirShareForPurposeOfUseCodes.forEach(pou -> {
+                TypeCodesDto pouCodeDto = new TypeCodesDto();
+
+                pouCodeDto.setCodeSystem(pou.getSystem());
+                pouCodeDto.setCode(pou.getCode());
+
+                if(pou.hasDisplay()){
+                    pouCodeDto.setDisplayName(pou.getDisplay());
+                }
+
+                consentDtoShareForPurposeOfUseCodes.add(pouCodeDto);
+            });
+        }else{
+            throw new ConsentGenException("Share for purpose of use codes set extracted from FHIR consent is an empty set");
+        }
+
+        consentDto.setShareForPurposeOfUseCodes(consentDtoShareForPurposeOfUseCodes);
 
         return consentDto;
     }
