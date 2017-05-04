@@ -297,13 +297,13 @@ public class ConsentBuilderImpl implements ConsentBuilder {
     }
 
     /**
-     * Extract the NPI from a provider resource object
+     * Extract the NPI from a FHIR provider resource object
      *
      * @param providerResource - An 'Organization' or 'Practitioner' object from which to extract the provider NPI
      * @return a string representation of the extracted provider NPI
      * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
      */
-    private String extractNpiFromProviderResource(DomainResource providerResource) throws ConsentGenException{
+    private String extractNpiFromFhirProviderResource(DomainResource providerResource) throws ConsentGenException{
         ResourceType providerResourceType = providerResource.getResourceType();
         String providerNpi;
 
@@ -328,7 +328,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                     );
 
         }else{
-            throw new ConsentGenException("Invalid provider resource type passed to extractNpiFromProviderResource; ResourceType of providerResource must be either 'Organization' or 'Practitioner'");
+            throw new ConsentGenException("Invalid provider resource type passed to extractNpiFromFhirProviderResource; ResourceType of providerResource must be either 'Organization' or 'Practitioner'");
         }
 
         return providerNpi;
@@ -345,7 +345,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      */
     private ConsentDto mapProvidersPermittedToDisclose(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
         DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
-        String fhirFromProviderNpi = extractNpiFromProviderResource(fhirFromProviderResource);
+        String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirFromProviderResource);
 
         consentDto.setProvidersPermittedToDisclose(new HashSet<>());
         consentDto.setOrganizationalProvidersPermittedToDisclose(new HashSet<>());
@@ -400,7 +400,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
 
         for (DomainResource fhirToProviderResource : fhirToProviderResourceList) {
-            String fhirFromProviderNpi = extractNpiFromProviderResource(fhirToProviderResource);
+            String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirToProviderResource);
 
             if (fhirToProviderResource.getResourceType() == ResourceType.Organization) {
                 OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
