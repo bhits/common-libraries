@@ -33,13 +33,15 @@ public interface ConsentBuilder {
     /**
      * Builds the FHIR Consent to ConsentDto.
      *
-     * @param obj
-     *            the obj
+     * @param objFhirConsent
+     *            the FHIR Consent object
+     * @param objFhirPatient
+     *            the FHIR Patient who is the subject of the FHIR Consent
      * @return the ConsentDto
      * @throws ConsentGenException
      *             the consent gen exception
      */
-    ConsentDto buildFhirConsent2ConsentDto(Object obj) throws ConsentGenException;
+    ConsentDto buildFhirConsent2ConsentDto(Object objFhirConsent, Object objFhirPatient) throws ConsentGenException;
 
     /**
      * Builds the consent2 xacml for consentFrom provider. to give access to

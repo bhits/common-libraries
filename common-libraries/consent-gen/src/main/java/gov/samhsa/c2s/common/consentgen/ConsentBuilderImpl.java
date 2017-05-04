@@ -5,6 +5,7 @@ import gov.samhsa.c2s.common.param.ParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.dstu3.model.DomainResource;
 import org.hl7.fhir.dstu3.model.Identifier;
+import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.dstu3.model.Reference;
 import org.hl7.fhir.dstu3.model.ResourceType;
 import org.springframework.util.Assert;
@@ -134,17 +135,42 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * gov.samhsa.consent.ConsentBuilder#buildFhirConsent2ConsentDto(java.lang.Object)
      */
     @Override
-    public ConsentDto buildFhirConsent2ConsentDto(Object obj) throws ConsentGenException {
+    public ConsentDto buildFhirConsent2ConsentDto(Object objFhirConsent, Object objFhirPatient) throws ConsentGenException {
         try {
             Consent fhirConsent;
+            Patient fhirPatient;
 
-            if(obj.getClass() == Consent.class){
-                fhirConsent = (Consent) obj;
+            if(objFhirConsent.getClass() == Consent.class){
+                fhirConsent = (Consent) objFhirConsent;
             }else{
-                throw new ConsentGenException("Invalid Object type passed to 'buildFhirConsent2ConsentDto' method; Object type must be 'org.hl7.fhir.dstu3.model.Consent'");
+                throw new ConsentGenException("Invalid Object type for objFhirConsent passed to 'buildFhirConsent2ConsentDto' method; Object type must be 'org.hl7.fhir.dstu3.model.Consent'");
+            }
+
+            if(objFhirPatient.getClass() == Patient.class){
+                fhirPatient = (Patient) objFhirPatient;
+            }else{
+                throw new ConsentGenException("Invalid Object type for objFhirPatient passed to 'buildFhirConsent2ConsentDto' method; Object type must be 'org.hl7.fhir.dstu3.model.Patient'");
             }
 
             ConsentDto consentDto = new ConsentDto();
+
+            // temp init
+            consentDto.setSignedDate(new Date(0));
+            consentDto.setRevocationDate(new Date(0));
+            consentDto.setDoNotShareClinicalConceptCodes(new HashSet<>());
+            consentDto.setDoNotShareClinicalDocumentSectionTypeCodes(new HashSet<>());
+            consentDto.setDoNotShareClinicalDocumentTypeCodes(new HashSet<>());
+            consentDto.setDoNotShareSensitivityPolicyCodes(new HashSet<>());
+            consentDto.setShareForPurposeOfUseCodes(new HashSet<>());
+            consentDto.setShareSensitivityPolicyCodes(new HashSet<>());
+
+            PatientDto patientDto = new PatientDto();
+            // TODO: Search through all Patient identifiers to find the one matching the specific configured code system for MRN
+            patientDto.setMedicalRecordNumber(fhirPatient.getIdentifier().get(0).getValue());
+            patientDto.setLastName(fhirPatient.getNameFirstRep().getFamily());
+            patientDto.setFirstName(fhirPatient.getNameFirstRep().getGivenAsSingleString());
+
+            consentDto.setPatientDto(patientDto);
 
             /* Map FHIR consent fields to ConsentDto fields */
 
