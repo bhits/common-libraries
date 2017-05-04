@@ -170,11 +170,12 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             patientDto.setLastName(fhirPatient.getNameFirstRep().getFamily());
             patientDto.setFirstName(fhirPatient.getNameFirstRep().getGivenAsSingleString());
 
-            consentDto.setPatientDto(patientDto);
-
             /* Map FHIR consent fields to ConsentDto fields */
 
-            //Map consent reference ID
+            // Map patient Dto
+            consentDto.setPatientDto(patientDto);
+
+            // Map consent reference ID
             consentDto.setConsentReferenceid(fhirConsent.getIdentifier().getValue());
 
             // Map consent start, end, and signed dates
