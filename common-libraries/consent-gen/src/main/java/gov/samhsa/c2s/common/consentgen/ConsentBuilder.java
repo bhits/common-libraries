@@ -1,5 +1,7 @@
 package gov.samhsa.c2s.common.consentgen;
 
+import org.hl7.fhir.dstu3.model.DomainResource;
+
 /**
  * The Interface ConsentBuilder.
  */
@@ -68,4 +70,13 @@ public interface ConsentBuilder {
      */
     String buildConsent2XacmlPdfConsentTo(Object obj)
             throws ConsentGenException;
+
+    /**
+     * Extract the NPI from a FHIR provider resource object
+     *
+     * @param providerResource - An 'Organization' or 'Practitioner' object from which to extract the provider NPI
+     * @return a string representation of the extracted provider NPI
+     * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
+     */
+    String extractNpiFromFhirProviderResource(DomainResource providerResource) throws ConsentGenException;
 }
