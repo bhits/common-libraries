@@ -5,7 +5,7 @@ The Common Libraries is a collection of useful libraries that are used by the Co
 + audit-service: Wrapper library for Logback Audit client
 + common-unit: Utility library for unit testing. It contains utilities for reading resources, comparing and asserting XMLs, and `ArgumentMatcher` factory method using `java.util.function.Predicate` to support lambda expressions.
 + common-util: Utility library that contains the tools to encrypt, manage Strings, and generate unique values
-+ consent-gen: Library to generate XACML from a `ConsentDto` object model
++ consent-gen: Library to generate XACML from a `ConsentDto` object model, as well as from a FHIR `org.hl7.fhir.dstu3.model.Consent` object model
 + document-accessor: Provides methods to access `org.w3c.dom.Document` typed XML document nodes
 + document-converter: Converts an XML document from `org.w3c.dom.Document` type to `String` and vice versa
 + document-transformer: Utility library to perform XML document transforms

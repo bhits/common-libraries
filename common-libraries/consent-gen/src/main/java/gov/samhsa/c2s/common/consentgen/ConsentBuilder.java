@@ -1,29 +1,6 @@
-/*******************************************************************************
- * Open Behavioral Health Information Technology Architecture (OBHITA.org)
- * <p>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * * Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- * * Neither the name of the <organization> nor the
- * names of its contributors may be used to endorse or promote products
- * derived from this software without specific prior written permission.
- * <p>
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
 package gov.samhsa.c2s.common.consentgen;
+
+import org.hl7.fhir.dstu3.model.DomainResource;
 
 /**
  * The Interface ConsentBuilder.
@@ -56,6 +33,19 @@ public interface ConsentBuilder {
     String buildConsent2Xacml(Object obj) throws ConsentGenException;
 
     /**
+     * Builds the FHIR Consent to ConsentDto.
+     *
+     * @param objFhirConsent
+     *            the FHIR Consent object
+     * @param objFhirPatient
+     *            the FHIR Patient who is the subject of the FHIR Consent
+     * @return the ConsentDto
+     * @throws ConsentGenException
+     *             the consent gen exception
+     */
+    ConsentDto buildFhirConsent2ConsentDto(Object objFhirConsent, Object objFhirPatient) throws ConsentGenException;
+
+    /**
      * Builds the consent2 xacml for consentFrom provider. to give access to
      * consent pdf from C2S Health
      *
@@ -80,4 +70,13 @@ public interface ConsentBuilder {
      */
     String buildConsent2XacmlPdfConsentTo(Object obj)
             throws ConsentGenException;
+
+    /**
+     * Extract the NPI from a FHIR provider resource object
+     *
+     * @param providerResource - An 'Organization' or 'Practitioner' object from which to extract the provider NPI
+     * @return a string representation of the extracted provider NPI
+     * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
+     */
+    String extractNpiFromFhirProviderResource(DomainResource providerResource) throws ConsentGenException;
 }
