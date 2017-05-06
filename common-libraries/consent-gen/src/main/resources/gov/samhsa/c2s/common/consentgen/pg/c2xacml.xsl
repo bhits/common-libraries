@@ -294,22 +294,6 @@
 			</xsl:if>
 
 
-			<xsl:if test="$countDoNotShareClinicalDocumentSectionTypeCodes = 0">
-				<Obligations>
-					<Obligation
-						ObligationId="urn:samhsa:names:tc:consent2share:1.0:obligation:redact-document-section-code"
-						FulfillOn="Permit">
-						<AttributeAssignment
-							AttributeId="urn:oasis:names:tc:xacml:3.0:example:attribute:text"
-							DataType="http://www.w3.org/2001/XMLSchema#string">
-							SHAREALL
-						</AttributeAssignment>
-					</Obligation>
-				</Obligations>
-			</xsl:if>
-
-
-
 		</Policy>
 
 	</xsl:template>
