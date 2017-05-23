@@ -75,8 +75,8 @@
         <xmlsec.version>2.0.6</xmlsec.version>
         <Saxon-HE.version>9.6.0-3</Saxon-HE.version>
         <xerces.version>2.11.0</xerces.version>
-        <logback.version>1.0.11</logback.version>
-        <logback-audit.version>0.6</logback-audit.version>
+        <logback.version>1.1.7</logback.version>
+        <logback-audit.version>0.6.2</logback-audit.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <hapi.fhir.version>2.2</hapi.fhir.version>
         <!-- Test -->
