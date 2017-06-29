@@ -25,10 +25,8 @@ public class PresentOrFutureValidatorForLocalDateTime implements ConstraintValid
         }
         TimeProvider timeProvider=constraintValidatorContext.unwrap(HibernateConstraintValidatorContext.class).getTimeProvider();
         long now=timeProvider.getCurrentTime();
-        final LocalDate localDate = Instant.ofEpochMilli(now)
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-        final LocalDateTime localDateTime= LocalDateTime.of(localDate, LocalTime.MIN );
+        final LocalDateTime localDateTime = Instant.ofEpochMilli(now)
+                .atZone(ZoneId.systemDefault()).toLocalDateTime();
         return localDateTime.isBefore(value) || localDateTime.isEqual(value);
     }
 }
