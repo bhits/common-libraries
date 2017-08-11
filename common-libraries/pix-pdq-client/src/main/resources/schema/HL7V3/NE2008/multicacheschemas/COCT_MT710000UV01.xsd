@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xs:schema xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ex="urn:hl7-org/v3-example"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified"><xs:annotation>
+      <xs:documentation>Generated using schema builder version 3.1.6. Stylesheets:
+
+StaticMifToXsd.xsl version 2.0</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="../coreschemas/infrastructureRoot.xsd"/>
+   <xs:complexType name="COCT_MT710000UV01.LocatedEntityHasParts">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="locatedPlace" type="COCT_MT710000UV01.Place" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="RoleClassLocatedEntity" use="required"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT710000UV01.LocatedEntityPartOf">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="location" type="COCT_MT710000UV01.Place" nillable="true" minOccurs="0"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="RoleClassLocatedEntity" use="required"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT710000UV01.Place">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="desc" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="directionsText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="positionText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="gpsText" type="ST" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="asLocatedEntityPartOf" type="COCT_MT710000UV01.LocatedEntityPartOf"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="locatedEntityHasParts" type="COCT_MT710000UV01.LocatedEntityHasParts"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="EntityClassPlace" use="required"/>
+      <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
+   </xs:complexType>
+</xs:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xs:schema xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ex="urn:hl7-org/v3-example"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified"><xs:annotation>
+      <xs:documentation>Generated using schema builder version 3.1.6. Stylesheets:
+
+StaticMifToXsd.xsl version 2.0</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="../coreschemas/infrastructureRoot.xsd"/>
+   <xs:include schemaLocation="COCT_MT030000UV04.xsd"/>
+   <xs:include schemaLocation="COCT_MT150000UV02.xsd"/>
+   <xs:complexType name="COCT_MT050000UV01.Patient">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="statusCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="veryImportantPersonCode" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:choice>
+            <xs:element name="patientPerson" type="COCT_MT030000UV04.Person" nillable="true"
+                        minOccurs="1"
+                        maxOccurs="1"/>
+            <xs:element name="patientNonPersonLivingSubject"
+                        type="COCT_MT030000UV04.NonPersonLivingSubject"
+                        nillable="true"
+                        minOccurs="1"
+                        maxOccurs="1"/>
+         </xs:choice>
+         <xs:element name="providerOrganization" type="COCT_MT150000UV02.Organization"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="RoleClass" use="required" fixed="PAT"/>
+   </xs:complexType>
+</xs:schema>
