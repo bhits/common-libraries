@@ -48,10 +48,10 @@ public class PixManagerServiceImpl implements PixManagerService {
 
 
     /**
-     * Pix manager prpai n201301 u v02.
+     * Pix manager PRPAIN201301UV02 (Add).
      *
      * @param body the body
-     * @return the MCCII n000002 u v01
+     * @return the MCCIIN000002UV01 (Acknowledgement)
      */
     @Override
     public MCCIIN000002UV01 pixManagerPRPAIN201301UV02(PRPAIN201301UV02 body) {
@@ -65,10 +65,10 @@ public class PixManagerServiceImpl implements PixManagerService {
     }
 
     /**
-     * Pix manager prpai n201302 u v02.
+     * Pix manager PRPAIN201302UV02 (Update).
      *
      * @param body the body
-     * @return the MCCII n000002 u v01
+     * @return the MCCIIN000002UV01 (Acknowledgement)
      */
     @Override
     public MCCIIN000002UV01 pixManagerPRPAIN201302UV02(PRPAIN201302UV02 body) {
@@ -82,10 +82,10 @@ public class PixManagerServiceImpl implements PixManagerService {
     }
 
     /**
-     * Pix manager prpai n201304 u v02.
+     * Pix manager PRPAIN201304UV02 (Merge).
      *
      * @param body the body
-     * @return the MCCII n000002 u v01
+     * @return the MCCIIN000002UV01 (Acknowledgement)
      */
     @Override
     public MCCIIN000002UV01 pixManagerPRPAIN201304UV02(PRPAIN201304UV02 body) {
@@ -98,11 +98,12 @@ public class PixManagerServiceImpl implements PixManagerService {
         }
     }
 
+
     /**
-     * Pix manager prpai n201309 u v02.
+     * Pix manager PRPAIN201309UV02 (Query).
      *
      * @param body the body
-     * @return the PRPAI n201310 u v02
+     * @return the PRPAIN201310UV02 (Query Response)
      */
     @Override
     public PRPAIN201310UV02 pixManagerPRPAIN201309UV02(PRPAIN201309UV02 body) {

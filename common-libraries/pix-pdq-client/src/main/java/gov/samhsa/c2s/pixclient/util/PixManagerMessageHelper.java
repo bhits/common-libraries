@@ -23,17 +23,15 @@ import java.util.Map;
 public class PixManagerMessageHelper {
 
     /**
-     * Gets the adds the update message.
+     * Gets the add and update message.
      *
      * @param response   the response
      * @param pixMgrBean the pix mgr bean
      * @param msg        the msg
-     * @return the adds the update message
+     *
      */
     public void getAddUpdateMessage(MCCIIN000002UV01 response,
                                     PixManagerBean pixMgrBean, String msg) {
-        // The message has been sent
-        // But it doesn't mean we're subscribed successfully
         log.debug("response ack code:" + response.getAcceptAckCode());
         log.debug("response type id: " + response.getTypeId());
         final List<MCCIMT000200UV01Acknowledgement> ackmntList = response
@@ -78,10 +76,10 @@ public class PixManagerMessageHelper {
     /**
      * Gets the general exp message.
      *
-     * @param e          the e
+     * @param e  Exception
      * @param pixMgrBean the pix mgr bean
      * @param msg        the msg
-     * @return the general exp message
+     *
      */
     public void getGeneralExpMessage(Exception e, PixManagerBean pixMgrBean,
                                      String msg) {
@@ -110,14 +108,12 @@ public class PixManagerMessageHelper {
      *
      * @param response   the response
      * @param pixMgrBean the pix mgr bean
-     * @return the query message
+     * @return the PixManagerBean
      */
     @SuppressWarnings("unchecked")
     public PixManagerBean getQueryMessage(PRPAIN201310UV02 response,
                                           PixManagerBean pixMgrBean) {
 
-        // The message has been sent
-        // But it doesn't mean we're subscribed successfully
         log.debug("response ack code:" + response.getAcceptAckCode());
         log.debug("response type id: " + response.getTypeId());
 
@@ -154,12 +150,6 @@ public class PixManagerMessageHelper {
                 while (ptIdList.hasNext()) {
                     final II pId = ptIdList.next();
                     idMap.put(pId.getRoot(), pId.getExtension());
-                    // System.out.println("Requested UID:  " + pId.getRoot());
-                    // System.out.println("Requested PID:  " +
-                    // pId.getExtension());
-                    // queryMsg.append(" Requested PID: " + pId.getExtension());
-                    // queryMsg.append(" Requested UID: " + pId.getRoot());
-                    // queryMsg.append("\t");
                 }
 
                 pixMgrBean.setQueryMessage(queryMsg.toString());
@@ -187,14 +177,14 @@ public class PixManagerMessageHelper {
     }
 
     /**
-     * Checks if is success.
+     * Checks if response is success.
      *
      * @param response the response
-     * @return true, if is success
+     * @return true, if iis success
      */
     public boolean isSuccess(MCCIIN000002UV01 response) {
         return response.getAcknowledgement().stream()
                 .map(a -> a.getTypeCode().getCode())
-                .filter(c -> "CA".equals(c)).count() > 0;
+                .filter(c -> "CA".equals(c) || "AA".equals(c)).count() > 0;
     }
 }

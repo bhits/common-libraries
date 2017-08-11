@@ -58,7 +58,7 @@ public class PixManagerRequestXMLToJava {
      *
      * @param reqXMLFilePath the req xml file path
      * @param encodeString   the encode string
-     * @return the pIX update req object
+     * @return PRPAIN201302UV02 the pIX update req object
      * @throws JAXBException the jAXB exception
      * @throws IOException   Signals that an I/O exception has occurred.
      */
@@ -74,7 +74,7 @@ public class PixManagerRequestXMLToJava {
      *
      * @param reqXMLFilePath the req xml file path
      * @param encodeString   the encode string
-     * @return the pIX query req object
+     * @return PRPAIN201309UV02 the pIX query req object
      * @throws JAXBException the jAXB exception
      * @throws IOException   Signals that an I/O exception has occurred.
      */

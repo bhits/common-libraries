@@ -23,12 +23,13 @@ import static org.junit.Assert.assertNull;
 
 @Slf4j
 public class PixManagerRequestXMLToJavaTest {
-    //1. We need to create JAXContext instance
+
     JAXBContext context = null;
 
     @Before
     public void setUp() throws Exception {
         try {
+            // Create JAXContext instance
             context = JAXBContext.newInstance("org.hl7.v3");
         } catch (JAXBException e) {
             log.error(e.getMessage() + e);
@@ -46,16 +47,16 @@ public class PixManagerRequestXMLToJavaTest {
         PRPAIN201301UV02 prpain201301UV02 = new PRPAIN201301UV02();
         try {
 
-            //2. Use JAXBContext instance to create the Unmarshaller.
+            //Use JAXBContext instance to create the Unmarshaller.
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            //3. Use the Unmarshaller to unmarshal the XML document to get an instance of JAXBElement.
+            //Use the Unmarshaller to unmarshal the XML document to get an instance of JAXBElement.
             InputStream ioStream = ClassLoader.getSystemResourceAsStream(inputFile);
             assertNotNull(ioStream);
 
             prpain201301UV02 = (PRPAIN201301UV02) unmarshaller.unmarshal(ioStream);
             assertNotNull(prpain201301UV02);
 
-            //4. Get the instance of the required JAXB Root Class from the JAXBElement.
+            //Get the instance of the required JAXB Root Class from the JAXBElement.
             Marshaller marshaller = context.createMarshaller();
 
             //output pretty printed
@@ -74,16 +75,14 @@ public class PixManagerRequestXMLToJavaTest {
         StringWriter sw = new StringWriter();
         PRPAIN201302UV02 prpain201302UV02 = new PRPAIN201302UV02();
         try {
-            //2. Use JAXBContext instance to create the Unmarshaller.
+            //Use JAXBContext instance to create the Unmarshaller.
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            //3. Use the Unmarshaller to unmarshal the XML document to get an instance of JAXBElement.
+            //Use the Unmarshaller to unmarshal the XML document to get an instance of JAXBElement.
             InputStream ioStream = ClassLoader.getSystemResourceAsStream(inputFile);
             assertNotNull(ioStream);
             prpain201302UV02 = (PRPAIN201302UV02) unmarshaller.unmarshal(ioStream);
 
             assertNotNull(prpain201302UV02);
-            //4. Get the instance of the required JAXB Root Class from the JAXBElement.
-            //prpain201301UV02 = (PRPAIN201301UV02)unmarshalledObject.getValu
             Marshaller marshaller = context.createMarshaller();
 
             //output pretty printed
