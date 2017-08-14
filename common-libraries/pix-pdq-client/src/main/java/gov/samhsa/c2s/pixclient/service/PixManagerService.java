@@ -18,7 +18,7 @@ public interface PixManagerService {
      * @param body the body
      * @return the MCCIIN000002UV01 (Acknowledgement)
      */
-    public abstract MCCIIN000002UV01 pixManagerPRPAIN201301UV02(
+    MCCIIN000002UV01 pixManagerPRPAIN201301UV02(
             PRPAIN201301UV02 body);
 
     /**
@@ -27,7 +27,7 @@ public interface PixManagerService {
      * @param body the body
      * @return the MCCIIN000002UV01 (Acknowledgement)
      */
-    public abstract MCCIIN000002UV01 pixManagerPRPAIN201302UV02(
+    MCCIIN000002UV01 pixManagerPRPAIN201302UV02(
             PRPAIN201302UV02 body);
 
     /**
@@ -36,7 +36,7 @@ public interface PixManagerService {
      * @param body the body
      * @return the MCCIIN000002UV01 (Acknowledgement)
      */
-    public abstract MCCIIN000002UV01 pixManagerPRPAIN201304UV02(
+    MCCIIN000002UV01 pixManagerPRPAIN201304UV02(
             PRPAIN201304UV02 body);
 
     /**
@@ -45,6 +45,6 @@ public interface PixManagerService {
      * @param body the body
      * @return the PRPAIN201310UV02 (Query Response)
      */
-    public abstract PRPAIN201310UV02 pixManagerPRPAIN201309UV02(
+    PRPAIN201310UV02 pixManagerPRPAIN201309UV02(
             PRPAIN201309UV02 body);
 }

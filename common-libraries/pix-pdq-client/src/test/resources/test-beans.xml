@@ -22,12 +22,6 @@
 		<constructor-arg index="0"
 						 value="http://bhitsdevhie01/openempi-admin/services/PIXManager_Port_Soap12" />
 	</bean>
-	<bean id="pixManagerConstants"
-		  class="gov.samhsa.c2s.pixclient.util.PixManagerConstants"
-		  scope="singleton">
-		<constructor-arg index="0" value="${c2s.pix-client.pixDomainId}" />
-		<constructor-arg index="1" value="${c2s.pix-client.pixDomainName}" />
-	</bean>
 	<bean id="simpleMarshallerImpl" class="gov.samhsa.c2s.common.marshaller.SimpleMarshallerImpl"
 		  scope="prototype" />
 	<bean id="pixManagerRequestXMLToJava"

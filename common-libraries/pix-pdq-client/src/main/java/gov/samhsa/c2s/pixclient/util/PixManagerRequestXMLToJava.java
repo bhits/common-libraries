@@ -21,13 +21,6 @@ public class PixManagerRequestXMLToJava {
      * The marshaller.
      */
     private SimpleMarshaller marshaller;
-
-    /**
-     * Instantiates a new pix manager request xml to java.
-     */
-    public PixManagerRequestXMLToJava() {
-    }
-
     /**
      * Instantiates a new pix manager request xml to java.
      *
@@ -41,48 +34,36 @@ public class PixManagerRequestXMLToJava {
      * Gets the pIX add req object.
      *
      * @param reqXMLFilePath the req xml file path
-     * @param encodeString   the encode string
      * @return the pIX add req object
      * @throws JAXBException the jAXB exception
      * @throws IOException   Signals that an I/O exception has occurred.
      */
-    public PRPAIN201301UV02 getPIXAddReqObject(String reqXMLFilePath,
-                                               String encodeString) throws JAXBException, IOException {
-        PRPAIN201301UV02 reqObj = null;
-        reqObj = getPIXReqObject(PRPAIN201301UV02.class, reqXMLFilePath);
-        return reqObj;
+    public PRPAIN201301UV02 getPIXAddReqObject(String reqXMLFilePath) throws JAXBException, IOException {
+        return getPIXReqObject(PRPAIN201301UV02.class, reqXMLFilePath);
     }
 
     /**
      * Gets the pIX update req object.
      *
      * @param reqXMLFilePath the req xml file path
-     * @param encodeString   the encode string
      * @return PRPAIN201302UV02 the pIX update req object
      * @throws JAXBException the jAXB exception
      * @throws IOException   Signals that an I/O exception has occurred.
      */
-    public PRPAIN201302UV02 getPIXUpdateReqObject(String reqXMLFilePath,
-                                                  String encodeString) throws JAXBException, IOException {
-        PRPAIN201302UV02 reqObj = null;
-        reqObj = getPIXReqObject(PRPAIN201302UV02.class, reqXMLFilePath);
-        return reqObj;
+    public PRPAIN201302UV02 getPIXUpdateReqObject(String reqXMLFilePath) throws JAXBException, IOException {
+        return getPIXReqObject(PRPAIN201302UV02.class, reqXMLFilePath);
     }
 
     /**
      * Gets the pIX query req object.
      *
      * @param reqXMLFilePath the req xml file path
-     * @param encodeString   the encode string
      * @return PRPAIN201309UV02 the pIX query req object
      * @throws JAXBException the jAXB exception
      * @throws IOException   Signals that an I/O exception has occurred.
      */
-    public PRPAIN201309UV02 getPIXQueryReqObject(String reqXMLFilePath,
-                                                 String encodeString) throws JAXBException, IOException {
-        PRPAIN201309UV02 reqObj = null;
-        reqObj = getPIXReqObject(PRPAIN201309UV02.class, reqXMLFilePath);
-        return reqObj;
+    public PRPAIN201309UV02 getPIXQueryReqObject(String reqXMLFilePath) throws JAXBException, IOException {
+        return getPIXReqObject(PRPAIN201309UV02.class, reqXMLFilePath);
     }
 
     /**
@@ -97,7 +78,7 @@ public class PixManagerRequestXMLToJava {
      */
     private <T> T getPIXReqObject(Class<T> clazz, String reqXMLFilePath)
             throws JAXBException, IOException {
-        T reqObj = null;
+        T reqObj;
         if (reqXMLFilePath == null) {
             throw new JAXBException("input is null");
         }

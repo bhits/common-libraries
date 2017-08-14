@@ -13,7 +13,7 @@ public interface PixManagerClientService {
      * @param reqXMLPath the req xml path
      * @return the string
      */
-    public String addPerson(String reqXMLPath);
+    String addPerson(String reqXMLPath);
 
     /**
      * Update person.
@@ -21,7 +21,7 @@ public interface PixManagerClientService {
      * @param reqXMLPath the req xml path
      * @return the string
      */
-    public String updatePerson(String reqXMLPath);
+    String updatePerson(String reqXMLPath);
 
     /**
      * Query person.
@@ -29,6 +29,6 @@ public interface PixManagerClientService {
      * @param xmlFilePath the xml file path
      * @return the pix manager bean
      */
-    public PixManagerBean queryPerson(String xmlFilePath);
+    PixManagerBean queryPerson(String xmlFilePath);
 
 }

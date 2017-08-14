@@ -1,9 +1,9 @@
 package gov.samhsa.c2s.pixclient.service;
 
 import gov.samhsa.c2s.pixclient.util.PixManagerBean;
-import gov.samhsa.c2s.pixclient.util.PixManagerConstants;
 import gov.samhsa.c2s.pixclient.util.PixManagerMessageHelper;
 import gov.samhsa.c2s.pixclient.util.PixManagerRequestXMLToJava;
+import gov.samhsa.c2s.pixclient.util.PixPdqConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -27,32 +27,36 @@ import java.nio.charset.StandardCharsets;
 @ContextConfiguration("classpath:test-beans.xml")
 @Slf4j
 public class PixManagerServiceImplTestIT {
-    PixManagerService pixManagerService;
-    PixManagerRequestXMLToJava requestXMLToJava;
-    PixManagerMessageHelper pixManagerMessageHelper;
+    
+    private String ADD_REQUEST_XML ="xml/iexhub_pixadd.xml";
+    private String UPDATE_REQUEST_XML ="xml/04_PatientRegistryRecordRevised2.xml";
+    private String PIX_MGR_SERVICE_BEAN_NAME ="pixManagerService";
+    private String PIX_MGR_REQUEST_XML_TO_JAVA_BEAN_NAME ="pixManagerRequestXMLToJava";
+    private String PIX_MGR_MSG_HELPER_BEAN_NAME ="pixManagerMessageHelper";
+    private String TEST_BEAN_FILE ="test-beans.xml";
 
-    private static InputStream addRequestIs() {
-        return ClassLoader.getSystemResourceAsStream("xml/iexhub_pixadd.xml");
-    }
+    private PixManagerService pixManagerService;
+    private PixManagerRequestXMLToJava requestXMLToJava;
+    private PixManagerMessageHelper pixManagerMessageHelper;
 
-    private static String addRequest() {
-        InputStream ioStream = ClassLoader.getSystemResourceAsStream("xml/iexhub_pixadd.xml");
+    private String addRequest() {
+        InputStream ioStream = ClassLoader.getSystemResourceAsStream(ADD_REQUEST_XML);
         String sampleReq = null;
         try {
             sampleReq = IOUtils.toString(ioStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage() + e);
         }
         return sampleReq;
     }
 
-    private static String updateRequest() {
-        InputStream ioStream = ClassLoader.getSystemResourceAsStream("xml/04_PatientRegistryRecordRevised2.xml");
+    private String updateRequest() {
+        InputStream ioStream = ClassLoader.getSystemResourceAsStream(UPDATE_REQUEST_XML);
         String sampleReq = null;
         try {
             sampleReq = IOUtils.toString(ioStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage() + e);
         }
         return sampleReq;
     }
@@ -60,55 +64,53 @@ public class PixManagerServiceImplTestIT {
     @Before
     public void setUp() throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext(
-                "test-beans.xml");
-        pixManagerService = (PixManagerService) context.getBean("pixManagerService");
-        requestXMLToJava = (PixManagerRequestXMLToJava) context.getBean("pixManagerRequestXMLToJava");
-        pixManagerMessageHelper = (PixManagerMessageHelper) context.getBean("pixManagerMessageHelper");
+                TEST_BEAN_FILE);
+        pixManagerService = (PixManagerService) context.getBean(PIX_MGR_SERVICE_BEAN_NAME);
+        requestXMLToJava = (PixManagerRequestXMLToJava) context.getBean(PIX_MGR_REQUEST_XML_TO_JAVA_BEAN_NAME);
+        pixManagerMessageHelper = (PixManagerMessageHelper) context.getBean(PIX_MGR_MSG_HELPER_BEAN_NAME);
     }
 
     @Test
     public void addPatientRecord() throws Exception {
-        PRPAIN201301UV02 request = new PRPAIN201301UV02();
+        PRPAIN201301UV02 request;
 
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
+        MCCIIN000002UV01 response;
 
         PixManagerBean pixManagerBean = new PixManagerBean();
         // Delegate to webServiceTemplate for the actual pixadd
         try {
-            request = requestXMLToJava.getPIXAddReqObject(addRequest(),
-                    PixManagerConstants.ENCODE_STRING);
+            request = requestXMLToJava.getPIXAddReqObject(addRequest());
             response = pixManagerService.pixManagerPRPAIN201301UV02(request);
             pixManagerMessageHelper.getAddUpdateMessage(response, pixManagerBean,
-                    PixManagerConstants.PIX_ADD);
+                    PixPdqConstants.PIX_ADD.getMsg());
         } catch (JAXBException | IOException e) {
             pixManagerMessageHelper.getGeneralExpMessage(e, pixManagerBean,
-                    PixManagerConstants.PIX_ADD);
-            log.error(e.getMessage());
+                    PixPdqConstants.PIX_ADD.getMsg());
+            log.error(e.getMessage() + e);
         }
-        System.out.println("response" + pixManagerBean.getAddMessage());
+        log.debug("response" + pixManagerBean.getAddMessage());
 
 
     }
 
     @Test
     public void udpatePatientRecord() throws Exception {
-        PRPAIN201302UV02 request = new PRPAIN201302UV02();
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
+        PRPAIN201302UV02 request;
+        MCCIIN000002UV01 response;
 
         PixManagerBean pixManagerBean = new PixManagerBean();
         // Delegate to webServiceTemplate for the actual pixadd
         try {
-            request = requestXMLToJava.getPIXUpdateReqObject(updateRequest(),
-                    PixManagerConstants.ENCODE_STRING);
+            request = requestXMLToJava.getPIXUpdateReqObject(updateRequest());
             response = pixManagerService.pixManagerPRPAIN201302UV02(request);
             pixManagerMessageHelper.getAddUpdateMessage(response, pixManagerBean,
-                    PixManagerConstants.PIX_UPDATE);
+                    PixPdqConstants.PIX_UPDATE.getMsg());
         } catch (JAXBException | IOException e) {
             pixManagerMessageHelper.getGeneralExpMessage(e, pixManagerBean,
-                    PixManagerConstants.PIX_UPDATE);
+                    PixPdqConstants.PIX_UPDATE.getMsg());
             log.error(e.getMessage());
         }
-        System.out.println("response" + pixManagerBean.getAddMessage());
+        log.debug("response" + pixManagerBean.getAddMessage());
     }
 
     @After
@@ -116,7 +118,6 @@ public class PixManagerServiceImplTestIT {
         pixManagerService = null;
         requestXMLToJava = null;
         pixManagerMessageHelper = null;
-
     }
 
 }

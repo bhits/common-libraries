@@ -37,25 +37,25 @@ public class PixManagerMessageHelper {
         final List<MCCIMT000200UV01Acknowledgement> ackmntList = response
                 .getAcknowledgement();
         for (final MCCIMT000200UV01Acknowledgement ackmnt : ackmntList) {
-            if (ackmnt.getTypeCode().getCode().equals("CA")) {
-                if (PixManagerConstants.PIX_ADD.equalsIgnoreCase(msg)) {
+            if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_CA.getMsg())) {
+                if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
                     pixMgrBean.setAddMessage(msg + " Success! ");
-                } else if (PixManagerConstants.PIX_UPDATE.equalsIgnoreCase(msg)) {
+                } else if (PixPdqConstants.PIX_UPDATE.getMsg().equals(msg)) {
                     pixMgrBean.setUpdateMessage(msg + " Success! ");
                 }
 
                 break;
-            } else if (ackmnt.getTypeCode().getCode().equals("CE")) {
+            } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_CE.getMsg())) {
                 final List<MCCIMT000200UV01AcknowledgementDetail> ackmntDetList = ackmnt
                         .getAcknowledgementDetail();
                 for (final MCCIMT000200UV01AcknowledgementDetail ackDet : ackmntDetList) {
                     log.error(msg + " error : "
                             + ackDet.getText().toString());
-                    if (PixManagerConstants.PIX_ADD.equalsIgnoreCase(msg)) {
+                    if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
                         pixMgrBean.setAddMessage(msg + " Failure! "
                                 + ackDet.getText().toString());
-                    } else if (PixManagerConstants.PIX_UPDATE
-                            .equalsIgnoreCase(msg)) {
+                    } else if (PixPdqConstants.PIX_UPDATE.getMsg()
+                            .equals(msg)) {
                         pixMgrBean.setUpdateMessage(msg + " Failure! "
                                 + ackDet.getText().toString());
                     }
@@ -64,9 +64,9 @@ public class PixManagerMessageHelper {
 
             } else {
 
-                if (PixManagerConstants.PIX_ADD.equalsIgnoreCase(msg)) {
+                if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
                     pixMgrBean.setAddMessage(msg + " Failure! ");
-                } else if (PixManagerConstants.PIX_UPDATE.equalsIgnoreCase(msg)) {
+                } else if (PixPdqConstants.PIX_UPDATE.getMsg().equals(msg)) {
                     pixMgrBean.setUpdateMessage(msg + " Failure! ");
                 }
             }
@@ -94,11 +94,11 @@ public class PixManagerMessageHelper {
         log.error("exception: " + e.getCause());
         log.error("detail message: " + e.getMessage());
 
-        if (PixManagerConstants.PIX_ADD.equalsIgnoreCase(msg)) {
+        if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
             pixMgrBean.setAddMessage(msg + errMsg);
-        } else if (PixManagerConstants.PIX_QUERY.equalsIgnoreCase(msg)) {
+        } else if (PixPdqConstants.PIX_QUERY.getMsg().equals(msg)) {
             pixMgrBean.setQueryMessage(msg + errMsg);
-        } else if (PixManagerConstants.PIX_UPDATE.equalsIgnoreCase(msg)) {
+        } else if (PixPdqConstants.PIX_UPDATE.getMsg().equals(msg)) {
             pixMgrBean.setUpdateMessage(msg + errMsg);
         }
     }
@@ -124,7 +124,7 @@ public class PixManagerMessageHelper {
         while (ackmntList.hasNext()) {
             final MCCIMT000300UV01Acknowledgement ackmnt = ackmntList.next();
 
-            if (ackmnt.getTypeCode().getCode().equals("AA")) {
+            if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AA)) {
                 final StringBuffer queryMsg = new StringBuffer(
                         "Query Success! ");
                 final Map<String, String> idMap = new HashMap<String, String>();
@@ -155,7 +155,7 @@ public class PixManagerMessageHelper {
                 pixMgrBean.setQueryMessage(queryMsg.toString());
                 pixMgrBean.setQueryIdMap(idMap);
                 break;
-            } else if (ackmnt.getTypeCode().getCode().equals("AE")) {
+            } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AE)) {
 
                 final List<MCCIMT000300UV01AcknowledgementDetail> ackmntDetList = ackmnt
                         .getAcknowledgementDetail();
@@ -185,6 +185,6 @@ public class PixManagerMessageHelper {
     public boolean isSuccess(MCCIIN000002UV01 response) {
         return response.getAcknowledgement().stream()
                 .map(a -> a.getTypeCode().getCode())
-                .filter(c -> "CA".equals(c) || "AA".equals(c)).count() > 0;
+                .filter(c -> PixPdqConstants.RESPONSE_CA.equals(c) || PixPdqConstants.RESPONSE_AA.equals(c)).count() > 0;
     }
 }
