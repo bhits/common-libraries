@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xsi:schemaLocation="
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+
+	<context:annotation-config />
+	<context:component-scan base-package="gov.samhsa.c2s.pixclient" />
+
+	<!-- PIX Manager -->
+	<bean id="pixManagerService"
+		  class="gov.samhsa.c2s.pixclient.service.PixManagerServiceImpl"
+		  scope="singleton">
+		<constructor-arg index="0"
+						 value="http://bhitsdevhie01/openempi-admin/services/PIXManager_Port_Soap12" />
+	</bean>
+	<bean id="simpleMarshallerImpl" class="gov.samhsa.c2s.common.marshaller.SimpleMarshallerImpl"
+		  scope="prototype" />
+	<bean id="pixManagerRequestXMLToJava"
+		  class="gov.samhsa.c2s.pixclient.util.PixManagerRequestXMLToJava"
+		  scope="prototype" autowire="constructor">
+		<constructor-arg index="0" ref="simpleMarshallerImpl"/>
+	</bean>
+	<bean id="pixManagerMessageHelper"
+		  class="gov.samhsa.c2s.pixclient.util.PixManagerMessageHelper"/>
+
+
+
+</beans>
