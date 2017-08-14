@@ -61,6 +61,7 @@
         <module>consent-gen</module>
         <module>xdm</module>
         <module>validator-extension</module>
+        <module>xdsb-client</module>
     </modules>
 
     <properties>
