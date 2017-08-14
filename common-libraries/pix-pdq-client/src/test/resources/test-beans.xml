@@ -33,5 +33,17 @@
 		  class="gov.samhsa.c2s.pixclient.util.PixManagerMessageHelper"/>
 
 
+	<!-- PDQ Supplier -->
+	<bean id="pdqSupplierService"
+		  class="gov.samhsa.c2s.pixclient.service.PDQSupplierServiceImpl"
+		  scope="singleton">
+		<constructor-arg index="0"
+						 value="http://bhitsdevhie01/openempi-admin/services/PDQSupplier_Port_Soap12" />
+	</bean>
+	<bean id="pdqSupplierRequestXMLToJava"
+		  class="gov.samhsa.c2s.pixclient.util.PDQSupplierRequestXMLToJava"
+		  scope="prototype" autowire="constructor">
+		<constructor-arg index="0" ref="simpleMarshallerImpl"/>
+	</bean>
 
 </beans>
