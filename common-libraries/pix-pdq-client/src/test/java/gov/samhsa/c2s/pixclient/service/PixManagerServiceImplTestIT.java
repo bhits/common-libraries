@@ -9,6 +9,8 @@ import org.apache.commons.io.IOUtils;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201302UV02;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201310UV02;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +24,8 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-beans.xml")
@@ -30,17 +34,19 @@ public class PixManagerServiceImplTestIT {
     
     private String ADD_REQUEST_XML ="xml/iexhub_pixadd.xml";
     private String UPDATE_REQUEST_XML ="xml/04_PatientRegistryRecordRevised2.xml";
+    private String QUERY_REQUEST_XML ="xml/empi_pixquery_sample.xml";
     private String PIX_MGR_SERVICE_BEAN_NAME ="pixManagerService";
     private String PIX_MGR_REQUEST_XML_TO_JAVA_BEAN_NAME ="pixManagerRequestXMLToJava";
     private String PIX_MGR_MSG_HELPER_BEAN_NAME ="pixManagerMessageHelper";
     private String TEST_BEAN_FILE ="test-beans.xml";
+    private String GLOBAL_DOMAIN_ID="2.16.840.1.113883.4.357";
 
     private PixManagerService pixManagerService;
     private PixManagerRequestXMLToJava requestXMLToJava;
     private PixManagerMessageHelper pixManagerMessageHelper;
 
-    private String addRequest() {
-        InputStream ioStream = ClassLoader.getSystemResourceAsStream(ADD_REQUEST_XML);
+    private String getRequest(String reqXml) {
+        InputStream ioStream = ClassLoader.getSystemResourceAsStream(reqXml);
         String sampleReq = null;
         try {
             sampleReq = IOUtils.toString(ioStream, StandardCharsets.UTF_8);
@@ -50,16 +56,6 @@ public class PixManagerServiceImplTestIT {
         return sampleReq;
     }
 
-    private String updateRequest() {
-        InputStream ioStream = ClassLoader.getSystemResourceAsStream(UPDATE_REQUEST_XML);
-        String sampleReq = null;
-        try {
-            sampleReq = IOUtils.toString(ioStream, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            log.error(e.getMessage() + e);
-        }
-        return sampleReq;
-    }
 
     @Before
     public void setUp() throws Exception {
@@ -79,7 +75,7 @@ public class PixManagerServiceImplTestIT {
         PixManagerBean pixManagerBean = new PixManagerBean();
         // Delegate to webServiceTemplate for the actual pixadd
         try {
-            request = requestXMLToJava.getPIXAddReqObject(addRequest());
+            request = requestXMLToJava.getPIXAddReqObject(getRequest(ADD_REQUEST_XML));
             response = pixManagerService.pixManagerPRPAIN201301UV02(request);
             pixManagerMessageHelper.getAddUpdateMessage(response, pixManagerBean,
                     PixPdqConstants.PIX_ADD.getMsg());
@@ -101,7 +97,7 @@ public class PixManagerServiceImplTestIT {
         PixManagerBean pixManagerBean = new PixManagerBean();
         // Delegate to webServiceTemplate for the actual pixadd
         try {
-            request = requestXMLToJava.getPIXUpdateReqObject(updateRequest());
+            request = requestXMLToJava.getPIXUpdateReqObject(getRequest(UPDATE_REQUEST_XML));
             response = pixManagerService.pixManagerPRPAIN201302UV02(request);
             pixManagerMessageHelper.getAddUpdateMessage(response, pixManagerBean,
                     PixPdqConstants.PIX_UPDATE.getMsg());
@@ -111,6 +107,30 @@ public class PixManagerServiceImplTestIT {
             log.error(e.getMessage());
         }
         log.debug("response" + pixManagerBean.getAddMessage());
+    }
+
+    @Test
+    public void queryPatientRecord() throws Exception {
+        PRPAIN201309UV02 request;
+        PRPAIN201310UV02 response;
+
+        PixManagerBean pixManagerBean = new PixManagerBean();
+        // Delegate to webServiceTemplate for the actual pixadd
+        try {
+            request = requestXMLToJava.getPIXQueryReqObject(getRequest(QUERY_REQUEST_XML));
+            response = pixManagerService.pixManagerPRPAIN201309UV02(request);
+            pixManagerMessageHelper.getQueryMessage(response, pixManagerBean);
+        } catch (JAXBException | IOException e) {
+            pixManagerMessageHelper.getGeneralExpMessage(e, pixManagerBean,
+                    PixPdqConstants.PIX_QUERY.getMsg());
+            log.error(e.getMessage());
+        }
+        log.debug("response" + pixManagerBean.getQueryMessage() + pixManagerBean.getQueryIdMap());
+        String eid = pixManagerBean.getQueryIdMap().entrySet().stream()
+                        .filter(map -> GLOBAL_DOMAIN_ID.equals(map.getKey()))
+                        .map(map -> map.getValue())
+                        .collect(Collectors.joining());
+        log.info("Eid \t" +eid);
     }
 
     @After

@@ -124,7 +124,7 @@ public class PixManagerMessageHelper {
         while (ackmntList.hasNext()) {
             final MCCIMT000300UV01Acknowledgement ackmnt = ackmntList.next();
 
-            if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AA)) {
+            if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AA.getMsg())) {
                 final StringBuffer queryMsg = new StringBuffer(
                         "Query Success! ");
                 final Map<String, String> idMap = new HashMap<String, String>();
@@ -155,7 +155,7 @@ public class PixManagerMessageHelper {
                 pixMgrBean.setQueryMessage(queryMsg.toString());
                 pixMgrBean.setQueryIdMap(idMap);
                 break;
-            } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AE)) {
+            } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AE.getMsg())) {
 
                 final List<MCCIMT000300UV01AcknowledgementDetail> ackmntDetList = ackmnt
                         .getAcknowledgementDetail();
@@ -185,6 +185,6 @@ public class PixManagerMessageHelper {
     public boolean isSuccess(MCCIIN000002UV01 response) {
         return response.getAcknowledgement().stream()
                 .map(a -> a.getTypeCode().getCode())
-                .filter(c -> PixPdqConstants.RESPONSE_CA.equals(c) || PixPdqConstants.RESPONSE_AA.equals(c)).count() > 0;
+                .filter(c -> PixPdqConstants.RESPONSE_CA.getMsg().equals(c) || PixPdqConstants.RESPONSE_AA.getMsg().equals(c)).count() > 0;
     }
 }
