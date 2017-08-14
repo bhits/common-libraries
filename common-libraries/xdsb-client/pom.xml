@@ -168,7 +168,7 @@
 	</dependencyManagement>
 
 	<build>
-		<finalName>xdsb-registry-client</finalName>
+		<finalName>xdsb-repository-registry-client</finalName>
 		<plugins>
 			<!-- Apache CXF Code Generation Plugin. This plug-in will generate code 
 				for the wsdl specified. We want to execute WSDL data binding as part of Maven's 
@@ -209,6 +209,29 @@
 
 									</extraargs>
 								</wsdlOption>
+								
+								<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/XDS.b_DocumentRepository.wsdl</wsdl>
+									<wsdlLocation>classpath:XDS.b_DocumentRepository.wsdl</wsdlLocation>
+
+									<extraargs>
+										<extraarg>-client</extraarg>
+										<!-- This argument resolves the max enum member issue while generating 
+											the classes. -->
+										<extraarg>-xjc-b,${basedir}/src/main/resources/bindings/bindings.xjb</extraarg>
+										<!-- TODO: The namespace of the generated classes are manually 
+											mapped as below, because some classes were interfering with XDS.b generated 
+											classes. The org.hl7.v3 classes can be moved to a shared artifact in the 
+											future. -->
+										<extraarg>-p</extraarg>
+										<extraarg>urn:hl7-org:v3=org.hl7.v3.types</extraarg>
+										<!-- <extraarg>-impl</extraarg> -->
+										<!-- -fe cxf to generate the port code AutoCloseable -->
+										<extraarg>-fe</extraarg>
+										<extraarg>cxf</extraarg>
+									</extraargs>
+								</wsdlOption>
+								
 							</wsdlOptions>
 						</configuration>
 						<goals>
