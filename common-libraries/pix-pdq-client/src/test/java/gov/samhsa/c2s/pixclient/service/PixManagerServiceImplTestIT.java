@@ -24,31 +24,29 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-beans.xml")
 @Slf4j
 public class PixManagerServiceImplTestIT {
-    
-    private String ADD_REQUEST_XML ="xml/iexhub_pixadd.xml";
-    private String UPDATE_REQUEST_XML ="xml/04_PatientRegistryRecordRevised2.xml";
-    private String QUERY_REQUEST_XML ="xml/empi_pixquery_sample.xml";
-    private String PIX_MGR_SERVICE_BEAN_NAME ="pixManagerService";
-    private String PIX_MGR_REQUEST_XML_TO_JAVA_BEAN_NAME ="pixManagerRequestXMLToJava";
-    private String PIX_MGR_MSG_HELPER_BEAN_NAME ="pixManagerMessageHelper";
-    private String TEST_BEAN_FILE ="test-beans.xml";
-    private String GLOBAL_DOMAIN_ID="2.16.840.1.113883.4.357";
+
+    private String ADD_REQUEST_XML = "xml/empi_pixadd_sample.xml";
+    private String UPDATE_REQUEST_XML = "xml/empi_pixupdate_sample.xml";
+    private String QUERY_REQUEST_XML = "xml/empi_pixquery_sample.xml";
+    private String PIX_MGR_SERVICE_BEAN_NAME = "pixManagerService";
+    private String PIX_MGR_REQUEST_XML_TO_JAVA_BEAN_NAME = "pixManagerRequestXMLToJava";
+    private String PIX_MGR_MSG_HELPER_BEAN_NAME = "pixManagerMessageHelper";
+    private String TEST_BEAN_FILE = "test-beans.xml";
+    private String GLOBAL_DOMAIN_ID = "2.16.840.1.113883.4.357";
 
     private PixManagerService pixManagerService;
     private PixManagerRequestXMLToJava requestXMLToJava;
     private PixManagerMessageHelper pixManagerMessageHelper;
 
     private String getRequest(String reqXml) {
-        InputStream ioStream = ClassLoader.getSystemResourceAsStream(reqXml);
         String sampleReq = null;
-        try {
+        try (InputStream ioStream = ClassLoader.getSystemResourceAsStream(reqXml)) {
             sampleReq = IOUtils.toString(ioStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
             log.error(e.getMessage() + e);
@@ -127,10 +125,10 @@ public class PixManagerServiceImplTestIT {
         }
         log.debug("response" + pixManagerBean.getQueryMessage() + pixManagerBean.getQueryIdMap());
         String eid = pixManagerBean.getQueryIdMap().entrySet().stream()
-                        .filter(map -> GLOBAL_DOMAIN_ID.equals(map.getKey()))
-                        .map(map -> map.getValue())
-                        .collect(Collectors.joining());
-        log.info("Eid \t" +eid);
+                .filter(map -> GLOBAL_DOMAIN_ID.equals(map.getKey()))
+                .map(map -> map.getValue())
+                .collect(Collectors.joining());
+        log.info("Eid \t" + eid);
     }
 
     @After
