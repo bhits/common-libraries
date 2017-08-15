@@ -3,6 +3,7 @@ package gov.samhsa.c2s.pixclient.util;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201302UV02;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,16 +35,20 @@ public class PixManagerRequestXMLToJavaTest {
         }
     }
 
+    @After
+    public void tearDown() throws Exception {
+        context = null;
+    }
+
     @Test
     public void pixAddMarshalUnMarshalSuccess() throws Exception {
         StringWriter sw = new StringWriter();
         PRPAIN201301UV02 prpain201301UV02;
-        try {
+        try(InputStream ioStream = ClassLoader.getSystemResourceAsStream(ADD_REQUEST_XML)) {
 
             //Use JAXBContext instance to create the Unmarshaller.
             Unmarshaller unmarshaller = context.createUnmarshaller();
             //Use the Unmarshaller to unmarshal the XML document to get an instance of JAXBElement.
-            InputStream ioStream = ClassLoader.getSystemResourceAsStream(ADD_REQUEST_XML);
             assertNotNull(ioStream);
 
             prpain201301UV02 = (PRPAIN201301UV02) unmarshaller.unmarshal(ioStream);
@@ -66,11 +71,10 @@ public class PixManagerRequestXMLToJavaTest {
     public void pixUpdateMarshalUnMarshalSuccess() throws Exception {
         StringWriter sw = new StringWriter();
         PRPAIN201302UV02 prpain201302UV02;
-        try {
+        try(InputStream ioStream = ClassLoader.getSystemResourceAsStream(UPDATE_REQUEST_XML)) {
             //Use JAXBContext instance to create the Unmarshaller.
             Unmarshaller unmarshaller = context.createUnmarshaller();
             //Use the Unmarshaller to unmarshal the XML document to get an instance of JAXBElement.
-            InputStream ioStream = ClassLoader.getSystemResourceAsStream(UPDATE_REQUEST_XML);
             assertNotNull(ioStream);
             prpain201302UV02 = (PRPAIN201302UV02) unmarshaller.unmarshal(ioStream);
 
@@ -86,4 +90,6 @@ public class PixManagerRequestXMLToJavaTest {
             log.error("exception on Marshal/UnMMarshal" + e);
         }
     }
+
+
 }
