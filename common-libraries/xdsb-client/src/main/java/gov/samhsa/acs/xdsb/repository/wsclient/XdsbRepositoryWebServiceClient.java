@@ -11,10 +11,8 @@ import javax.xml.ws.soap.SOAPBinding;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
-import org.apache.cxf.ws.addressing.AddressingProperties;
-import org.apache.cxf.ws.addressing.AttributedURIType;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import gov.samhsa.acs.common.cxf.AbstractCXFLoggingConfigurerClient;
@@ -29,17 +27,13 @@ public class XdsbRepositoryWebServiceClient extends AbstractCXFLoggingConfigurer
 	
 	private final String endpointAddress;
 	
-	final URL wsdlURL = this.getClass().getClassLoader().getResource("wsdl/XDS.b_DocumentRepository.wsdl");
+	private final URL wsdlURL = this.getClass().getClassLoader().getResource("wsdl/XDS.b_DocumentRepository.wsdl");
 	
-	final QName serviceName = new QName("urn:ihe:iti:xds-b:2007", "DocumentRepository_Service");
+	private final QName serviceName = new QName("urn:ihe:iti:xds-b:2007", "DocumentRepository_Service");
 	
-	/** The out interceptors. */
-	private Optional<List<Interceptor<? extends Message>>> outInterceptors = Optional
-			.empty();
+	private Optional<List<Interceptor<? extends Message>>> outInterceptors = Optional.empty();
 
-	/** The in interceptors. */
-	private Optional<List<Interceptor<? extends Message>>> inInterceptors = Optional
-			.empty();
+	private Optional<List<Interceptor<? extends Message>>> inInterceptors = Optional.empty();
 	
 	public XdsbRepositoryWebServiceClient(String endpointAddress) {
 		this.endpointAddress = endpointAddress;
