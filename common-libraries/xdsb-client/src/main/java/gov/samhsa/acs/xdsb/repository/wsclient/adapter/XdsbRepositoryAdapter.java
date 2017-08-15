@@ -59,8 +59,13 @@ public class XdsbRepositoryAdapter {
 		return xdsbRepository.documentRepositoryRetrieveDocumentSet(request);
 
 	}
+	
+	public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType requestSet) {
+		return xdsbRepository.documentRepositoryRetrieveDocumentSet(requestSet);
+	}
+	
 
-	public RegistryResponseType documentRepositoryRetrieveDocumentSet(String documentXml, String homeCommunityId, XdsbDocumentType documentType, String patientId, String entryUUID) {
+	public RegistryResponseType documentRepositoryRetrieveDocumentSet(String documentXml, String homeCommunityId, XdsbDocumentType documentType, String patientId, String entryUUID) throws SimpleMarshallerException {
 		final String submitObjectRequestXml = generateMetadata(documentXml, homeCommunityId, documentType, patientId, entryUUID);
 		
 		logger.info("homeCommunityId : " + homeCommunityId);
@@ -71,12 +76,8 @@ public class XdsbRepositoryAdapter {
 		logger.info("submitObjectRequestXml : " + submitObjectRequestXml);
 		
 		SubmitObjectsRequest submitObjectRequest = null;
-		try {
-			submitObjectRequest = marshaller.unmarshalFromXml(SubmitObjectsRequest.class, submitObjectRequestXml);
-		} catch (final SimpleMarshallerException e) {
-			//throw e;
-			e.printStackTrace();
-		}
+
+		submitObjectRequest = marshaller.unmarshalFromXml(SubmitObjectsRequest.class, submitObjectRequestXml);
 		
 		Document document = null;
 		if (!documentXml.equals(EMPTY_XML_DOCUMENT)) {
