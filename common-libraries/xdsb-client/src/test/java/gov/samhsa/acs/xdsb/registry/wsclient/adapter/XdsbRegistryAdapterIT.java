@@ -2,11 +2,15 @@ package gov.samhsa.acs.xdsb.registry.wsclient.adapter;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
+import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gov.samhsa.acs.common.cxf.ContentTypeRebuildingOutboundSoapInterceptor;
 import gov.samhsa.acs.xdsb.common.XdsbDocumentType;
 import gov.samhsa.acs.xdsb.registry.wsclient.XdsbRegistryWebServiceClient;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -28,8 +32,15 @@ public class XdsbRegistryAdapterIT {
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
+		BasicConfigurator.configure();
+		
 		endpointAddress = DEV_XDSB_REGISTRY_ENDPOINT;
-		xdsbRegistryAdapter = new XdsbRegistryAdapter(new XdsbRegistryWebServiceClient(endpointAddress));
+		final XdsbRegistryWebServiceClient client = new XdsbRegistryWebServiceClient(endpointAddress);
+		client.setOutInterceptors(Arrays.asList(new ContentTypeRebuildingOutboundSoapInterceptor()));
+		client.setEnableLoggingInterceptors(true);
+		
+		xdsbRegistryAdapter = new XdsbRegistryAdapter(client);
+
 	}
 	
 	@Test

@@ -1,6 +1,7 @@
 package gov.samhsa.acs.xdsb.registry.wsclient.adapter;
 
 
+import gov.samhsa.acs.common.exception.DS4PException;
 import gov.samhsa.acs.xdsb.common.XdsbDocumentType;
 import gov.samhsa.acs.xdsb.registry.wsclient.XdsbRegistryWebServiceClient;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -43,9 +44,7 @@ public class XdsbRegistryAdapter {
 		addEntryStatusApproved(adhocQueryType);
 		
 		addFormatCode(adhocQueryType, documentType, "");
-
 		
-		//skipped the steps and directly calling the service.....
 		return registryStoredQuery(registryStoredQuery);
 	}
 	
@@ -54,14 +53,14 @@ public class XdsbRegistryAdapter {
 	}
 	
 	
-	AdhocQueryType createFindDocumentsByPatientIdQueryType() {
+	private AdhocQueryType createFindDocumentsByPatientIdQueryType() {
 		AdhocQueryType adhocQueryType = new AdhocQueryType();
 		// FindDocuments by patientId
 		adhocQueryType.setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
 		return adhocQueryType;
 	}
 	
-	void addFormatCode(AdhocQueryType adhocQueryType, XdsbDocumentType xdsbDocumentType, String messageId) {
+	private void addFormatCode(AdhocQueryType adhocQueryType, XdsbDocumentType xdsbDocumentType, String messageId) {
 		SlotType1 formatCodeSlotType = new SlotType1();
 		formatCodeSlotType.setName(SLOT_NAME_XDS_DOCUMENT_ENTRY_FORMAT_CODE);
 		ValueListType formatCodeValueListType = new ValueListType();
@@ -73,22 +72,21 @@ public class XdsbRegistryAdapter {
 			formatCodeValueListType.getValue().add(FORMAT_CODE_PRIVACY_CONSENT);
 			
 		} else {
-			System.out.println("Unsupported XDS.b document format code");
-			//throw new Exception("Unsupported XDS.b document format code");
+			throw new DS4PException("Unsupported XDS.b document format code");
 		}
 
 		formatCodeSlotType.setValueList(formatCodeValueListType);
 		adhocQueryType.getSlot().add(formatCodeSlotType);
 	}
 	
-	void setResponseOptionToGetAllMetadata(AdhocQueryRequest registryStoredQuery) {
+	private void setResponseOptionToGetAllMetadata(AdhocQueryRequest registryStoredQuery) {
 		ResponseOptionType responseOptionType = new ResponseOptionType();
 		responseOptionType.setReturnComposedObjects(true);
 		responseOptionType.setReturnType("LeafClass");
 		registryStoredQuery.setResponseOption(responseOptionType);
 	}
 	
-	void addPatientId(AdhocQueryType adhocQueryType, String patientUniqueId) {
+	private void addPatientId(AdhocQueryType adhocQueryType, String patientUniqueId) {
 		if (!patientUniqueId.startsWith("'") || !patientUniqueId.endsWith("'")) {
 			patientUniqueId = patientUniqueId.replace("'", "");
 			StringBuilder builder = new StringBuilder();
@@ -105,13 +103,12 @@ public class XdsbRegistryAdapter {
 		adhocQueryType.getSlot().add(patientIdSlotType);
 	}
 	
-	void addEntryStatusApproved(AdhocQueryType adhocQueryType) {
+	private void addEntryStatusApproved(AdhocQueryType adhocQueryType) {
 		SlotType1 statusSlotType = new SlotType1();
 		statusSlotType.setName("$XDSDocumentEntryStatus");
 		
 		ValueListType statusValueListType = new ValueListType();
 		statusValueListType.getValue().add("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')");
-		//statusValueListType.getValue().add("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved', 'urn:oasis:names:tc:ebxml-regrep:StatusType:Deprecated')");
 		
 		statusSlotType.setValueList(statusValueListType);
 		adhocQueryType.getSlot().add(statusSlotType);

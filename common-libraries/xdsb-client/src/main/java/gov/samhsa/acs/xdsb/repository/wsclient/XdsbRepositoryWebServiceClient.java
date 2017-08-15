@@ -41,23 +41,15 @@ public class XdsbRepositoryWebServiceClient extends AbstractCXFLoggingConfigurer
 	
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body) {
-    	try (DocumentRepositoryPortTypeProxy port = createPort()) {
-    		final RegistryResponseType response = port.documentRepositoryProvideAndRegisterDocumentSetB(body);
-    		return response;
-    	} catch (final Exception e) {
-    		e.printStackTrace();
-    	}
-    	return null;
+    	final DocumentRepositoryPortTypeProxy port = createPort();
+    	final RegistryResponseType response = port.documentRepositoryProvideAndRegisterDocumentSetB(body);
+    	return response;
     }
 
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(RetrieveDocumentSetRequestType body) {
-    	try (DocumentRepositoryPortTypeProxy port = createPort()) {
-			final RetrieveDocumentSetResponseType response = port.documentRepositoryRetrieveDocumentSet(body);
-			return response;
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+    	final DocumentRepositoryPortTypeProxy port = createPort();
+		final RetrieveDocumentSetResponseType response = port.documentRepositoryRetrieveDocumentSet(body);
+		return response;
     }
     
 	private DocumentRepositoryPortTypeProxy createPort() {
