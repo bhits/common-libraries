@@ -9,9 +9,9 @@ import org.junit.Test;
 import gov.samhsa.acs.common.cxf.ContentTypeRebuildingOutboundSoapInterceptor;
 import gov.samhsa.acs.xdsb.common.XdsbDocumentType;
 import gov.samhsa.acs.xdsb.repository.wsclient.XdsbRepositoryWebServiceClient;
+import gov.samhsa.c2s.common.filereader.FileReader;
 import gov.samhsa.c2s.common.filereader.FileReaderImpl;
 import gov.samhsa.c2s.common.marshaller.SimpleMarshallerImpl;
-import gov.samhsa.c2s.common.filereader.FileReader;
 
 public class XdsbRepositoryAdapterIT {
 	
