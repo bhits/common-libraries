@@ -19,8 +19,8 @@ import static org.junit.Assert.assertNotNull;
 @Slf4j
 public class PixManagerRequestXMLToJavaTest {
 
-    private String ADD_REQUEST_XML = "xml/iexhub_pixadd.xml";
-    private String UPDATE_REQUEST_XML = "xml/04_PatientRegistryRecordRevised2.xml";
+    private String ADD_REQUEST_XML = "xml/empi_pixadd_sample.xml";
+    private String UPDATE_REQUEST_XML = "xml/empi_pixupdate_sample.xml";
     private String PACKAGE_NAME = "org.hl7.v3";
 
     private JAXBContext context = null;

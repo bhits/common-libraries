@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PixManagerServiceImplTestIT {
 
-    private String ADD_REQUEST_XML = "xml/iexhub_pixadd.xml";
-    private String UPDATE_REQUEST_XML = "xml/04_PatientRegistryRecordRevised2.xml";
+    private String ADD_REQUEST_XML = "xml/empi_pixadd_sample.xml";
+    private String UPDATE_REQUEST_XML = "xml/empi_pixupdate_sample.xml";
     private String QUERY_REQUEST_XML = "xml/empi_pixquery_sample.xml";
     private String PIX_MGR_SERVICE_BEAN_NAME = "pixManagerService";
     private String PIX_MGR_REQUEST_XML_TO_JAVA_BEAN_NAME = "pixManagerRequestXMLToJava";
