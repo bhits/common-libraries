@@ -1,7 +1,7 @@
 package gov.samhsa.acs.xdsb.registry.wsclient.adapter;
 
 
-import gov.samhsa.acs.xdsb.registry.common.XdsbDocumentType;
+import gov.samhsa.acs.xdsb.common.XdsbDocumentType;
 import gov.samhsa.acs.xdsb.registry.wsclient.XdsbRegistryWebServiceClient;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
