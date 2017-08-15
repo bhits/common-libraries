@@ -1,5 +1,7 @@
 package gov.samhsa.acs.xdsb.registry.wsclient.adapter;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -19,6 +21,8 @@ public class XdsbRegistryAdapterIT {
 	
 	private static String endpointAddress;
 	
+	private static String SUCCESS = "Success";
+	
 	// System under test
 	private static XdsbRegistryAdapter xdsbRegistryAdapter;
 	
@@ -30,8 +34,9 @@ public class XdsbRegistryAdapterIT {
 	
 	@Test
 	public void testRegistryStoredQuery() throws Exception {
-		AdhocQueryResponse adhocQueryResponse = xdsbRegistryAdapter.registryStoredQuery(PATIENT_ID, XdsbDocumentType.CLINICAL_DOCUMENT);
-
+		AdhocQueryResponse response = xdsbRegistryAdapter.registryStoredQuery(PATIENT_ID, XdsbDocumentType.CLINICAL_DOCUMENT);
+		
+		assertTrue(response.getStatus().contains(SUCCESS));
 	}
 
 }
