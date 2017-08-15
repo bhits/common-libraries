@@ -47,7 +47,12 @@ public class XdsbRepositoryWebServiceClient extends AbstractCXFLoggingConfigurer
 	
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body) {
-    	//TODO: 
+    	try (DocumentRepositoryPortTypeProxy port = createPort()) {
+    		final RegistryResponseType response = port.documentRepositoryProvideAndRegisterDocumentSetB(body);
+    		return response;
+    	} catch (final Exception e) {
+    		e.printStackTrace();
+    	}
     	return null;
     }
 
@@ -73,7 +78,6 @@ public class XdsbRepositoryWebServiceClient extends AbstractCXFLoggingConfigurer
 			
 			SOAPBinding binding = (SOAPBinding) bp.getBinding();
 			binding.setMTOMEnabled(true);
-			System.out.println("set values....");
 		}
 		
 		this.outInterceptors.ifPresent(ClientProxy.getClient(port)
