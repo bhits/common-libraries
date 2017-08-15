@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xs:schema xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ex="urn:hl7-org/v3-example"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified"><xs:annotation>
+      <xs:documentation>Generated using schema builder version 3.1.6. Stylesheets:
+
+StaticMifToXsd.xsl version 2.0</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="../coreschemas/infrastructureRoot.xsd"/>
+   <xs:complexType name="COCT_MT670000UV04.Account">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="ActClass" use="required" fixed="ACCT"/>
+      <xs:attribute name="moodCode" type="ActMood" use="required" fixed="DEF"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT670000UV04.GuarantorLanguage">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="languageCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="modeCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="preferenceInd" type="CS" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT670000UV04.GuarantorOrganization">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="ON_explicit" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="EntityClassOrganization" use="required"/>
+      <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT670000UV04.GuarantorPerson">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="asPersonalRelationship" type="COCT_MT670000UV04.PersonalRelationship"
+                     nillable="true"
+                     minOccurs="1"
+                     maxOccurs="1"/>
+         <xs:element name="guarantorLanguage" type="COCT_MT670000UV04.GuarantorLanguage"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="EntityClass" use="required" fixed="PSN"/>
+      <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT670000UV04.GuarantorRole">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:choice>
+            <xs:element name="guarantorPerson" type="COCT_MT670000UV04.GuarantorPerson" nillable="true"
+                        minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="guarantorOrganization" type="COCT_MT670000UV04.GuarantorOrganization"
+                        nillable="true"
+                        minOccurs="0"
+                        maxOccurs="1"/>
+         </xs:choice>
+         <xs:element name="contractHeld" type="COCT_MT670000UV04.Holder" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="RoleClass" use="required" fixed="GUAR"/>
+      <xs:attribute name="negationInd" type="bl" use="optional"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT670000UV04.Holder">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="account" type="COCT_MT670000UV04.Account" nillable="true" minOccurs="1"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="typeCode" type="ParticipationType" use="required" fixed="HLD"/>
+   </xs:complexType>
+   <xs:complexType name="COCT_MT670000UV04.PersonalRelationship">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="code" type="CS" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="RoleClass" use="required" fixed="PRS"/>
+   </xs:complexType>
+</xs:schema>

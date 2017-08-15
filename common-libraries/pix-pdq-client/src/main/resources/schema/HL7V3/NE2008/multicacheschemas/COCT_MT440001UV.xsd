@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xs:schema xmlns="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ex="urn:hl7-org/v3-example"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified"><xs:annotation>
+      <xs:documentation>Generated using schema builder version 3.1.6. Stylesheets:
+
+StaticMifToXsd.xsl version 2.0</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="../coreschemas/infrastructureRoot.xsd"/>
+   <xs:complexType name="COCT_MT440001UV.ValuedItem">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="unitQuantity" type="RTO_PQ_PQ" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="unitPriceAmt" type="RTO_MO_PQ" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="netAmt" type="MO" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="ActClass" use="required" fixed="INVE"/>
+      <xs:attribute name="moodCode" type="ActMood" use="required" fixed="DEF"/>
+   </xs:complexType>
+</xs:schema>

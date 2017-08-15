@@ -1,0 +1,150 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>common-libraries</artifactId>
+        <groupId>gov.samhsa.c2s</groupId>
+        <version>1.14.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>pix-pdq-client</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>pix-pdq-client</name>
+    <description>In House - Patient Identity Cross Reference Client</description>
+
+    <properties>
+        <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
+        <c2s.common-libraries.version>1.13.0</c2s.common-libraries.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>gov.samhsa.c2s</groupId>
+            <artifactId>marshaller</artifactId>
+            <version>${c2s.common-libraries.version}</version>
+        </dependency>
+        <!-- Apache CXF dependencies -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-jxpath</groupId>
+            <artifactId>commons-jxpath</artifactId>
+        </dependency>
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- Briding Legacy APIs START -->
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>pix-pdq-client</finalName>
+        <plugins>
+            <!-- Apache CXF Code Generation Plugin. This plug-in will generate code
+            for the wsdl specified. We want to execute WSDL data binding as part of Maven's
+            generate sources phase. After you add this, you will need to update the project
+            Maven configuration, then run the generate-sources goal. -->
+            <!-- Generate Java classes from WSDL during build (using CXF) -->
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf-xjc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <sourceRoot>${basedir}/target/generated-sources</sourceRoot>
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/PIXPDQManager.wsdl</wsdl>
+                                    <wsdlLocation>classpath:PIXPDQManager.wsdl</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-client</extraarg>
+                                        <!-- This argument resolves the max enum member issue while generating
+                                            the classes. -->
+                                        <extraarg>-xjc-b,${basedir}/src/main/resources/bindings/bindings.xjb</extraarg>
+                                        <!-- TODO: The namespace of the generated classes are manually
+                                            mapped as below, because some classes were interfering with XDS.b generated
+                                            classes. The org.hl7.v3 classes can be moved to a shared artifact in the
+                                            future. -->
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>urn:hl7-org:v3=org.hl7.v3</extraarg>
+                                        <!-- <extraarg>-impl</extraarg> -->
+                                        <!-- -fe cxf to generate the port code AutoCloseable -->
+                                        <extraarg>-fe</extraarg>
+                                        <extraarg>cxf</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!-- Add generated-sources as source folder -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
