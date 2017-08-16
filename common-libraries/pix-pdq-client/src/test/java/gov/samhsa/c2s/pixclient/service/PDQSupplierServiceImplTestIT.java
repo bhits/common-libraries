@@ -49,6 +49,22 @@ public class PDQSupplierServiceImplTestIT {
         log.info("Total Results Quantinty "+response.getControlActProcess().getQueryAck().getResultTotalQuantity().getValue());
     }
 
+    @Test
+    public void testPdqQueryContinue() throws Exception {
+        //Query Request
+        PRPAIN201305UV02 request0 = getFile(PRPAIN201305UV02.class, Query_Continue_Cancel_REQUEST_XML);
+        pdqSupplierService.pdqQuery(request0);
+
+        QUQIIN000003UV01Type request = getFile(QUQIIN000003UV01Type.class, Continue_REQUEST_XML);
+        PRPAIN201306UV02 response = pdqSupplierService.pdqQueryContinue(request);
+
+        log.info("Query Response " + response.getControlActProcess().getQueryAck().getQueryResponseCode().getCode());
+        log.info("Total Results Quantity "+response.getControlActProcess().getQueryAck().getResultTotalQuantity().getValue());
+        log.info("Initial Quantity "+response.getControlActProcess().getQueryByParameter().getValue().getInitialQuantity().getValue());
+        log.info("Total Current Quantity "+response.getControlActProcess().getQueryAck().getResultCurrentQuantity().getValue());
+        log.info("Remaining Quantity "+response.getControlActProcess().getQueryAck().getResultRemainingQuantity().getValue());
+    }
+
     @After
     public void cleanup() throws Exception {
         pdqSupplierService = null;
