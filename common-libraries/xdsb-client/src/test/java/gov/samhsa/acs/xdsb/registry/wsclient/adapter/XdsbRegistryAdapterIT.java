@@ -21,7 +21,7 @@ public class XdsbRegistryAdapterIT {
 	
 	private static final String DEV_XDSB_REGISTRY_ENDPOINT = "http://bhitsdevhie01:9080/axis2/services/xdsregistryb";
 	
-	private static final String PATIENT_ID = "ac4afda28f60407^^^&1.3.6.1.4.1.21367.2005.3.7&ISO";
+	private static final String PATIENT_ID = "d3bb3930-7241-11e3-b4f7-00155d3a2124^^^&2.16.840.1.113883.4.357&ISO";
 	
 	private static String endpointAddress;
 	

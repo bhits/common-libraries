@@ -20,7 +20,7 @@ public class XdsbRegistryAdapter {
 	
 	public static final String SLOT_NAME_XDS_DOCUMENT_ENTRY_FORMAT_CODE = "$XDSDocumentEntryFormatCode";
 	
-	public static final String FORMAT_CODE_CLINICAL_DOCUMENT = "'CDAR2/IHE 1.0^^Connect-a-thon formatCodes'";
+	public static final String FORMAT_CODE_CLINICAL_DOCUMENT = "'2.16.840.1.113883.10.20.1^^HITSP'";
 	
 	public static final String FORMAT_CODE_PRIVACY_CONSENT = "'1.3.6.1.4.1.19376.1.5.3.1.1.7^^IHE BPPC'";
 
