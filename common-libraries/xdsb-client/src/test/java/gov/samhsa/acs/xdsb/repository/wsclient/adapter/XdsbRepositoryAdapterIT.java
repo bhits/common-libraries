@@ -25,7 +25,7 @@ public class XdsbRepositoryAdapterIT {
 	
 	private static final String DEV_XDSB_REPOSITORY_ENDPOINT = "http://bhitsdevhie01:9080/axis2/services/xdsrepositoryb";
 	
-	private static final String documentUniqueId = "129.6.58.92.2033185";
+	private static final String documentUniqueId = "10114131599.911115.49715.10162.81191492108130511";
 	
 	private static final String repositoryId = "1.3.6.1.4.1.21367.2010.1.2.1040";
 	
@@ -67,7 +67,7 @@ public class XdsbRepositoryAdapterIT {
 		assertNotNull(response.getRegistryResponse());
 	}
 	
-	@Test
+	//@Test
 	public void testProvideAndRegisterDocumentSet() throws Exception {
 		RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32, OPENEMPI_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, null, null);
 		
