@@ -42,16 +42,9 @@ public interface XdsbMetadataGenerator {
 	 * @param homeCommunityId
 	 *            the home community id (May pass null if deprecating a
 	 *            document.)
-	 * @param patientUniqueId
-	 *            the patient unique id (Pass this only if deprecating a
-	 *            document. Otherwise, pass null.)
-	 * @param entryUUID
-	 *            the entry uuid (Pass this only if deprecating a document.
-	 *            Otherwise, pass null.)
 	 * @return the string
 	 */
-	public String generateMetadataXml(String document, String homeCommunityId,
-			String patientUniqueId, String entryUUID);
+	public String generateMetadataXml(String document, String homeCommunityId);
 
 
 
@@ -65,14 +58,7 @@ public interface XdsbMetadataGenerator {
 	 * @param homeCommunityId
 	 *            the home community id (May pass null if deprecating a
 	 *            document.)
-	 * @param patientUniqueId
-	 *            the patient unique id (Pass this only if deprecating a
-	 *            document. Otherwise, pass null.)
-	 * @param entryUUID
-	 *            the entry uuid (Pass this only if deprecating a document.
-	 *            Otherwise, pass null.)
 	 * @return the submit objects request
 	 */
-	public SubmitObjectsRequest generateMetadata(String document,
-			String homeCommunityId, String patientUniqueId, String entryUUID);
+	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId);
 }

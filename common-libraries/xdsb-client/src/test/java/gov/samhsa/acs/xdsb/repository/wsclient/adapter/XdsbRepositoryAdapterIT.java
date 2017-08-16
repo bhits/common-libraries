@@ -59,7 +59,7 @@ public class XdsbRepositoryAdapterIT {
 
 	}
 	
-	@Test
+	//@Test
 	public void testDocumentRepositoryRetrieveDocumentSet() throws Exception {
 		RetrieveDocumentSetResponseType response = xdsbRepositoryAdapter.retrieveDocumentSet(documentUniqueId, repositoryId);
 		
@@ -67,9 +67,9 @@ public class XdsbRepositoryAdapterIT {
 		assertNotNull(response.getRegistryResponse());
 	}
 	
-	//@Test
+	@Test
 	public void testProvideAndRegisterDocumentSet() throws Exception {
-		RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32, OPENEMPI_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, null, null);
+		RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32, OPENEMPI_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT);
 		
 		assertTrue(response.getStatus().contains(SUCCESS));
 	} 

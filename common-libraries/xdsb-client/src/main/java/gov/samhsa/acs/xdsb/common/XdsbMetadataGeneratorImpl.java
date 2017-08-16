@@ -99,9 +99,9 @@ public class XdsbMetadataGeneratorImpl implements XdsbMetadataGenerator {
 	}
 
 	@Override
-	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId, String patientUniqueId, String entryUUID) {
+	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId) {
 
-		final String metadataXml = generateMetadataXml(document, homeCommunityId, patientUniqueId, entryUUID);
+		final String metadataXml = generateMetadataXml(document, homeCommunityId);
 		SubmitObjectsRequest submitObjectsRequest = null;
 		try {
 			submitObjectsRequest = marshaller.unmarshalFromXml(
@@ -115,7 +115,7 @@ public class XdsbMetadataGeneratorImpl implements XdsbMetadataGenerator {
 
 
 	@Override
-	public String generateMetadataXml(String document, String homeCommunityId, String patientUniqueId, String entryUUID) {
+	public String generateMetadataXml(String document, String homeCommunityId) {
 		// find xsl
 		final String xslUrl = Thread.currentThread().getContextClassLoader()
 				.getResource(resolveXslFileName(documentTypeForXdsbMetadata))
@@ -130,10 +130,7 @@ public class XdsbMetadataGeneratorImpl implements XdsbMetadataGenerator {
 				xdsSubmissionSetUniqueId);
 		addIfValueHasText(params, HomeCommunityId_Parameter_Name,
 				homeCommunityId);
-		addIfValueHasText(params, XdsDocumentEntry_EntryUUID_Parameter_Name,
-				entryUUID);
-		addIfValueHasText(params, PatientUniqueId_Parameter_Name,
-				patientUniqueId);
+
 		// assert params
 		assertDeprecatePrivacyPolicyConditions(params);
 		// transform
