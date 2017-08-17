@@ -28,16 +28,16 @@
         <code code="PRPA_TE201309UV02" codeSystem="2.16.840.1.113883.1.6"/>
         <authorOrPerformer typeCode="AUT">
             <assignedPerson classCode="ASSIGNED">
-                <id root="1.3.6.1.4.1.21367.13.21.205" extension="erwerew"/>
+                <id root="1.3.6.1.4.1.21367.13.21.205" extension="something"/>
             </assignedPerson>
         </authorOrPerformer>
         <queryByParameter>
-            <queryId root="1.3.6.1.4.1.21367.13.21.205" extension="C2S-DEV-lkmn"/>
+            <queryId root="1.3.6.1.4.1.21367.13.21.205" extension="anything"/>
             <statusCode code="new"/>
             <responsePriorityCode code="I"/>
             <parameterList>
                 <patientIdentifier>
-                    <value root="1.3.6.1.4.1.21367.13.21.205" extension="C2S-DEV-lkmn"/>
+                    <value root="1.3.6.1.4.1.21367.13.21.205" extension="C2S-DEV-happy"/>
                     <semanticsText>Patient.Id</semanticsText>
                 </patientIdentifier>
             </parameterList>
