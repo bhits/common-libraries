@@ -59,7 +59,7 @@ public class XdsbRepositoryAdapterIT {
 
 	}
 	
-	//@Test
+	@Test
 	public void testDocumentRepositoryRetrieveDocumentSet() throws Exception {
 		RetrieveDocumentSetResponseType response = xdsbRepositoryAdapter.retrieveDocumentSet(documentUniqueId, repositoryId);
 		
