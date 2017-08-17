@@ -154,7 +154,7 @@ public class MyEntity {
     private Long id;
 	
     // at field if possible, but it is more likely to be at the getter method
-	@I18nEnabled
+    @I18nEnabled
     private String description;
 
 	// at getters, I18nService can be called from this pointcut to lookup 
