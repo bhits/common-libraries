@@ -3,12 +3,12 @@
 This library can be used to enhance entities or objects to have i18n support that are dynamically looked up from a `I18nMessageRepository` JPA repository.
 
 Steps to utilize this library:
-1. [Add `i18n-jpa-support` Dependency to the Project](1-add-i18n-jpa-support-dependency-to-the-project)
-2. [Add/Configure Annotations in Spring Boot Application Starter Class](2-addconfigure-annotations-in-spring-boot-application-starter-class)
-3. [Create `i18n_message` Table](3-create-i18n_message-table)
-4. [Enhance the Entities/Classes to Add I18n Support](4-enhance-the-entitiesclasses-to-add-i18n-support)
-5. [Insert Messages to the Database](5-insert-messages-to-the-database)
-6. [Use `I18nService` to Get Messages](6-use-i18nservice-to-get-messages)
+1. [Add `i18n-jpa-support` Dependency to the Project](#1-add-i18n-jpa-support-dependency-to-the-project)
+2. [Add/Configure Annotations in Spring Boot Application Starter Class](#2-addconfigure-annotations-in-spring-boot-application-starter-class)
+3. [Create `i18n_message` Table](#3-create-i18n_message-table)
+4. [Enhance the Entities/Classes to Add I18n Support](#4-enhance-the-entitiesclasses-to-add-i18n-support)
+5. [Insert Messages to the Database](#5-insert-messages-to-the-database)
+6. [Use `I18nService` to Get Messages](#6-use-i18nservice-to-get-messages)
 
 ## Prerequisites
 
