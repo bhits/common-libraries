@@ -27,8 +27,6 @@ public class PDQSupplierServiceImpl implements PDQSupplierService {
         this.endpointAddress = endpointAddress;
     }
 
-
-
     @Override
     public PRPAIN201306UV02 pdqQuery(PRPAIN201305UV02 body) {
         try (PDQSupplierPortTypeProxy port = createPort()) {
