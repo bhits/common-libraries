@@ -19,6 +19,7 @@ The Common Libraries is a collection of useful libraries that are used by the Co
 + validator-extension: Extension library to `hibernate-validator` to add support for using `@Past` and `@Future` with `java.time.LocalDate`
 + xdm (eXtreme Download Manager): Provides zip utilities
 + xml-validation: Provides utilities to validate XML files against a schema
++ i18n-jpa-support: Provides JPA support to manage i18n messages that can be looked up from database
 
 ## Build
 
