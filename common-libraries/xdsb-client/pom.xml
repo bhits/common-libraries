@@ -101,6 +101,20 @@
 			<artifactId>Saxon-HE</artifactId>
 			<version>9.8.0-3</version>
 		</dependency>
+		
+		<!-- Web stack-specific dependencies that are internally needed by the 
+			Endpoint object as it exposes a web service -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>3.1.12</version>
+		</dependency>
+
+		<!-- Below used by embedded Jetty (which implements Endpoint in CXF) -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+		</dependency>
 
 
 	</dependencies>
