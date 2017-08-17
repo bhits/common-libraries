@@ -1,6 +1,6 @@
 # I18n JPA Support
 
-This library can be used to enhance entities or objects to have i18n support that are dynamically looked up from a `I18nMessageRepository` JPA repository.
+This library can be used to enhance entities or objects to have i18n support that are dynamically searched in a `I18nMessageRepository` JPA repository.
 
 Steps to utilize this library:
 1. [Add `i18n-jpa-support` Dependency to the Project](#1-add-i18n-jpa-support-dependency-to-the-project)
@@ -12,7 +12,7 @@ Steps to utilize this library:
 
 ## Prerequisites
 
-This library expects the dependencies that are listed below to be available in the project that is used in. These dependencies will be transitively available in a typical Spring Boot application with `org.springframework.boot:spring-boot-starter-data-jpa` dependency.
+This library expects the dependencies that are listed below to be available in the project within which they are used. These dependencies will be transitively available in a typical Spring Boot application with `org.springframework.boot:spring-boot-starter-data-jpa` dependency.
 
 + `org.springframework:spring-tx`
 + `org.springframework:spring-context`
@@ -54,7 +54,7 @@ public class MyApplication {
 }
 ```
 
-**NOTE: `MyApplication.class` is also added to `@EnableJpaRepositories.basePackageClasses`, so Sprig Boot can also scan the repositories in the `MyApplication` class base package in addition to the `I18nEnabled`.**
+**NOTE: `MyApplication.class` is also added to `@EnableJpaRepositories.basePackageClasses`, so Spring Boot can also scan the repositories in the `MyApplication` class base package in addition to the `I18nEnabled`.**
 
 ### 3. Create `i18n_message` Table
 
@@ -141,7 +141,7 @@ public class MyService {
 
 ## Future
 
-It is planned to improve this library to use AOP (potentially AspectJ) on entity/object fields/methods, so an explicit use of `I18nService` won't be required and the i18n contents can be returned transparently.
+We plan to improve this library to use AOP (potentially AspectJ) on entity/object fields/methods, so an explicit use of `I18nService` will not be required and the i18n contents can be returned transparently.
 
 Example:
 
