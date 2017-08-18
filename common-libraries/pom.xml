@@ -89,6 +89,17 @@
         <cxf-xjc-plugin.version>3.1.12</cxf-xjc-plugin.version>
         <spring.version>4.3.9.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
+        <commons-io.version>2.5</commons-io.version>
+        <commons-jxpath.version>1.3</commons-jxpath.version>
+        <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
+        <c2s.common-libraries.version>1.13.0</c2s.common-libraries.version>
+        <saxon.version>9.8.0-3</saxon.version>
+		<cxf-rt-transports-http-jetty.version>3.1.12</cxf-rt-transports-http-jetty.version>
+		<file-reader.version>1.12.0</file-reader.version>
+		<common-util.version>1.14.0-SNAPSHOT</common-util.version>  
+		<document-transformer.version>1.14.0</document-transformer.version>      
+        <param.version>1.14.0</param.version>
+        <logger-wrapper.version>1.14.0</logger-wrapper.version>
 
         <!-- Test -->
         <xmlunit.version>1.5</xmlunit.version>

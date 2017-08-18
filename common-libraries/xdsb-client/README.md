@@ -1,6 +1,7 @@
 ## XDS.b Client
 
-This is a library that provides  SOAP clients to connect to a server that implements Integrating the Healthcare Enterprise (IHE). This is tested with [HIEOS](https://github.com/kef/hieos) which is an implementation. In Fei Systems, an internal deployment is available at this [location](http://bhitsdevhie01:9080/axis2/services/listServices). 
+This is a library that provides  SOAP clients to connect to a server that implements Integrating the Healthcare Enterprise (IHE). This is tested with [HIEOS](https://github.com/kef/hieos) which is an implementation. 
+
 
 ## Implementation
 
@@ -39,8 +40,8 @@ This is a standard maven project. This project can be added in another maven pro
 ```yml
 <dependency>
   <groupId>gov.samhsa.c2s</groupId>
-  <artifactId>common-libraries</artifactId>
-  <version>1.14.0-SNAPSHOT</version>
+  <artifactId>xdsb-client</artifactId>
+  <version>0.1.0-RELEASE</version>
 </dependency>
 ```
 

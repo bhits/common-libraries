@@ -1,40 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-        <artifactId>common-libraries</artifactId>
-        <groupId>gov.samhsa.c2s</groupId>
-        <version>1.14.0-SNAPSHOT</version>
-    </parent>
+		<artifactId>common-libraries</artifactId>
+		<groupId>gov.samhsa.c2s</groupId>
+		<version>1.14.0-SNAPSHOT</version>
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>xdsb-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	
+
 	<name>xdsb-client</name>
 	<description>XDS.b Client for Registry and Repository</description>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.9.RELEASE</spring.version>
-		<java.version>1.8</java.version>
-		<cxf.version>3.1.12</cxf.version>
-		<cxf-xjc-plugin.version>3.1.12</cxf-xjc-plugin.version>
-		<junit.version>4.12</junit.version>
-		<lombok.version>1.16.18</lombok.version>
-		<slf4j.version>1.7.25</slf4j.version>
-		<log4j.version>1.2.17</log4j.version>
-		<commons-io.version>2.5</commons-io.version>
-		<commons-jxpath.version>1.3</commons-jxpath.version>
-		<build-helper-plugin.version>3.0.0</build-helper-plugin.version>
-		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
-		<c2s.common-libraries.version>1.13.0</c2s.common-libraries.version>
-		<spring.boot.version>1.5.4.RELEASE</spring.boot.version>
-		<file-reader.version>1.14.0-SNAPSHOT</file-reader.version>
-		<saxon.version>9.8.0-3</saxon.version>
-		<cxf-rt-transports-http-jetty.version>3.1.12</cxf-rt-transports-http-jetty.version>
-
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -49,10 +27,6 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -72,13 +46,17 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		
+
 		<!-- Briding Legacy APIs START -->
 		<!-- jcl-over-slf4j.jar replaces commons-logging.jar log4j-over-slf4j.jar 
 			replaces log4j.jar SLF4JBridgeHandler is installed(requires jul-to-slf4j.jar -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -89,18 +67,14 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot</artifactId>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>file-reader</artifactId>
 		</dependency>
-		<dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>file-reader</artifactId>
-         </dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
 		</dependency>
-		
+
 		<!-- Web stack-specific dependencies that are internally needed by the 
 			Endpoint object as it exposes a web service -->
 		<dependency>
@@ -113,12 +87,23 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>document-transformer</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>param</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>common-util</artifactId>
+		</dependency>
 
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
-	
+
 			<dependency>
 				<groupId>gov.samhsa.c2s</groupId>
 				<artifactId>marshaller</artifactId>
@@ -137,7 +122,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
+				<artifactId>spring-context</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
@@ -188,10 +173,10 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>file-reader</artifactId>
-                <version>${file-reader.version}</version>
-         	</dependency>
+				<groupId>gov.samhsa.c2s</groupId>
+				<artifactId>file-reader</artifactId>
+				<version>${file-reader.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>net.sf.saxon</groupId>
 				<artifactId>Saxon-HE</artifactId>
@@ -203,12 +188,36 @@
 				<version>${cxf-rt-transports-http-jetty.version}</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>gov.samhsa.c2s</groupId>
+				<artifactId>common-util</artifactId>
+				<version>#{common-util.version}</version>
+			</dependency>
+			<dependency>
+                <groupId>gov.samhsa.c2s</groupId>
+                <artifactId>document-transformer</artifactId>
+                <version>${document-transformer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>gov.samhsa.c2s</groupId>
+                <artifactId>param</artifactId>
+                <version>${param.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>gov.samhsa.c2s</groupId>
+                <artifactId>common-util</artifactId>
+                <version>${common-util.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>gov.samhsa.c2s</groupId>
+                <artifactId>logger-wrapper</artifactId>
+                <version>${logger-wrapper.version}</version>
+            </dependency>
 
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
-		<finalName>xdsb-repository-registry-client</finalName>
 		<plugins>
 			<!-- Apache CXF Code Generation Plugin. This plug-in will generate code 
 				for the wsdl specified. We want to execute WSDL data binding as part of Maven's 
@@ -236,20 +245,12 @@
 										<!-- This argument resolves the max enum member issue while generating 
 											the classes. -->
 										<extraarg>-xjc-b,${basedir}/src/main/resources/bindings/bindings.xjb</extraarg>
-										<!-- TODO: The namespace of the generated classes are manually 
-											mapped as below, because some classes were interfering with XDS.b generated 
-											classes. The org.hl7.v3 classes can be moved to a shared artifact in the 
-											future. -->
-										<extraarg>-p</extraarg>
-										<extraarg>urn:hl7-org:v3=org.hl7.v3.types</extraarg>
-										<!-- <extraarg>-impl</extraarg> -->
-										<!-- -fe cxf to generate the port code AutoCloseable -->
 										<extraarg>-fe</extraarg>
 										<extraarg>cxf</extraarg>
 
 									</extraargs>
 								</wsdlOption>
-								
+
 								<wsdlOption>
 									<wsdl>${basedir}/src/main/resources/wsdl/XDS.b_DocumentRepository.wsdl</wsdl>
 									<wsdlLocation>classpath:XDS.b_DocumentRepository.wsdl</wsdlLocation>
@@ -259,19 +260,11 @@
 										<!-- This argument resolves the max enum member issue while generating 
 											the classes. -->
 										<extraarg>-xjc-b,${basedir}/src/main/resources/bindings/bindings.xjb</extraarg>
-										<!-- TODO: The namespace of the generated classes are manually 
-											mapped as below, because some classes were interfering with XDS.b generated 
-											classes. The org.hl7.v3 classes can be moved to a shared artifact in the 
-											future. -->
-										<extraarg>-p</extraarg>
-										<extraarg>urn:hl7-org:v3=org.hl7.v3.types</extraarg>
-										<!-- <extraarg>-impl</extraarg> -->
-										<!-- -fe cxf to generate the port code AutoCloseable -->
 										<extraarg>-fe</extraarg>
 										<extraarg>cxf</extraarg>
 									</extraargs>
 								</wsdlOption>
-								
+
 							</wsdlOptions>
 						</configuration>
 						<goals>
