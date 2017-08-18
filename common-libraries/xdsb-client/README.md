@@ -37,12 +37,11 @@ This project requires [Apache Maven](https://maven.apache.org) to build it. To b
 This is a standard maven project. This project can be added in another maven project as a dependency.
 
 ```yml
-		<dependency>
-			<groupId>gov.samhsa.c2s</groupId>
-			<artifactId>common-libraries</artifactId>
-			<version>1.14.0-SNAPSHOT</version>
-		</dependency>
-
+<dependency>
+  <groupId>gov.samhsa.c2s</groupId>
+  <artifactId>common-libraries</artifactId>
+  <version>1.14.0-SNAPSHOT</version>
+</dependency>
 ```
 
 
