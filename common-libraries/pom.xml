@@ -4,9 +4,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<groupId>gov.samhsa.c2s</groupId>
-	<artifactId>common-libraries</artifactId>
-	<version>1.14.0-SNAPSHOT</version>
+    <groupId>gov.samhsa.c2s</groupId>
+    <artifactId>common-libraries</artifactId>
+    <version>1.14.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>Common Libraries</name>
@@ -94,10 +94,10 @@
         <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
         <c2s.common-libraries.version>1.13.0</c2s.common-libraries.version>
         <saxon.version>9.8.0-3</saxon.version>
-		<cxf-rt-transports-http-jetty.version>3.1.12</cxf-rt-transports-http-jetty.version>
-		<file-reader.version>1.12.0</file-reader.version>
-		<common-util.version>1.14.0-SNAPSHOT</common-util.version>  
-		<document-transformer.version>1.14.0</document-transformer.version>      
+        <cxf-rt-transports-http-jetty.version>3.1.12</cxf-rt-transports-http-jetty.version>
+        <file-reader.version>1.12.0</file-reader.version>
+        <common-util.version>1.14.0-SNAPSHOT</common-util.version>
+        <document-transformer.version>1.14.0</document-transformer.version>
         <param.version>1.14.0</param.version>
         <logger-wrapper.version>1.14.0</logger-wrapper.version>
 
@@ -379,7 +379,8 @@
                         <verbose>true</verbose>
                         <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
                         <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
+                        </generateGitPropertiesFilename>
                     </configuration>
                 </plugin>
 
