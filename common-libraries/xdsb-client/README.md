@@ -41,7 +41,7 @@ This is a standard maven project. This project can be added in another maven pro
 <dependency>
   <groupId>gov.samhsa.c2s</groupId>
   <artifactId>xdsb-client</artifactId>
-  <version>0.1.0-RELEASE</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
