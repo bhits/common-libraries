@@ -190,11 +190,6 @@
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>common-util</artifactId>
-                <version>#{common-util.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-transformer</artifactId>
                 <version>${document-transformer.version}</version>
             </dependency>
