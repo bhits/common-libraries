@@ -98,7 +98,7 @@
         <saxon.version>9.8.0-3</saxon.version>
         <cxf-rt-transports-http-jetty.version>3.1.12</cxf-rt-transports-http-jetty.version>
         <file-reader.version>1.12.0</file-reader.version>
-        <common-util.version>1.15.0-SNAPSHOT</common-util.version>
+        <common-util.version>${project.parent.version}</common-util.version>
         <document-transformer.version>1.14.0</document-transformer.version>
         <param.version>1.14.0</param.version>
         <logger-wrapper.version>1.14.0</logger-wrapper.version>
