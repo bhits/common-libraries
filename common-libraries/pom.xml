@@ -63,7 +63,7 @@
         <module>validator-extension</module>
         <module>pix-pdq-client</module>
         <module>xdsb-client</module>
-		<module>i18n-jpa-support</module>
+        <module>i18n-jpa-support</module>
     </modules>
 
     <properties>
