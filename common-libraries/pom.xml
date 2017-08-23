@@ -12,37 +12,6 @@
     <name>Common Libraries</name>
     <url>${project.scm.url}</url>
 
-    <organization>
-        <name>SAMHSA</name>
-        <url>http://www.samhsa.gov/</url>
-    </organization>
-
-    <developers>
-        <developer>
-            <id>BHITS Team</id>
-            <name>BHITS Team</name>
-            <organization>FEi Systems</organization>
-        </developer>
-    </developers>
-
-    <licenses>
-        <license>
-            <name>See license in LICENSE.md</name>
-            <url>${project.scm.url}/blob/master/LICENSE.md</url>
-        </license>
-    </licenses>
-
-    <ciManagement>
-        <system>CI</system>
-        <url>http://BhitsBuild03/</url>
-    </ciManagement>
-
-    <scm>
-        <url>https://github.com/BHITS/common-libraries</url>
-        <connection>scm:git:${project.scm.url}.git</connection>
-        <developerConnection>scm:git:${project.scm.url}.git</developerConnection>
-    </scm>
-
     <modules>
         <module>audit-client</module>
         <module>document-accessor</module>
