@@ -48,11 +48,12 @@
         <xmlsec.version>2.0.8</xmlsec.version>
         <Saxon-HE.version>9.6.0-3</Saxon-HE.version>
         <xerces.version>2.11.0.SP5</xerces.version>
-        <logback.version>1.1.7</logback.version>
+        <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.25</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.16.18</lombok.version>
-        <logback-audit.version>0.6.2</logback-audit.version>
+        <!-- TODO: upgrade it to release -->
+        <logback-audit.version>0.6.3-SNAPSHOT</logback-audit.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <hapi.fhir.version>2.2</hapi.fhir.version>
         <cxf.version>3.1.12</cxf.version>
