@@ -402,7 +402,7 @@
                                 <rules>
                                     <bannedDependencies>
                                         <excludes>
-                                            <!-- TODO: commented out exclusions are either managed by Spring or already the latest version -->
+                                            <!-- TODO: commented out exclusions are either managed by Spring or already the latest version unless it is specified -->
                                             <exclude>ch.qos.logback:logback-classic:(,1.1.11]</exclude>
                                             <exclude>com.fasterxml.jackson.core:jackson-databind:(,2.8.9]</exclude>
                                             <exclude>com.netflix.ribbon:ribbon-httpclient:jar:(,2.2.0]</exclude>
