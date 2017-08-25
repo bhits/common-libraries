@@ -7,6 +7,7 @@
 		<version>1.16.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>document-transformer</artifactId>
+	<version>${c2s.document-transformer.version}</version>
 
 	<name>Document Transformer</name>
 	<packaging>jar</packaging>
