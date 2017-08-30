@@ -95,6 +95,7 @@
         <c2s.xdm.version>1.16.0-SNAPSHOT</c2s.xdm.version>
         <c2s.xdsb-client.version>0.2.0-SNAPSHOT</c2s.xdsb-client.version>
         <c2s.xml-validation.version>1.16.0-SNAPSHOT</c2s.xml-validation.version>
+        <c2s.consent-gen.version>1.16.0-SNAPSHOT</c2s.consent-gen.version>
 
 
         <!-- Test -->
