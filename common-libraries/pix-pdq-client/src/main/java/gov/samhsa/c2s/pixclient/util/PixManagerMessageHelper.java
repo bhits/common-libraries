@@ -111,7 +111,7 @@ public class PixManagerMessageHelper {
      * @return the PixManagerBean
      */
     @SuppressWarnings("unchecked")
-    public PixManagerBean getQueryMessage(PRPAIN201310UV02 response,
+    public PixManagerBean setQueryMessage(PRPAIN201310UV02 response,
                                           PixManagerBean pixMgrBean) {
 
         log.debug("response ack code:" + response.getAcceptAckCode());
@@ -127,7 +127,7 @@ public class PixManagerMessageHelper {
             if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AA.getMsg())) {
                 final StringBuffer queryMsg = new StringBuffer(
                         "Query Success! ");
-                final Map<String, String> idMap = new HashMap<String, String>();
+                final Map<String, String> idMap = new HashMap<>();
 
                 final Iterator<PRPAMT201307UV02PatientIdentifier> pidList = context
                         .iterate("/controlActProcess/queryByParameter/value/parameterList/patientIdentifier");
@@ -137,8 +137,8 @@ public class PixManagerMessageHelper {
                     final List<II> ptIdList = pid.getValue();
 
                     for (final II ptId : ptIdList) {
-                        queryMsg.append(" Given PID: " + ptId.getExtension());
-                        queryMsg.append(" Given UID: " + ptId.getRoot());
+                        queryMsg.append(" Given PID: ").append(ptId.getExtension());
+                        queryMsg.append(" Given UID: ").append(ptId.getRoot());
                         queryMsg.append("\t");
                     }
 
@@ -154,6 +154,7 @@ public class PixManagerMessageHelper {
 
                 pixMgrBean.setQueryMessage(queryMsg.toString());
                 pixMgrBean.setQueryIdMap(idMap);
+                pixMgrBean.setSuccess(true);
                 break;
             } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AE.getMsg())) {
 
@@ -165,12 +166,14 @@ public class PixManagerMessageHelper {
                     pixMgrBean.setQueryMessage("Query Failure! "
                             + ackDet.getText().toString());
                     pixMgrBean.setQueryIdMap(null);
+                    pixMgrBean.setSuccess(false);
                     break;
                 }
 
             } else {
                 pixMgrBean.setQueryMessage("Query Failure! ");
                 pixMgrBean.setQueryIdMap(null);
+                pixMgrBean.setSuccess(false);
             }
         }
         return pixMgrBean;
