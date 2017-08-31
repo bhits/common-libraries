@@ -9,7 +9,6 @@ import org.hl7.v3.MCCIMT000200UV01AcknowledgementDetail;
 import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
 import org.hl7.v3.MCCIMT000300UV01AcknowledgementDetail;
 import org.hl7.v3.PRPAIN201310UV02;
-import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,39 +27,38 @@ public class PixManagerMessageHelper {
      * @param response   the response
      * @param pixMgrBean the pix mgr bean
      * @param msg        the msg
-     *
      */
     public void getAddUpdateMessage(MCCIIN000002UV01 response,
                                     PixManagerBean pixMgrBean, String msg) {
-        log.debug("response ack code:" + response.getAcceptAckCode());
-        log.debug("response type id: " + response.getTypeId());
-        final List<MCCIMT000200UV01Acknowledgement> ackmntList = response
+        log.debug("Response Ack Code:" + response.getAcceptAckCode());
+        log.debug("Response Type Id: " + response.getTypeId());
+
+        final List<MCCIMT000200UV01Acknowledgement> acknowledgementList = response
                 .getAcknowledgement();
-        for (final MCCIMT000200UV01Acknowledgement ackmnt : ackmntList) {
-            if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_CA.getMsg())) {
+        for (final MCCIMT000200UV01Acknowledgement acknowledgement : acknowledgementList) {
+            if (acknowledgement.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_CA.getMsg())) {
                 if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
                     pixMgrBean.setAddMessage(msg + " Success! ");
                 } else if (PixPdqConstants.PIX_UPDATE.getMsg().equals(msg)) {
                     pixMgrBean.setUpdateMessage(msg + " Success! ");
                 }
+                pixMgrBean.setSuccess(true);
 
                 break;
-            } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_CE.getMsg())) {
-                final List<MCCIMT000200UV01AcknowledgementDetail> ackmntDetList = ackmnt
+            } else if (acknowledgement.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_CE.getMsg())) {
+                final List<MCCIMT000200UV01AcknowledgementDetail> acknowledgementDetailList = acknowledgement
                         .getAcknowledgementDetail();
-                for (final MCCIMT000200UV01AcknowledgementDetail ackDet : ackmntDetList) {
-                    log.error(msg + " error : "
-                            + ackDet.getText().toString());
-                    if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
-                        pixMgrBean.setAddMessage(msg + " Failure! "
-                                + ackDet.getText().toString());
-                    } else if (PixPdqConstants.PIX_UPDATE.getMsg()
-                            .equals(msg)) {
-                        pixMgrBean.setUpdateMessage(msg + " Failure! "
-                                + ackDet.getText().toString());
-                    }
-                    break;
+                final MCCIMT000200UV01AcknowledgementDetail acknowledgementDetail = acknowledgementDetailList.get(0);
+
+                log.error(msg + " error : " + acknowledgementDetail.getText().toString());
+
+                if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
+                    pixMgrBean.setAddMessage(msg + " Failure! " + acknowledgementDetail.getText().toString());
+                } else if (PixPdqConstants.PIX_UPDATE.getMsg()
+                        .equals(msg)) {
+                    pixMgrBean.setUpdateMessage(msg + " Failure! " + acknowledgementDetail.getText().toString());
                 }
+                pixMgrBean.setSuccess(false);
 
             } else {
 
@@ -69,6 +67,7 @@ public class PixManagerMessageHelper {
                 } else if (PixPdqConstants.PIX_UPDATE.getMsg().equals(msg)) {
                     pixMgrBean.setUpdateMessage(msg + " Failure! ");
                 }
+                pixMgrBean.setSuccess(false);
             }
         }
     }
@@ -76,23 +75,18 @@ public class PixManagerMessageHelper {
     /**
      * Gets the general exp message.
      *
-     * @param e  Exception
+     * @param e          Exception
      * @param pixMgrBean the pix mgr bean
      * @param msg        the msg
-     *
      */
     public void getGeneralExpMessage(Exception e, PixManagerBean pixMgrBean,
                                      String msg) {
         // Expect the unexpected
         log.error("Unexpected exception", e);
 
-        // Add error
-        log.error("error",
-                "Query Failure! Server error! A unexpected error has occured");
-
-        final String errMsg = " Failure! Server error! A unexpected error has occured";
-        log.error("exception: " + e.getCause());
-        log.error("detail message: " + e.getMessage());
+        final String errMsg = " Failure - An unexpected error has occurred! ";
+        log.error("Exception: " + e.getCause());
+        log.error("Detail Message: " + e.getMessage());
 
         if (PixPdqConstants.PIX_ADD.getMsg().equals(msg)) {
             pixMgrBean.setAddMessage(msg + errMsg);
@@ -104,7 +98,7 @@ public class PixManagerMessageHelper {
     }
 
     /**
-     * Gets the query message.
+     * Sets the query message.
      *
      * @param response   the response
      * @param pixMgrBean the pix mgr bean
@@ -114,35 +108,18 @@ public class PixManagerMessageHelper {
     public PixManagerBean setQueryMessage(PRPAIN201310UV02 response,
                                           PixManagerBean pixMgrBean) {
 
-        log.debug("response ack code:" + response.getAcceptAckCode());
-        log.debug("response type id: " + response.getTypeId());
+        log.debug("Response Ack Code:" + response.getAcceptAckCode());
+        log.debug("Response Type Id: " + response.getTypeId());
 
         final JXPathContext context = JXPathContext.newContext(response);
-        final Iterator<MCCIMT000300UV01Acknowledgement> ackmntList = context
+        final Iterator<MCCIMT000300UV01Acknowledgement> acknowledgementList = context
                 .iterate("/acknowledgement");
 
-        while (ackmntList.hasNext()) {
-            final MCCIMT000300UV01Acknowledgement ackmnt = ackmntList.next();
+        while (acknowledgementList.hasNext()) {
+            final MCCIMT000300UV01Acknowledgement acknowledgement = acknowledgementList.next();
 
-            if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AA.getMsg())) {
-                final StringBuffer queryMsg = new StringBuffer(
-                        "Query Success! ");
+            if (acknowledgement.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AA.getMsg())) {
                 final Map<String, String> idMap = new HashMap<>();
-
-                final Iterator<PRPAMT201307UV02PatientIdentifier> pidList = context
-                        .iterate("/controlActProcess/queryByParameter/value/parameterList/patientIdentifier");
-                while (pidList.hasNext()) {
-                    final PRPAMT201307UV02PatientIdentifier pid = pidList
-                            .next();
-                    final List<II> ptIdList = pid.getValue();
-
-                    for (final II ptId : ptIdList) {
-                        queryMsg.append(" Given PID: ").append(ptId.getExtension());
-                        queryMsg.append(" Given UID: ").append(ptId.getRoot());
-                        queryMsg.append("\t");
-                    }
-
-                }
 
                 final Iterator<II> ptIdList = context
                         .iterate("/controlActProcess/subject[1]/registrationEvent/subject1[typeCode='SBJ']/patient[classCode='PAT']/id");
@@ -152,24 +129,18 @@ public class PixManagerMessageHelper {
                     idMap.put(pId.getRoot(), pId.getExtension());
                 }
 
-                pixMgrBean.setQueryMessage(queryMsg.toString());
+                pixMgrBean.setQueryMessage("Query Success!");
                 pixMgrBean.setQueryIdMap(idMap);
                 pixMgrBean.setSuccess(true);
                 break;
-            } else if (ackmnt.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AE.getMsg())) {
-
-                final List<MCCIMT000300UV01AcknowledgementDetail> ackmntDetList = ackmnt
+            } else if (acknowledgement.getTypeCode().getCode().equals(PixPdqConstants.RESPONSE_AE.getMsg())) {
+                final List<MCCIMT000300UV01AcknowledgementDetail> acknowledgementDetailList = acknowledgement
                         .getAcknowledgementDetail();
-                for (final MCCIMT000300UV01AcknowledgementDetail ackDet : ackmntDetList) {
-                    log.error("Query Failure! "
-                            + ackDet.getText().toString());
-                    pixMgrBean.setQueryMessage("Query Failure! "
-                            + ackDet.getText().toString());
-                    pixMgrBean.setQueryIdMap(null);
-                    pixMgrBean.setSuccess(false);
-                    break;
-                }
-
+                MCCIMT000300UV01AcknowledgementDetail acknowledgementDetail = acknowledgementDetailList.get(0);
+                log.error("Query Failure! " + acknowledgementDetail.getText().toString());
+                pixMgrBean.setQueryMessage("Query Failure! " + acknowledgementDetail.getText().toString());
+                pixMgrBean.setQueryIdMap(null);
+                pixMgrBean.setSuccess(false);
             } else {
                 pixMgrBean.setQueryMessage("Query Failure! ");
                 pixMgrBean.setQueryIdMap(null);
