@@ -31,4 +31,12 @@ public interface PixManagerClientService {
      */
     PixManagerBean queryPerson(String xmlFilePath);
 
+    /**
+     *
+     * @param patientId The patient Id
+     * @param PatientMrnOid The MRN System OID
+     * @return EnterpriseId
+     */
+    String queryForEnterpriseId(String patientId, String PatientMrnOid);
+
 }
