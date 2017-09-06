@@ -24,6 +24,7 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -117,7 +118,7 @@ public class PixManagerServiceImplTestIT {
         try {
             request = requestXMLToJava.getPIXQueryReqObject(getRequest(QUERY_REQUEST_XML));
             response = pixManagerService.pixManagerPRPAIN201309UV02(request);
-            pixManagerMessageHelper.getQueryMessage(response, pixManagerBean);
+            pixManagerMessageHelper.setQueryMessage(response, pixManagerBean);
         } catch (JAXBException | IOException e) {
             pixManagerMessageHelper.getGeneralExpMessage(e, pixManagerBean,
                     PixPdqConstants.PIX_QUERY.getMsg());
@@ -126,7 +127,7 @@ public class PixManagerServiceImplTestIT {
         log.debug("response" + pixManagerBean.getQueryMessage() + pixManagerBean.getQueryIdMap());
         String eid = pixManagerBean.getQueryIdMap().entrySet().stream()
                 .filter(map -> GLOBAL_DOMAIN_ID.equals(map.getKey()))
-                .map(map -> map.getValue())
+                .map(Map.Entry::getValue)
                 .collect(Collectors.joining());
         log.info("Eid \t" + eid);
     }
