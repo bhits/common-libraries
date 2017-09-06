@@ -201,7 +201,7 @@
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-util</artifactId>
-                <version>${common-util.version}</version>
+                <version>${c2s.common-util.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
