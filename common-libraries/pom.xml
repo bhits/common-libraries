@@ -53,7 +53,7 @@
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.16.18</lombok.version>
         <!-- TODO: upgrade it to release -->
-        <logback-audit.version>0.6.3-SNAPSHOT</logback-audit.version>
+        <logback-audit.version>0.6.3</logback-audit.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <hapi.fhir.version>2.2</hapi.fhir.version>
         <cxf.version>3.1.12</cxf.version>
