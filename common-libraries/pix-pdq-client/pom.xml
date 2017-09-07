@@ -14,15 +14,10 @@
     <name>pix-pdq-client</name>
     <description>In House - Patient Identity Cross Reference Client</description>
 
-    <properties>
-        <build-helper-plugin.version>3.0.0</build-helper-plugin.version>
-        <c2s.common-libraries.version>1.13.0</c2s.common-libraries.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>gov.samhsa.c2s</groupId>
             <artifactId>marshaller</artifactId>
-            <version>${c2s.common-libraries.version}</version>
         </dependency>
         <!-- Apache CXF dependencies -->
         <dependency>
@@ -40,7 +35,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -57,7 +51,7 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <!-- Briding Legacy APIs START -->
-         <dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
@@ -150,10 +144,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
