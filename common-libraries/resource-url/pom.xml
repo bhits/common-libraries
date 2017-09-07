@@ -7,6 +7,7 @@
 		<version>1.16.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>resource-url</artifactId>
+	<version>${c2s.resource-url.version}</version>
 
 	<name>Resource Url</name>
 	<packaging>jar</packaging>

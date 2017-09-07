@@ -7,6 +7,7 @@
 		<version>1.16.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>common-util</artifactId>
+	<version>${c2s.common-util.version}</version>
 
 	<name>Common Utils</name>
 	<packaging>jar</packaging>
@@ -19,6 +20,12 @@
 		<dependency>
 			<groupId>org.apache.santuario</groupId>
 			<artifactId>xmlsec</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.xml.stream</groupId>
+					<artifactId>stax-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
