@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>gov.samhsa.c2s</groupId>
 		<artifactId>common-libraries</artifactId>
-		<version>1.16.0-SNAPSHOT</version>
+		<version>1.16.0</version>
 	</parent>
 	<artifactId>audit-client</artifactId>
 	<version>${c2s.audit-client.version}</version>

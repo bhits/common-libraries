@@ -6,7 +6,7 @@
 
 	<groupId>gov.samhsa.c2s</groupId>
 	<artifactId>common-libraries</artifactId>
-	<version>1.16.0-SNAPSHOT</version>
+	<version>1.16.0</version>
 
     <packaging>pom</packaging>
     <name>Common Libraries</name>
@@ -72,27 +72,27 @@
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <asm.version>5.0.4</asm.version>
         <!-- Common Libraries Versions -->
-        <c2s.audit-client.version>1.16.0-SNAPSHOT</c2s.audit-client.version>
-        <c2s.common-unit.version>1.16.0-SNAPSHOT</c2s.common-unit.version>
-        <c2s.common-util.version>1.16.0-SNAPSHOT</c2s.common-util.version>
-        <c2s.consent-gen-version>1.16.0-SNAPSHOT</c2s.consent-gen-version>
-        <c2s.document-accessor.version>1.16.0-SNAPSHOT</c2s.document-accessor.version>
-        <c2s.document-converter.version>1.16.0-SNAPSHOT</c2s.document-converter.version>
-        <c2s.document-transformer.version>1.16.0-SNAPSHOT</c2s.document-transformer.version>
-        <c2s.file-reader.version>1.16.0-SNAPSHOT</c2s.file-reader.version>
-        <c2s.i18n-jpa-support.version>1.16.0-SNAPSHOT</c2s.i18n-jpa-support.version>
-        <c2s.logger-wrapper.version>1.16.0-SNAPSHOT</c2s.logger-wrapper.version>
-        <c2s.marshaller.version>1.16.0-SNAPSHOT</c2s.marshaller.version>
-        <c2s.namespace.version>1.16.0-SNAPSHOT</c2s.namespace.version>
-        <c2s.oauth2.version>1.16.0-SNAPSHOT</c2s.oauth2.version>
-        <c2s.param.version>1.16.0-SNAPSHOT</c2s.param.version>
-        <c2s.pix-pdq-client.version>0.2.0-SNAPSHOT</c2s.pix-pdq-client.version>
-        <c2s.resource-url.version>1.16.0-SNAPSHOT</c2s.resource-url.version>
-        <c2s.validator-extension.version>1.16.0-SNAPSHOT</c2s.validator-extension.version>
-        <c2s.xdm.version>1.16.0-SNAPSHOT</c2s.xdm.version>
-        <c2s.xdsb-client.version>0.2.0-SNAPSHOT</c2s.xdsb-client.version>
-        <c2s.xml-validation.version>1.16.0-SNAPSHOT</c2s.xml-validation.version>
-        <c2s.consent-gen.version>1.16.0-SNAPSHOT</c2s.consent-gen.version>
+        <c2s.audit-client.version>1.16.0</c2s.audit-client.version>
+        <c2s.common-unit.version>1.16.0</c2s.common-unit.version>
+        <c2s.common-util.version>1.16.0</c2s.common-util.version>
+        <c2s.consent-gen-version>1.16.0</c2s.consent-gen-version>
+        <c2s.document-accessor.version>1.16.0</c2s.document-accessor.version>
+        <c2s.document-converter.version>1.16.0</c2s.document-converter.version>
+        <c2s.document-transformer.version>1.16.0</c2s.document-transformer.version>
+        <c2s.file-reader.version>1.16.0</c2s.file-reader.version>
+        <c2s.i18n-jpa-support.version>1.16.0</c2s.i18n-jpa-support.version>
+        <c2s.logger-wrapper.version>1.16.0</c2s.logger-wrapper.version>
+        <c2s.marshaller.version>1.16.0</c2s.marshaller.version>
+        <c2s.namespace.version>1.16.0</c2s.namespace.version>
+        <c2s.oauth2.version>1.16.0</c2s.oauth2.version>
+        <c2s.param.version>1.16.0</c2s.param.version>
+        <c2s.pix-pdq-client.version>0.2.0</c2s.pix-pdq-client.version>
+        <c2s.resource-url.version>1.16.0</c2s.resource-url.version>
+        <c2s.validator-extension.version>1.16.0</c2s.validator-extension.version>
+        <c2s.xdm.version>1.16.0</c2s.xdm.version>
+        <c2s.xdsb-client.version>0.2.0</c2s.xdsb-client.version>
+        <c2s.xml-validation.version>1.16.0</c2s.xml-validation.version>
+        <c2s.consent-gen.version>1.16.0</c2s.consent-gen.version>
 
 
         <!-- Test -->
