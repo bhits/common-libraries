@@ -101,114 +101,15 @@
         </dependency>
 
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>marshaller</artifactId>
-                <version>${c2s.common-libraries.version}</version>
-            </dependency>
-            <!-- Apache CXF dependencies -->
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-transports-http</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <!-- Logging -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <!-- Briding Legacy APIs START -->
-            <!-- jcl-over-slf4j.jar replaces commons-logging.jar log4j-over-slf4j.jar
-                replaces log4j.jar SLF4JBridgeHandler is installed(requires jul-to-slf4j.jar -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-jxpath</groupId>
-                <artifactId>commons-jxpath</artifactId>
-                <version>${commons-jxpath.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>file-reader</artifactId>
-                <version>${file-reader.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.saxon</groupId>
-                <artifactId>Saxon-HE</artifactId>
-                <version>${saxon.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-transports-http-jetty</artifactId>
                 <version>${cxf-rt-transports-http-jetty.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>document-transformer</artifactId>
-                <version>${document-transformer.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>param</artifactId>
-                <version>${param.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>common-util</artifactId>
-                <version>${c2s.common-util.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>gov.samhsa.c2s</groupId>
-                <artifactId>logger-wrapper</artifactId>
-                <version>${logger-wrapper.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -289,15 +190,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>
