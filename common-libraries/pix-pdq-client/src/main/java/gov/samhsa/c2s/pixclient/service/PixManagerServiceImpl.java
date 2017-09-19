@@ -9,10 +9,11 @@ import org.hl7.v3.PRPAIN201304UV02;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201310UV02;
 import org.openhie.openpixpdq.services.PIXManagerService;
-import org.springframework.util.StringUtils;
+import org.springframework.util.Assert;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+import javax.xml.ws.soap.SOAPBinding;
 import java.net.URL;
 
 /**
@@ -38,12 +39,20 @@ public class PixManagerServiceImpl implements PixManagerService {
     private final String endpointAddress;
 
     /**
+     * The SOAP version.
+     */
+    private final SoapVersion soapVersion;
+
+    /**
      * Instantiates a new pix manager service impl.
      *
      * @param endpointAddress the endpoint address
      */
-    public PixManagerServiceImpl(String endpointAddress) {
+    public PixManagerServiceImpl(String endpointAddress, SoapVersion soapVersion) {
+        Assert.hasText(endpointAddress, "'endpointAddress' must have text");
+        Assert.notNull(soapVersion, "'soapVersion' must not be null");
         this.endpointAddress = endpointAddress;
+        this.soapVersion = soapVersion;
     }
 
 
@@ -131,15 +140,9 @@ public class PixManagerServiceImpl implements PixManagerService {
      * @return the PIX manager port type proxy
      */
     PIXManagerService.PIXManagerPortTypeProxy createPortProxy() {
-        final PIXManagerService.PIXManagerPortTypeProxy port = new PIXManagerService(wsdlURL,
-                serviceName).getPIXManagerPortSoap12();
-        if (StringUtils.hasText(this.endpointAddress)) {
-            final BindingProvider bp = port;
-            bp.getRequestContext().put(
-                    BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                    this.endpointAddress);
-        }
-        return port;
+        final Service service = Service.create(serviceName);
+        service.addPort(serviceName, SoapVersion.SOAP_12.equals(soapVersion) ? SOAPBinding.SOAP12HTTP_BINDING : SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
+        return service.getPort(serviceName, PIXManagerService.PIXManagerPortTypeProxy.class);
     }
 
     /**
