@@ -65,35 +65,11 @@
         <saxon.version>9.8.0-3</saxon.version>
         <cxf-rt-transports-http-jetty.version>3.1.12</cxf-rt-transports-http-jetty.version>
         <file-reader.version>1.12.0</file-reader.version>
-        <common-util.version>${project.parent.version}</common-util.version>
         <document-transformer.version>1.14.0</document-transformer.version>
         <param.version>1.14.0</param.version>
         <logger-wrapper.version>1.14.0</logger-wrapper.version>
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <asm.version>5.0.4</asm.version>
-        <!-- Common Libraries Versions -->
-        <c2s.audit-client.version>1.17.0-SNAPSHOT</c2s.audit-client.version>
-        <c2s.common-unit.version>1.17.0-SNAPSHOT</c2s.common-unit.version>
-        <c2s.common-util.version>1.17.0-SNAPSHOT</c2s.common-util.version>
-        <c2s.consent-gen-version>1.17.0-SNAPSHOT</c2s.consent-gen-version>
-        <c2s.document-accessor.version>1.17.0-SNAPSHOT</c2s.document-accessor.version>
-        <c2s.document-converter.version>1.17.0-SNAPSHOT</c2s.document-converter.version>
-        <c2s.document-transformer.version>1.17.0-SNAPSHOT</c2s.document-transformer.version>
-        <c2s.file-reader.version>1.17.0-SNAPSHOT</c2s.file-reader.version>
-        <c2s.i18n-jpa-support.version>1.17.0-SNAPSHOT</c2s.i18n-jpa-support.version>
-        <c2s.logger-wrapper.version>1.17.0-SNAPSHOT</c2s.logger-wrapper.version>
-        <c2s.marshaller.version>1.17.0-SNAPSHOT</c2s.marshaller.version>
-        <c2s.namespace.version>1.17.0-SNAPSHOT</c2s.namespace.version>
-        <c2s.oauth2.version>1.17.0-SNAPSHOT</c2s.oauth2.version>
-        <c2s.param.version>1.17.0-SNAPSHOT</c2s.param.version>
-        <c2s.pix-pdq-client.version>0.3.0-SNAPSHOT</c2s.pix-pdq-client.version>
-        <c2s.resource-url.version>1.17.0-SNAPSHOT</c2s.resource-url.version>
-        <c2s.validator-extension.version>1.17.0-SNAPSHOT</c2s.validator-extension.version>
-        <c2s.xdm.version>1.17.0-SNAPSHOT</c2s.xdm.version>
-        <c2s.xdsb-client.version>0.3.0-SNAPSHOT</c2s.xdsb-client.version>
-        <c2s.xml-validation.version>1.17.0-SNAPSHOT</c2s.xml-validation.version>
-        <c2s.consent-gen.version>1.17.0-SNAPSHOT</c2s.consent-gen.version>
-
 
         <!-- Test -->
         <xmlunit.version>1.5</xmlunit.version>
@@ -230,57 +206,57 @@
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-util</artifactId>
-                <version>${c2s.common-util.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-accessor</artifactId>
-                <version>${c2s.document-accessor.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-converter</artifactId>
-                <version>${c2s.document-converter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>document-transformer</artifactId>
-                <version>${c2s.document-transformer.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>logger-wrapper</artifactId>
-                <version>${c2s.logger-wrapper.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>marshaller</artifactId>
-                <version>${c2s.marshaller.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>namespace</artifactId>
-                <version>${c2s.namespace.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>oauth2</artifactId>
-                <version>${c2s.oauth2.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>param</artifactId>
-                <version>${c2s.param.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>resource-url</artifactId>
-                <version>${c2s.resource-url.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>xml-validation</artifactId>
-                <version>${c2s.xml-validation.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ow2.asm</groupId>
@@ -292,13 +268,13 @@
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>common-unit</artifactId>
-                <version>${c2s.common-unit.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>file-reader</artifactId>
-                <version>${c2s.file-reader.version}</version>
+                <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
 

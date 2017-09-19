@@ -7,7 +7,6 @@
 		<version>1.17.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>consent-gen</artifactId>
-	<version>${c2s.consent-gen.version}</version>
 
 	<name>Consent Generator</name>
 	<packaging>jar</packaging>

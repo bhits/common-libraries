@@ -10,7 +10,6 @@
 
 	<name>Document Converter</name>
 	<packaging>jar</packaging>
-	<version>${c2s.document-converter.version}</version>
 
 	<dependencies>
 		<dependency>

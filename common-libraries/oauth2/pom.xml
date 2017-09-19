@@ -7,7 +7,6 @@
 		<version>1.17.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>oauth2</artifactId>
-	<version>${c2s.oauth2.version}</version>
 
 	<name>OAuth2 Utils</name>
 	<packaging>jar</packaging>
