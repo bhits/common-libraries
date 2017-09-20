@@ -98,6 +98,10 @@
             <groupId>gov.samhsa.c2s</groupId>
             <artifactId>common-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>gov.samhsa.c2s</groupId>
+            <artifactId>common-cxf</artifactId>
+        </dependency>
 
     </dependencies>
 

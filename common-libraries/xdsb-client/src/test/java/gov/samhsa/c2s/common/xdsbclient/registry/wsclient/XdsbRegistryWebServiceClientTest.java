@@ -30,7 +30,7 @@ public class XdsbRegistryWebServiceClientTest {
 	
 	private final QName serviceName = new QName("urn:ihe:iti:xds-b:2007", "DocumentRegistry_Service");
 	
-	private final String portNumber = "8888";
+	private final String portNumber = "8899";
 	
 	private FileReader fileReader;
 
