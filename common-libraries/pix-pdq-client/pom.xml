@@ -18,6 +18,10 @@
             <groupId>gov.samhsa.c2s</groupId>
             <artifactId>marshaller</artifactId>
         </dependency>
+        <dependency>
+            <groupId>gov.samhsa.c2s</groupId>
+            <artifactId>common-cxf</artifactId>
+        </dependency>
         <!-- Apache CXF dependencies -->
         <dependency>
             <groupId>org.apache.cxf</groupId>

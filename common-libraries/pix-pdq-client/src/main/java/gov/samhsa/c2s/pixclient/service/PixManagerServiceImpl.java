@@ -1,5 +1,7 @@
 package gov.samhsa.c2s.pixclient.service;
 
+import gov.samhsa.c2s.common.cxf.AbstractEnhancedCxfClient;
+import gov.samhsa.c2s.common.cxf.SoapVersion;
 import gov.samhsa.c2s.pixclient.service.exception.PixManagerServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -12,36 +14,24 @@ import org.openhie.openpixpdq.services.PIXManagerService;
 import org.springframework.util.Assert;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.soap.SOAPBinding;
 import java.net.URL;
 
 /**
  * The Class PixManagerServiceImpl.
  */
 @Slf4j
-public class PixManagerServiceImpl implements PixManagerService {
+public class PixManagerServiceImpl extends AbstractEnhancedCxfClient implements PixManagerService {
 
-
+    /**
+     * The service name.
+     */
+    private static final QName SERVICE_NAME = new QName("urn:ihe:iti:pixv3:2007",
+            "PIXManager_Service");
     /**
      * The wsdl url.
      */
     final URL wsdlURL = this.getClass().getClassLoader()
             .getResource("wsdl/PIXManager.wsdl");
-    /**
-     * The service name.
-     */
-    final QName serviceName = new QName("urn:ihe:iti:pixv3:2007",
-            "PIXManager_Service");
-    /**
-     * The endpoint address.
-     */
-    private final String endpointAddress;
-
-    /**
-     * The SOAP version.
-     */
-    private final SoapVersion soapVersion;
 
     /**
      * Instantiates a new pix manager service impl.
@@ -49,12 +39,16 @@ public class PixManagerServiceImpl implements PixManagerService {
      * @param endpointAddress the endpoint address
      */
     public PixManagerServiceImpl(String endpointAddress, SoapVersion soapVersion) {
+        super(SERVICE_NAME, endpointAddress);
         Assert.hasText(endpointAddress, "'endpointAddress' must have text");
         Assert.notNull(soapVersion, "'soapVersion' must not be null");
-        this.endpointAddress = endpointAddress;
-        this.soapVersion = soapVersion;
+        setSoapVersion(soapVersion);
     }
 
+    @Override
+    protected Class<PIXManagerService.PIXManagerPortTypeProxy> getPortTypeClass() {
+        return PIXManagerService.PIXManagerPortTypeProxy.class;
+    }
 
     /**
      * Pix manager PRPAIN201301UV02 (Add).
@@ -107,7 +101,6 @@ public class PixManagerServiceImpl implements PixManagerService {
         }
     }
 
-
     /**
      * Pix manager PRPAIN201309UV02 (Query).
      *
@@ -123,26 +116,6 @@ public class PixManagerServiceImpl implements PixManagerService {
         } catch (final Exception e) {
             throw toPixManagerServiceException(e);
         }
-    }
-
-    /**
-     * Creates the port.
-     *
-     * @return the PIX manager port type proxy
-     */
-    PIXManagerService.PIXManagerPortTypeProxy createPort() {
-        return createPortProxy();
-    }
-
-    /**
-     * Creates the port proxy.
-     *
-     * @return the PIX manager port type proxy
-     */
-    PIXManagerService.PIXManagerPortTypeProxy createPortProxy() {
-        final Service service = Service.create(serviceName);
-        service.addPort(serviceName, SoapVersion.SOAP_12.equals(soapVersion) ? SOAPBinding.SOAP12HTTP_BINDING : SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
-        return service.getPort(serviceName, PIXManagerService.PIXManagerPortTypeProxy.class);
     }
 
     /**
