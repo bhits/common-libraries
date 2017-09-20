@@ -1,12 +1,4 @@
-package gov.samhsa.c2s.common.xdsbclient.cxf;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-
-import javax.xml.ws.Endpoint;
+package gov.samhsa.c2s.common.cxf;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.interceptor.Interceptor;
@@ -16,6 +8,13 @@ import org.apache.cxf.jaxws.spring.EndpointDefinitionParser.SpringEndpointImpl;
 import org.apache.cxf.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.ws.Endpoint;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class CXFLoggingConfigurer {
 

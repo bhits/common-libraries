@@ -33,6 +33,7 @@
         <module>pix-pdq-client</module>
         <module>xdsb-client</module>
         <module>i18n-jpa-support</module>
+        <module>common-cxf</module>
     </modules>
 
     <properties>
@@ -146,12 +147,17 @@
             <!-- Apache CXF dependencies -->
             <dependency>
                 <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <artifactId>cxf-core</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
             <dependency>
@@ -256,6 +262,11 @@
             <dependency>
                 <groupId>gov.samhsa.c2s</groupId>
                 <artifactId>xml-validation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>gov.samhsa.c2s</groupId>
+                <artifactId>common-cxf</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
