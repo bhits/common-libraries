@@ -71,7 +71,13 @@ public class XdsbRepositoryAdapterIT {
         assert (response.getDocumentResponse().size() > 0);
         assertNotNull(response.getRegistryResponse());
     }
-
+    /**
+     * This test publishes a doc (uploadC32.xml)
+     * containing patient's EId and Global Domain ID(2.16.840.1.113883.4.357) to bhitsdevhie01
+     * NOTE: Before publishing, update patientRole.id.extension in uploadC32.xml with the patient's Enterprise Id
+     *
+     * @throws Exception
+     */
     @Test
     public void testProvideAndRegisterDocumentSet() throws Exception {
         RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32, OPENEMPI_GLOBAL_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT);
