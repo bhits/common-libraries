@@ -48,7 +48,7 @@
 		select="//ClinicalDocument/recordTarget/patientRole" />
 
 	<xsl:variable name="patientIdentifier"
-		select="string-join((concat($patientRole/id/@extension, '^^^'), $homeCommunityId, 'ISO'), '&amp;')" />
+		select="string-join((concat($patientRole/id[1]/@extension, '^^^'), $homeCommunityId, 'ISO'), '&amp;')" />
 
 	<xsl:variable name="author"
 		select="//ClinicalDocument/author/assignedAuthor" />
