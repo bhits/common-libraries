@@ -7,6 +7,7 @@ import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.apache.cxf.ws.addressing.WSAddressingFeature;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -21,6 +22,7 @@ public abstract class AbstractEnhancedCxfClient {
     private final QName serviceName;
     private final String endpointAddress;
     private boolean loggingInterceptorsEnabled = false;
+    private boolean wsAddressingEnabled = false;
     private SoapVersion soapVersion = SoapVersion.SOAP_12;
     private Optional<Long> connectionTimeoutMilliseconds = Optional.empty();
     private Optional<Long> receiveTimeoutMilliseconds = Optional.empty();
@@ -59,21 +61,22 @@ public abstract class AbstractEnhancedCxfClient {
         this.inInterceptors = Optional.ofNullable(inInterceptors);
     }
 
-    protected abstract <T extends GenericPortTypeProxy> Class<T> getPortTypeClass();
+    protected abstract <T extends Client> Class<T> getPortTypeClass();
 
-    protected <T extends GenericPortTypeProxy> T createPortProxy() {
+    protected <T extends Client> T createPortProxy() {
         final Service service = Service.create(getServiceName());
         service.addPort(getServiceName(), SoapVersion.SOAP_12.equals(getSoapVersion()) ? SOAPBinding.SOAP12HTTP_BINDING : SOAPBinding.SOAP11HTTP_BINDING, getEndpointAddress());
-        final T portTypeProxy = service.getPort(getServiceName(), getPortTypeClass());
-
+        final T portTypeProxy = wsAddressingEnabled ?
+                service.getPort(getServiceName(), getPortTypeClass(), new WSAddressingFeature()) :
+                service.getPort(getServiceName(), getPortTypeClass());
         return portTypeProxy;
     }
 
-    protected <T extends GenericPortTypeProxy> T createPort() {
+    protected <T extends Client> T createPort() {
         return configurePort(this::createPortProxy);
     }
 
-    protected <T extends GenericPortTypeProxy> T configurePort(Supplier<T> clientSupplier) {
+    protected <T extends Client> T configurePort(Supplier<T> clientSupplier) {
         final T client = clientSupplier.get();
         CXFLoggingConfigurer.configureInterceptors(client, CXFLoggingConfigurer
                         .serviceNameWithInvokingInstance(client, this),
@@ -83,7 +86,7 @@ public abstract class AbstractEnhancedCxfClient {
         return client;
     }
 
-    private <T extends GenericPortTypeProxy> void setHttpClientConfigIfPresent(T portTypeProxy) {
+    private <T extends Client> void setHttpClientConfigIfPresent(T portTypeProxy) {
         final boolean httpClientPolicyRequired = httpClientPolicy.isPresent() || connectionTimeoutMilliseconds.isPresent() || receiveTimeoutMilliseconds.isPresent();
         final boolean interceptorsRequired = this.inInterceptors.isPresent() || this.outInterceptors.isPresent();
         if (httpClientPolicyRequired || interceptorsRequired) {
@@ -100,9 +103,9 @@ public abstract class AbstractEnhancedCxfClient {
         }
     }
 
-    private <T extends GenericPortTypeProxy> void setMtomEnabledIfPresent(T portTypeProxy) {
+    private <T extends Client> void setMtomEnabledIfPresent(T portTypeProxy) {
         this.mtomEnabled.ifPresent(mtomEnabledConfig -> {
-            final BindingProvider bp = portTypeProxy;
+            final BindingProvider bp = (BindingProvider) portTypeProxy;
             SOAPBinding binding = (SOAPBinding) bp.getBinding();
             binding.setMTOMEnabled(mtomEnabledConfig);
         });

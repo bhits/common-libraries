@@ -19,6 +19,7 @@ public class XdsbRegistryWebServiceClient extends AbstractEnhancedCxfClient {
 
     public XdsbRegistryWebServiceClient(String endpointAddress) {
         super(SERVICE_NAME, endpointAddress);
+        setWsAddressingEnabled(true);
     }
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest input) {

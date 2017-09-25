@@ -80,7 +80,7 @@ public class CXFLoggingConfigurer {
 			Supplier<List<Interceptor<? extends Message>>> outInterceptors,
 			Supplier<String> serviceName, boolean enableLoggingInterceptors) {
 		if (enableLoggingInterceptors) {
-			LOGGER.info("Enabling CXF logging interceptors at "
+			LOGGER.debug("Enabling CXF logging interceptors at "
 					+ serviceName.get());
 			if (inInterceptors
 					.get()
@@ -101,7 +101,7 @@ public class CXFLoggingConfigurer {
 				outInterceptors.get().add(loggingOutInterceptor);
 			}
 		} else {
-			LOGGER.info("Disabling CXF logging interceptors at "
+			LOGGER.debug("Disabling CXF logging interceptors at "
 					+ serviceName.get());
 			inInterceptors.get().stream()
 					.filter(by(LoggingInInterceptor.class))

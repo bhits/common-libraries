@@ -22,6 +22,7 @@ public class XdsbRepositoryWebServiceClient extends AbstractEnhancedCxfClient {
     public XdsbRepositoryWebServiceClient(String endpointAddress) {
         super(SERVICE_NAME, endpointAddress);
         setMtomEnabled(Boolean.TRUE);
+        setWsAddressingEnabled(true);
     }
 
     @Override
