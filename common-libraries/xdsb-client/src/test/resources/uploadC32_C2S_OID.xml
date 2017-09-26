@@ -23,7 +23,7 @@
    <languageCode code="en-US"/>
    <recordTarget>
       <patientRole>
- 		 <id assigningAuthorityName="1.3.6.1.4.1.21367.13.20.200"    extension="C2S-DEV-S6GQ6K"     root="1.3.6.1.4.1.21367.13.20.200"/>
+ 		 <id assigningAuthorityName="FEI-DEV-C2S"    extension="C2S-DEV-S6GQ6K"     root="1.3.6.1.4.1.21367.13.20.200"/>
          <addr>
             <streetAddressLine>14235 South St</streetAddressLine>
             <city>Baltimore</city>
