@@ -80,7 +80,6 @@
     </dependencyManagement>
 
     <build>
-        <finalName>pix-pdq-client</finalName>
         <plugins>
             <!-- Apache CXF Code Generation Plugin. This plug-in will generate code
             for the wsdl specified. We want to execute WSDL data binding as part of Maven's
