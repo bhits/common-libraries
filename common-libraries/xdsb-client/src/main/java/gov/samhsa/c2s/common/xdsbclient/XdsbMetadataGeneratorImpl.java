@@ -1,6 +1,7 @@
 package gov.samhsa.c2s.common.xdsbclient;
 
 import static gov.samhsa.c2s.common.xdsbclient.XdsbDocumentType.DEPRECATE_PRIVACY_CONSENT;
+import static gov.samhsa.c2s.common.xdsbclient.XdsbMetadataGeneratorParams.DocumentSuffix;
 import static gov.samhsa.c2s.common.xdsbclient.XdsbMetadataGeneratorParams.HomeCommunityId_Parameter_Name;
 import static gov.samhsa.c2s.common.xdsbclient.XdsbMetadataGeneratorParams.PatientUniqueId_Parameter_Name;
 import static gov.samhsa.c2s.common.xdsbclient.XdsbMetadataGeneratorParams.XdsDocumentEntry_EntryUUID_Parameter_Name;
@@ -76,9 +77,9 @@ public class XdsbMetadataGeneratorImpl implements XdsbMetadataGenerator {
 	}
 
 	@Override
-	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId) {
+	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId, String documentSuffix) {
 
-		final String metadataXml = generateMetadataXml(document, homeCommunityId);
+		final String metadataXml = generateMetadataXml(document, homeCommunityId, documentSuffix);
 		SubmitObjectsRequest submitObjectsRequest = null;
 		try {
 			submitObjectsRequest = marshaller.unmarshalFromXml(
@@ -92,7 +93,7 @@ public class XdsbMetadataGeneratorImpl implements XdsbMetadataGenerator {
 
 
 	@Override
-	public String generateMetadataXml(String document, String homeCommunityId) {
+	public String generateMetadataXml(String document, String homeCommunityId, String documentSuffix) {
 		// find xsl
 		final String xslUrl = Thread.currentThread().getContextClassLoader()
 				.getResource(resolveXslFileName(documentTypeForXdsbMetadata))
@@ -104,7 +105,7 @@ public class XdsbMetadataGeneratorImpl implements XdsbMetadataGenerator {
 				XdsDocumentEntry_UniqueId_Parameter_Name,
 				xdsDocumentEntryUniqueId).and(
 				XdsSubmissionSet_UniqueId_Parameter_Name,
-				xdsSubmissionSetUniqueId);
+				xdsSubmissionSetUniqueId).and(DocumentSuffix, documentSuffix);
 		addIfValueHasText(params, HomeCommunityId_Parameter_Name,
 				homeCommunityId);
 

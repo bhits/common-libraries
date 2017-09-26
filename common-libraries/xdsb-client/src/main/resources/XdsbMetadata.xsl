@@ -19,6 +19,7 @@
 	
 	<xsl:param name="XDSDocumentEntry_entryUUID" as="xs:string" select="'Document01'"></xsl:param>
 	<xsl:param name="XDSSubmissionSet_entryUUID" as="xs:string" select="'SubmissionSet'"></xsl:param>
+	<xsl:param name="documentSuffix" as="xs:string"></xsl:param>
 	
 	<xsl:variable name="IsConsentCda" select="count(/ClinicalDocument/templateId[@root='2.16.840.1.113883.3.445.1'])>0"></xsl:variable>
 	
@@ -48,7 +49,7 @@
 		select="//ClinicalDocument/recordTarget/patientRole" />
 
 	<xsl:variable name="patientIdentifier"
-		select="string-join((concat($patientRole/id[1]/@extension, '^^^'), $homeCommunityId, 'ISO'), '&amp;')" />
+		select="string-join((concat($patientRole/id[1]/@extension, '^^^'), $homeCommunityId, $documentSuffix), '&amp;')" />
 
 	<xsl:variable name="author"
 		select="//ClinicalDocument/author/assignedAuthor" />
