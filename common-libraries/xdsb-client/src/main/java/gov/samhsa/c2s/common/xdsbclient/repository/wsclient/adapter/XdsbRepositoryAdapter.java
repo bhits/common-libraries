@@ -62,8 +62,8 @@ public class XdsbRepositoryAdapter {
     }
 
 
-    public RegistryResponseType documentRepositoryRetrieveDocumentSet(String documentXml, String homeCommunityId, XdsbDocumentType documentType) throws SimpleMarshallerException {
-        final String submitObjectRequestXml = generateMetadata(documentXml, homeCommunityId, documentType);
+    public RegistryResponseType documentRepositoryRetrieveDocumentSet(String documentXml, String homeCommunityId, XdsbDocumentType documentType, String documentSuffix) throws SimpleMarshallerException {
+        final String submitObjectRequestXml = generateMetadata(documentXml, homeCommunityId, documentType, documentSuffix);
 
         logger.info("homeCommunityId : " + homeCommunityId);
         logger.info("documentType : " + documentType);
@@ -93,9 +93,9 @@ public class XdsbRepositoryAdapter {
         return request;
     }
 
-    private String generateMetadata(String documentXmlString, String homeCommunityId, XdsbDocumentType documentType) {
+    private String generateMetadata(String documentXmlString, String homeCommunityId, XdsbDocumentType documentType, String documentSuffix) {
         final XdsbMetadataGenerator xdsbMetadataGenerator = new XdsbMetadataGeneratorImpl(new UniqueOidProviderImpl(), documentType, this.marshaller, xmlTransformer);
-        final String metadata = xdsbMetadataGenerator.generateMetadataXml(documentXmlString, homeCommunityId);
+        final String metadata = xdsbMetadataGenerator.generateMetadataXml(documentXmlString, homeCommunityId, documentSuffix);
         return metadata;
     }
 
