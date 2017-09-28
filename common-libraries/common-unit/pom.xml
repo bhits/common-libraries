@@ -7,7 +7,6 @@
 		<version>1.17.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>common-unit</artifactId>
-	<version>${c2s.common-unit.version}</version>
 
 	<name>Common Unit</name>
 	<packaging>jar</packaging>

@@ -8,7 +8,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>xdsb-client</artifactId>
-    <version>${c2s.xdsb-client.version}</version>
     <packaging>jar</packaging>
 
     <name>xdsb-client</name>
@@ -98,6 +97,10 @@
         <dependency>
             <groupId>gov.samhsa.c2s</groupId>
             <artifactId>common-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>gov.samhsa.c2s</groupId>
+            <artifactId>common-cxf</artifactId>
         </dependency>
 
     </dependencies>

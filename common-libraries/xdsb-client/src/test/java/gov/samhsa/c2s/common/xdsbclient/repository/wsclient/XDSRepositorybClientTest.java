@@ -32,7 +32,7 @@ public class XDSRepositorybClientTest {
 	
 	private String endpointAddress;
 	
-	private final String portNumber = "8888";
+	private final String portNumber = "8899";
 	
 	@Before
 	public void setUp() {

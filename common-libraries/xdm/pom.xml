@@ -9,7 +9,6 @@
         <version>1.17.0-SNAPSHOT</version>
     </parent>
     <artifactId>xdm</artifactId>
-    <version>${c2s.xdm.version}</version>
 
     <name>Xdm Zip Utils</name>
     <packaging>jar</packaging>

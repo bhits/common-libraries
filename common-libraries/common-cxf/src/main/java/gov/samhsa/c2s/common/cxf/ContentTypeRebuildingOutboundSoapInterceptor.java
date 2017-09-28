@@ -1,12 +1,4 @@
-package gov.samhsa.c2s.common.xdsbclient.cxf;
-
-import static java.util.stream.Collectors.joining;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.function.Supplier;
+package gov.samhsa.c2s.common.cxf;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
@@ -14,6 +6,14 @@ import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.phase.Phase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
+import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.joining;
 
 public class ContentTypeRebuildingOutboundSoapInterceptor extends
 		AbstractSoapInterceptor {
@@ -115,5 +115,4 @@ public class ContentTypeRebuildingOutboundSoapInterceptor extends
 			return value;
 		}
 	}
-
 }
