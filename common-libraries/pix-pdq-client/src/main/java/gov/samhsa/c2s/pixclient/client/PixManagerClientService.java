@@ -6,23 +6,23 @@ package gov.samhsa.c2s.pixclient.client;
 public interface PixManagerClientService {
 
     /**
-     * Adds the person.
+     * Adds the patient.
      *
      * @param reqXMLPath the req xml path
      * @return the string
      */
-    String addPerson(String reqXMLPath);
+    String addPatient(String reqXMLPath);
 
     /**
-     * Update person.
+     * Update patient.
      *
      * @param reqXMLPath the req xml path
      * @return the string
      */
-    String updatePerson(String reqXMLPath);
+    String updatePatient(String reqXMLPath);
 
     /**
-     * Query Person for Enterprise Id
+     * Query Patient for Enterprise Id
      * @param patientId The patient Id
      * @param PatientMrnOid The MRN System OID
      * @return EnterpriseId comprising of Identifier, Universal Identifier and Universal Identifier Type
