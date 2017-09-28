@@ -28,14 +28,15 @@ public class XdsbRepositoryAdapterIT {
     private static final String C2S_MRN_OID = "1.3.6.1.4.1.21367.13.20.200";
     private static final XdsbDocumentType XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT = XdsbDocumentType.CLINICAL_DOCUMENT;
     private static final String SUCCESS = "Success";
+    private static final String DOCUMENT_SUFFIX = "ISO";
     private static String endpointAddress;
     // System under test
     private static XdsbRepositoryAdapter xdsbRepositoryAdapter;
-
     private static FileReader fileReader;
-
     private static String c32;
-
+    private static String CCDA11;
+    private static String CCDA20;
+    private static String CCDA21;
     private static String c32_with_c2s_mrn_oid;
 
     @BeforeClass
@@ -53,7 +54,9 @@ public class XdsbRepositoryAdapterIT {
         fileReader = new FileReaderImpl();
         c32 = fileReader.readFile("uploadC32.xml");
         c32_with_c2s_mrn_oid = fileReader.readFile("uploadC32_C2S_OID.xml");
-
+        CCDA11 = fileReader.readFile("C-CDA_R1.1.xml");
+        CCDA20 = fileReader.readFile("C-CDA_R2.0.xml");
+        CCDA21 = fileReader.readFile("C-CDA_R2.1.xml");
     }
 
     @Test
@@ -73,7 +76,7 @@ public class XdsbRepositoryAdapterIT {
      */
     @Test
     public void testProvideAndRegisterDocumentSet() throws Exception {
-        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32, OPENEMPI_GLOBAL_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT);
+        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32, OPENEMPI_GLOBAL_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, DOCUMENT_SUFFIX);
 
         assertTrue(response.getStatus().contains(SUCCESS));
     }
@@ -87,7 +90,43 @@ public class XdsbRepositoryAdapterIT {
      */
     @Test
     public void publishDocumentContainingC2SMRN() throws Exception {
-        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32_with_c2s_mrn_oid, C2S_MRN_OID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT);
+        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(c32_with_c2s_mrn_oid, C2S_MRN_OID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, DOCUMENT_SUFFIX);
+        assertTrue(response.getStatus().contains(SUCCESS));
+    }
+
+    /**
+     * Publish a CCDA 1.1 document
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testProvideAndRegisterDocumentSet_CCDA11() throws Exception {
+        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(CCDA11, OPENEMPI_GLOBAL_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, DOCUMENT_SUFFIX);
+
+        assertTrue(response.getStatus().contains(SUCCESS));
+    }
+
+    /**
+     * Publish a CCDA 2.0 document
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testProviderAndRegisterDocumentSet_CCDA20() throws Exception {
+        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(CCDA20, OPENEMPI_GLOBAL_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, DOCUMENT_SUFFIX);
+
+        assertTrue(response.getStatus().contains(SUCCESS));
+    }
+
+    /**
+     * Publish a CCDA 2.1 document
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testProviderAndRegisterDocumentSet_CCDA21() throws Exception {
+        RegistryResponseType response = xdsbRepositoryAdapter.documentRepositoryRetrieveDocumentSet(CCDA21, OPENEMPI_GLOBAL_DOMAIN_ID, XDSB_DOCUMENT_TYPE_CLINICAL_DOCUMENT, DOCUMENT_SUFFIX);
+
         assertTrue(response.getStatus().contains(SUCCESS));
     }
 }

@@ -22,11 +22,14 @@ public enum XdsbMetadataGeneratorParams {
 	/** The Constant XdsSubmissionSet_UniqueId_Parameter_Name. */
 	XdsSubmissionSet_UniqueId_Parameter_Name("XDSSubmissionSet_uniqueId"),
 
+	DocumentSuffix("documentSuffix"),
+
 	/** The Constant XdsDocumentEntry_EntryUUID_Parameter_Name. */
 	XdsDocumentEntry_EntryUUID_Parameter_Name("XDSDocumentEntry_entryUUID");
 
 	/** The param name. */
 	private String paramName;
+
 
 	/**
 	 * Instantiates a new xdsb metadata generator params.

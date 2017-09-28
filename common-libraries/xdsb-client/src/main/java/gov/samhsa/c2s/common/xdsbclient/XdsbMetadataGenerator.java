@@ -19,7 +19,7 @@ public interface XdsbMetadataGenerator {
 	 *            document.)
 	 * @return the string
 	 */
-	public String generateMetadataXml(String document, String homeCommunityId);
+	public String generateMetadataXml(String document, String homeCommunityId, String documentSuffix);
 
 
 
@@ -35,5 +35,5 @@ public interface XdsbMetadataGenerator {
 	 *            document.)
 	 * @return the submit objects request
 	 */
-	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId);
+	public SubmitObjectsRequest generateMetadata(String document, String homeCommunityId, String documentSuffix);
 }
