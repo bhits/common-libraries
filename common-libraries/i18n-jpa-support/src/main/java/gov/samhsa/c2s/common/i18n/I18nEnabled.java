@@ -14,7 +14,7 @@ public interface I18nEnabled {
     default String getMessageKey(String fieldName) {
         return Stream.of(
                 CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, this.getClass().getSimpleName()),
-                getIdAsString(),
+                CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, getIdAsString()),
                 CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, fieldName))
                 .collect(joining(DELIMITER));
     }
