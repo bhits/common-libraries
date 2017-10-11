@@ -344,31 +344,32 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
      */
     private ConsentDto mapProvidersPermittedToDisclose(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
-        DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
-        String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirFromProviderResource);
+        List<Reference> fhirFromProviderList = fhirConsent.getOrganization();
 
         consentDto.setProvidersPermittedToDisclose(new HashSet<>());
         consentDto.setOrganizationalProvidersPermittedToDisclose(new HashSet<>());
 
-        if(fhirFromProviderResource.getResourceType() == ResourceType.Organization){
-            OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
-            organizationalProviderDto.setNpi(fhirFromProviderNpi);
+        Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
+        Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
 
-            Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
-            organizationalProviderDtoSet.add(organizationalProviderDto);
+        for(Reference fhirFromProviderReference : fhirFromProviderList ){
+            DomainResource fhirFromProviderResource = (DomainResource) fhirFromProviderReference.getResource();
+            String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirFromProviderResource);
 
-            consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
-        }else if(fhirFromProviderResource.getResourceType() == ResourceType.Practitioner){
-            IndividualProviderDto individualProviderDto = new IndividualProviderDto();
-            individualProviderDto.setNpi(fhirFromProviderNpi);
-
-            Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
-            individualProviderDtoSet.add(individualProviderDto);
-
-            consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
-        }else{
-            throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
+            if(fhirFromProviderResource.getResourceType() == ResourceType.Organization){
+                OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
+                organizationalProviderDto.setNpi(fhirFromProviderNpi);
+                organizationalProviderDtoSet.add(organizationalProviderDto);
+            }else if(fhirFromProviderResource.getResourceType() == ResourceType.Practitioner){
+                IndividualProviderDto individualProviderDto = new IndividualProviderDto();
+                individualProviderDto.setNpi(fhirFromProviderNpi);
+                individualProviderDtoSet.add(individualProviderDto);
+            }else{
+                throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
+            }
         }
+        consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
+        consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
 
         return consentDto;
     }
@@ -385,10 +386,10 @@ public class ConsentBuilderImpl implements ConsentBuilder {
     private ConsentDto mapProvidersDisclosureIsMadeTo(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
         List<DomainResource> fhirToProviderResourceList = new ArrayList<>();
 
-        if(fhirConsent.hasRecipient()){
-            List<Reference> fhirToProviderReferenceList = fhirConsent.getRecipient();
+        if(fhirConsent.hasActor()){
+            List<Consent.ConsentActorComponent> fhirToProviderReferenceList = fhirConsent.getActor();
             fhirToProviderReferenceList.forEach(fhirToProviderReference ->
-                    fhirToProviderResourceList.add((DomainResource) fhirToProviderReference.getResource()));
+                    fhirToProviderResourceList.add((DomainResource) fhirToProviderReference.getReference().getResource()));
         }else{
             throw new ConsentGenException("The FHIR consent does not have any recipient(s) specified");
         }
@@ -405,12 +406,10 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             if (fhirToProviderResource.getResourceType() == ResourceType.Organization) {
                 OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
                 organizationalProviderDto.setNpi(fhirFromProviderNpi);
-
                 organizationalProviderDtoSet.add(organizationalProviderDto);
             } else if (fhirToProviderResource.getResourceType() == ResourceType.Practitioner) {
                 IndividualProviderDto individualProviderDto = new IndividualProviderDto();
                 individualProviderDto.setNpi(fhirFromProviderNpi);
-
                 individualProviderDtoSet.add(individualProviderDto);
             } else {
                 throw new ConsentGenException("Invalid to provider resource(s) type found in FHIR consent; ResourceType of fhirToProviderResource must be either 'Organization' or 'Practitioner'");
