@@ -54,7 +54,7 @@
         <!-- TODO: upgrade it to release -->
         <logback-audit.version>0.6.3</logback-audit.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
-        <hapi.fhir.version>2.2</hapi.fhir.version>
+        <hapi.fhir.version>3.0.0</hapi.fhir.version>
         <cxf.version>3.1.12</cxf.version>
         <cxf-xjc-plugin.version>3.1.12</cxf-xjc-plugin.version>
         <spring.version>4.3.9.RELEASE</spring.version>
