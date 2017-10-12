@@ -42,7 +42,7 @@
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <git-commit-id-plugin.version>2.2.1</git-commit-id-plugin.version>
         <spring.boot.version>1.5.6.RELEASE</spring.boot.version>
-        <apache.commons.version>3.4</apache.commons.version>
+        <apache.commons.version>3.6</apache.commons.version>
         <apache.commons-codec.version>1.10</apache.commons-codec.version>
         <xmlsec.version>2.0.8</xmlsec.version>
         <Saxon-HE.version>9.6.0-3</Saxon-HE.version>
