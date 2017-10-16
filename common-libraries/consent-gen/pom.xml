@@ -37,6 +37,15 @@
 			<groupId>gov.samhsa.c2s</groupId>
 			<artifactId>resource-url</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- HAPI FHIR JARS -->
 		<dependency>
@@ -58,6 +67,18 @@
 			<artifactId>hapi-fhir-structures-dstu3</artifactId>
 		</dependency>
 		<!-- HAPI FHIR JARS -->
+
+		<!-- Test -->
+		<dependency>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>document-accessor</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gov.samhsa.c2s</groupId>
+			<artifactId>document-converter</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
