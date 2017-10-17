@@ -57,7 +57,6 @@ public class MockConsentDtoFactory implements ConsentDtoFactory {
                     .organizationalProvidersDisclosureIsMadeTo(organizations(organization(RECIPIENT_NPI_1), organization(RECIPIENT_NPI_3)))
                     .consentStart(Date.from(now))
                     .consentEnd(Date.from(now.plus(365, ChronoUnit.DAYS)))
-                    .consentEnd(Date.from(now))
                     .shareSensitivityPolicyCodes(sensitivities(
                             sensitivity(ALC, "Alcohol use and Alcoholism Information"),
                             sensitivity(COM, "Communicable disease information"),
