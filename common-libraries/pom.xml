@@ -42,7 +42,7 @@
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <git-commit-id-plugin.version>2.2.1</git-commit-id-plugin.version>
         <spring.boot.version>1.5.6.RELEASE</spring.boot.version>
-        <apache.commons.version>3.4</apache.commons.version>
+        <apache.commons.version>3.6</apache.commons.version>
         <apache.commons-codec.version>1.10</apache.commons-codec.version>
         <xmlsec.version>2.0.8</xmlsec.version>
         <Saxon-HE.version>9.6.0-3</Saxon-HE.version>
@@ -54,7 +54,7 @@
         <!-- TODO: upgrade it to release -->
         <logback-audit.version>0.6.3</logback-audit.version>
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
-        <hapi.fhir.version>2.2</hapi.fhir.version>
+        <hapi.fhir.version>3.0.0</hapi.fhir.version>
         <cxf.version>3.1.12</cxf.version>
         <cxf-xjc-plugin.version>3.1.12</cxf-xjc-plugin.version>
         <spring.version>4.3.9.RELEASE</spring.version>
@@ -141,6 +141,16 @@
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
                 <artifactId>hapi-fhir-structures-dstu3</artifactId>
+                <version>${hapi.fhir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi.fhir</groupId>
+                <artifactId>hapi-fhir-structures-r4</artifactId>
+                <version>${hapi.fhir.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi.fhir</groupId>
+                <artifactId>hapi-fhir-client</artifactId>
                 <version>${hapi.fhir.version}</version>
             </dependency>
 

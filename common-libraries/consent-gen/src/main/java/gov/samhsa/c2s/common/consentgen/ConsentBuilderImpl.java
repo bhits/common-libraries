@@ -4,19 +4,17 @@ import gov.samhsa.c2s.common.document.transformer.XmlTransformer;
 import gov.samhsa.c2s.common.param.ParamsBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.dstu3.model.Coding;
-import org.hl7.fhir.dstu3.model.DomainResource;
-import org.hl7.fhir.dstu3.model.Identifier;
-import org.hl7.fhir.dstu3.model.Patient;
-import org.hl7.fhir.dstu3.model.Reference;
-import org.hl7.fhir.dstu3.model.ResourceType;
-import org.springframework.util.Assert;
-
 import org.hl7.fhir.dstu3.model.Consent;
 import org.hl7.fhir.dstu3.model.Consent.ExceptComponent;
+import org.hl7.fhir.dstu3.model.DomainResource;
+import org.hl7.fhir.dstu3.model.Identifier;
 import org.hl7.fhir.dstu3.model.Organization;
+import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.dstu3.model.Practitioner;
+import org.hl7.fhir.dstu3.model.ResourceType;
+import org.hl7.fhir.r4.model.codesystems.V3ParticipationType;
+import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -28,41 +26,53 @@ import java.util.stream.Collectors;
  */
 public class ConsentBuilderImpl implements ConsentBuilder {
 
-    /** The Constant PARAM_EID. */
+    /**
+     * The Constant PARAM_EID.
+     */
     public final static String PARAM_EID = "enterpriseIdentifier";
 
-    /** The Constant PARAM_MRN. */
+    /**
+     * The Constant PARAM_MRN.
+     */
     public final static String PARAM_MRN = "medicalRecordNumber";
 
-    /** The Constant PARAM_POLICY_ID. */
+    /**
+     * The Constant PARAM_POLICY_ID.
+     */
     public final static String PARAM_POLICY_ID = "policyId";
 
-    /** The Constant PROVIDER_ID_CODE_SYSTEM, which indicates the code system used to express whatever id is used to identify providers */
+    /**
+     * The Constant PROVIDER_ID_CODE_SYSTEM, which indicates the code system used to express whatever id is used to identify providers
+     */
     final static String PROVIDER_ID_CODE_SYSTEM = "http://hl7.org/fhir/sid/us-npi";   // Code system for NPI
 
-    /** The c2s account org. */
+    /**
+     * The c2s account org.
+     */
     private final String c2sAccountOrg;
 
-    /** The xacml xsl url provider. */
+    /**
+     * The xacml xsl url provider.
+     */
     private final XacmlXslUrlProvider xacmlXslUrlProvider;
 
-    /** The consent dto factory. */
+    /**
+     * The consent dto factory.
+     */
     private final ConsentDtoFactory consentDtoFactory;
 
-    /** The xml transformer. */
+    /**
+     * The xml transformer.
+     */
     private final XmlTransformer xmlTransformer;
 
     /**
      * Instantiates a new consent builder impl.
      *
-     * @param c2sAccountOrg
-     *            the c2s account org
-     * @param xacmlXslUrlProvider
-     *            the xacml xsl url provider
-     * @param consentDtoFactory
-     *            the consent dto factory
-     * @param xmlTransformer
-     *            the xml transformer
+     * @param c2sAccountOrg       the c2s account org
+     * @param xacmlXslUrlProvider the xacml xsl url provider
+     * @param consentDtoFactory   the consent dto factory
+     * @param xmlTransformer      the xml transformer
      */
     public ConsentBuilderImpl(String c2sAccountOrg,
                               XacmlXslUrlProvider xacmlXslUrlProvider,
@@ -88,7 +98,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                     xacmlXslUrlProvider.getUrl(XslResource.CDAR2XSLNAME),
                     Optional.empty(), Optional.empty());
             return cdar2;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
     }
@@ -103,7 +114,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                     xacmlXslUrlProvider.getUrl(XslResource.CDAR2CONSENTDIRECTIVEXSLNAME),
                     Optional.empty(), Optional.empty());
             return cdar2consentDirective;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
     }
@@ -125,7 +137,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                             .getPatientDto().getMedicalRecordNumber())),
                     Optional.empty());
             return xacml;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
     }
@@ -142,15 +155,15 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             Consent fhirConsent;
             Patient fhirPatient;
 
-            if(objFhirConsent.getClass() == Consent.class){
+            if (objFhirConsent.getClass() == Consent.class) {
                 fhirConsent = (Consent) objFhirConsent;
-            }else{
+            } else {
                 throw new ConsentGenException("Invalid Object type for objFhirConsent passed to 'buildFhirConsent2ConsentDto' method; Object type must be 'org.hl7.fhir.dstu3.model.Consent'");
             }
 
-            if(objFhirPatient.getClass() == Patient.class){
+            if (objFhirPatient.getClass() == Patient.class) {
                 fhirPatient = (Patient) objFhirPatient;
-            }else{
+            } else {
                 throw new ConsentGenException("Invalid Object type for objFhirPatient passed to 'buildFhirConsent2ConsentDto' method; Object type must be 'org.hl7.fhir.dstu3.model.Patient'");
             }
 
@@ -188,7 +201,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
             consentDto = mapShareSensitivityPolicyCodes(consentDto, fhirConsent);
 
             return consentDto;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
     }
@@ -222,7 +236,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                                     PARAM_POLICY_ID, policyId)), Optional
                             .empty());
             return xacml;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
     }
@@ -256,7 +271,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                                     PARAM_POLICY_ID, policyId)), Optional
                             .empty());
             return xacml;
-        } catch (final Exception e) {
+        }
+        catch (final Exception e) {
             throw new ConsentGenException(e.getMessage(), e);
         }
     }
@@ -268,11 +284,11 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * gov.samhsa.consent.ConsentBuilder#extractNpiFromFhirProviderResource(org.hl7.fhir.dstu3.model.DomainResource)
      */
     @Override
-    public String extractNpiFromFhirProviderResource(DomainResource providerResource) throws ConsentGenException{
+    public String extractNpiFromFhirProviderResource(DomainResource providerResource) throws ConsentGenException {
         ResourceType providerResourceType = providerResource.getResourceType();
         String providerNpi;
 
-        if(providerResourceType == ResourceType.Organization){
+        if (providerResourceType == ResourceType.Organization) {
             Organization providerOrgResource = (Organization) providerResource;
             providerNpi = providerOrgResource.getIdentifier().stream()
                     .filter(i -> (i.hasSystem()) && (i.getSystem().equalsIgnoreCase(PROVIDER_ID_CODE_SYSTEM)))
@@ -282,7 +298,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                             new ConsentGenException("Unable to find a provider identifier in the FHIR consent which is under the code system " + PROVIDER_ID_CODE_SYSTEM)
                     );
 
-        }else if(providerResourceType == ResourceType.Practitioner){
+        } else if (providerResourceType == ResourceType.Practitioner) {
             Practitioner providerIndvResource = (Practitioner) providerResource;
             providerNpi = providerIndvResource.getIdentifier().stream()
                     .filter(i -> (i.hasSystem()) && (i.getSystem().equalsIgnoreCase(PROVIDER_ID_CODE_SYSTEM)))
@@ -292,7 +308,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
                             new ConsentGenException("Unable to find a provider identifier in the FHIR consent which is under the code system " + PROVIDER_ID_CODE_SYSTEM)
                     );
 
-        }else{
+        } else {
             throw new ConsentGenException("Invalid provider resource type passed to extractNpiFromFhirProviderResource; ResourceType of providerResource must be either 'Organization' or 'Practitioner'");
         }
 
@@ -302,10 +318,8 @@ public class ConsentBuilderImpl implements ConsentBuilder {
     /**
      * Builds the pdf policy id.
      *
-     * @param consentId
-     *            the consent id
-     * @param isConsentFrom
-     *            the is consent from
+     * @param consentId     the consent id
+     * @param isConsentFrom the is consent from
      * @return the string
      */
     protected String buildPdfPolicyId(String consentId, boolean isConsentFrom) {
@@ -338,37 +352,49 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * Maps the providers permitted to disclose (i.e. the "from" providers) from the
      * FHIR Consent object to the ConsentDto object.
      *
-     * @param consentDto - The ConsentDto object into which the providers should be mapped
+     * @param consentDto  - The ConsentDto object into which the providers should be mapped
      * @param fhirConsent - The FHIR Consent object which contains the providers to be mapped into consentDto
      * @return The ConsentDto object which contains the mapped providers
      * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
      */
-    private ConsentDto mapProvidersPermittedToDisclose(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
-        DomainResource fhirFromProviderResource = (DomainResource) fhirConsent.getOrganization().getResource();
-        String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirFromProviderResource);
+    private ConsentDto mapProvidersPermittedToDisclose(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
+        if(fhirConsent == null || fhirConsent.getActor() == null || fhirConsent.getActor().size() < 2){
+            throw new ConsentGenException("The FHIR consent does not have minimum number of Actors specified");
+        }
+        List<Consent.ConsentActorComponent> fhirFromProviderList = fhirConsent.getActor().stream()
+                .filter(Consent.ConsentActorComponent::hasRole)
+                .filter(actor -> actor.getRole().getCoding().stream()
+                        .anyMatch(coding -> coding.getCode().equalsIgnoreCase(V3ParticipationType.INF.toCode())))
+                .collect(Collectors.toList());
+
+        if (fhirFromProviderList == null || fhirFromProviderList.size() < 1) {
+            throw new ConsentGenException("The FHIR consent does not have any FROM provider(s) specified");
+        }
 
         consentDto.setProvidersPermittedToDisclose(new HashSet<>());
         consentDto.setOrganizationalProvidersPermittedToDisclose(new HashSet<>());
 
-        if(fhirFromProviderResource.getResourceType() == ResourceType.Organization){
-            OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
-            organizationalProviderDto.setNpi(fhirFromProviderNpi);
+        Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
+        Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
 
-            Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
-            organizationalProviderDtoSet.add(organizationalProviderDto);
+        for (Consent.ConsentActorComponent fhirFromProviderActor : fhirFromProviderList) {
+            DomainResource fhirFromProviderResource = (DomainResource) fhirFromProviderActor.getReference().getResource();
+            String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirFromProviderResource);
 
-            consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
-        }else if(fhirFromProviderResource.getResourceType() == ResourceType.Practitioner){
-            IndividualProviderDto individualProviderDto = new IndividualProviderDto();
-            individualProviderDto.setNpi(fhirFromProviderNpi);
-
-            Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
-            individualProviderDtoSet.add(individualProviderDto);
-
-            consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
-        }else{
-            throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
+            if (fhirFromProviderResource.getResourceType() == ResourceType.Organization) {
+                OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
+                organizationalProviderDto.setNpi(fhirFromProviderNpi);
+                organizationalProviderDtoSet.add(organizationalProviderDto);
+            } else if (fhirFromProviderResource.getResourceType() == ResourceType.Practitioner) {
+                IndividualProviderDto individualProviderDto = new IndividualProviderDto();
+                individualProviderDto.setNpi(fhirFromProviderNpi);
+                individualProviderDtoSet.add(individualProviderDto);
+            } else {
+                throw new ConsentGenException("Invalid from provider resource type found in FHIR consent; ResourceType of fhirFromProviderResource must be either 'Organization' or 'Practitioner'");
+            }
         }
+        consentDto.setOrganizationalProvidersPermittedToDisclose(organizationalProviderDtoSet);
+        consentDto.setProvidersPermittedToDisclose(individualProviderDtoSet);
 
         return consentDto;
     }
@@ -377,20 +403,24 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * Maps the providers disclosure is made to (i.e. the "to" providers) from the
      * FHIR Consent object to the ConsentDto object.
      *
-     * @param consentDto - The ConsentDto object into which the providers should be mapped
+     * @param consentDto  - The ConsentDto object into which the providers should be mapped
      * @param fhirConsent - The FHIR Consent object which contains the providers to be mapped into consentDto
      * @return The ConsentDto object which contains the mapped providers
      * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
      */
-    private ConsentDto mapProvidersDisclosureIsMadeTo(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException{
-        List<DomainResource> fhirToProviderResourceList = new ArrayList<>();
+    private ConsentDto mapProvidersDisclosureIsMadeTo(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
+        if(fhirConsent == null || fhirConsent.getActor() == null || fhirConsent.getActor().size() < 2){
+            throw new ConsentGenException("The FHIR consent does not have minimum number of Actors specified");
+        }
 
-        if(fhirConsent.hasRecipient()){
-            List<Reference> fhirToProviderReferenceList = fhirConsent.getRecipient();
-            fhirToProviderReferenceList.forEach(fhirToProviderReference ->
-                    fhirToProviderResourceList.add((DomainResource) fhirToProviderReference.getResource()));
-        }else{
-            throw new ConsentGenException("The FHIR consent does not have any recipient(s) specified");
+        List<Consent.ConsentActorComponent> fhirToProviderList = fhirConsent.getActor().stream()
+                .filter(Consent.ConsentActorComponent::hasRole)
+                .filter(actor -> actor.getRole().getCoding().stream()
+                        .anyMatch(coding -> coding.getCode().equalsIgnoreCase(V3ParticipationType.IRCP.toCode())))
+                .collect(Collectors.toList());
+
+        if (fhirToProviderList == null || fhirToProviderList.size() < 1) {
+            throw new ConsentGenException("The FHIR consent does not have any TO provider(s) specified");
         }
 
         consentDto.setProvidersDisclosureIsMadeTo(new HashSet<>());
@@ -399,18 +429,17 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         Set<OrganizationalProviderDto> organizationalProviderDtoSet = new HashSet<>();
         Set<IndividualProviderDto> individualProviderDtoSet = new HashSet<>();
 
-        for (DomainResource fhirToProviderResource : fhirToProviderResourceList) {
+        for (Consent.ConsentActorComponent fhirToProviderActor : fhirToProviderList) {
+            DomainResource fhirToProviderResource = (DomainResource) fhirToProviderActor.getReference().getResource();
             String fhirFromProviderNpi = extractNpiFromFhirProviderResource(fhirToProviderResource);
 
             if (fhirToProviderResource.getResourceType() == ResourceType.Organization) {
                 OrganizationalProviderDto organizationalProviderDto = new OrganizationalProviderDto();
                 organizationalProviderDto.setNpi(fhirFromProviderNpi);
-
                 organizationalProviderDtoSet.add(organizationalProviderDto);
             } else if (fhirToProviderResource.getResourceType() == ResourceType.Practitioner) {
                 IndividualProviderDto individualProviderDto = new IndividualProviderDto();
                 individualProviderDto.setNpi(fhirFromProviderNpi);
-
                 individualProviderDtoSet.add(individualProviderDto);
             } else {
                 throw new ConsentGenException("Invalid to provider resource(s) type found in FHIR consent; ResourceType of fhirToProviderResource must be either 'Organization' or 'Practitioner'");
@@ -426,7 +455,7 @@ public class ConsentBuilderImpl implements ConsentBuilder {
     /**
      * Maps the share for purpose of use codes from the FHIR Consent object to the ConsentDto object.
      *
-     * @param consentDto - The ConsentDto object into which the share for purpose of use codes should be mapped
+     * @param consentDto  - The ConsentDto object into which the share for purpose of use codes should be mapped
      * @param fhirConsent - The FHIR Consent object which contains the share for purpose of use codes to be mapped into consentDto
      * @return The ConsentDto object which contains the mapped share for purpose of use codes
      * @throws ConsentGenException - Thrown when FHIR consent contains no 'purpose' codes, or when extracted purpose of use codes set is empty
@@ -435,26 +464,26 @@ public class ConsentBuilderImpl implements ConsentBuilder {
         Set<Coding> fhirShareForPurposeOfUseCodes;
         Set<TypeCodesDto> consentDtoShareForPurposeOfUseCodes = new HashSet<>();
 
-        if(fhirConsent.hasPurpose()){
+        if (fhirConsent.hasPurpose()) {
             fhirShareForPurposeOfUseCodes = new HashSet<>(fhirConsent.getPurpose());
-        }else{
+        } else {
             throw new ConsentGenException("FHIR consent does not contain any 'purpose' codes");
         }
 
-        if(fhirShareForPurposeOfUseCodes.size() > 0){
+        if (fhirShareForPurposeOfUseCodes.size() > 0) {
             fhirShareForPurposeOfUseCodes.forEach(pou -> {
                 TypeCodesDto pouCodeDto = new TypeCodesDto();
 
                 pouCodeDto.setCodeSystem(pou.getSystem());
                 pouCodeDto.setCode(pou.getCode());
 
-                if(pou.hasDisplay()){
+                if (pou.hasDisplay()) {
                     pouCodeDto.setDisplayName(pou.getDisplay());
                 }
 
                 consentDtoShareForPurposeOfUseCodes.add(pouCodeDto);
             });
-        }else{
+        } else {
             throw new ConsentGenException("Share for purpose of use codes set extracted from FHIR consent is an empty set");
         }
 
@@ -466,20 +495,20 @@ public class ConsentBuilderImpl implements ConsentBuilder {
     /**
      * Maps the share sensitivity policy codes from the FHIR Consent object to the ConsentDto object.
      *
-     * @param consentDto - The ConsentDto object into which the sensitivity policy codes should be mapped
+     * @param consentDto  - The ConsentDto object into which the sensitivity policy codes should be mapped
      * @param fhirConsent - The FHIR Consent object which contains the sensitivity policy codes to be mapped into consentDto
      * @return The ConsentDto object which contains the mapped sensitivity policy codes
      * @throws ConsentGenException - Thrown when FHIR consent contains no 'except' anr/or 'securityLabel' codes, when the codes in the FHIR
-     *                               consent are of a type other than 'permit', or when the extracted sensitivity policy codes set size is != 1
+     *                             consent are of a type other than 'permit', or when the extracted sensitivity policy codes set size is != 1
      */
     private ConsentDto mapShareSensitivityPolicyCodes(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
         List<ExceptComponent> fhirExceptComponentsList;
         Set<Coding> fhirShareSensitivityPolicyCodes;
         Set<TypeCodesDto> consentDtoShareSensitivityPolicyCodes = new HashSet<>();
 
-        if(fhirConsent.hasExcept()){
+        if (fhirConsent.hasExcept()) {
             fhirExceptComponentsList = fhirConsent.getExcept();
-        }else{
+        } else {
             throw new ConsentGenException("FHIR consent does not contain any 'except' codes");
         }
 
@@ -490,32 +519,32 @@ public class ConsentBuilderImpl implements ConsentBuilder {
 
         ExceptComponent fhirPermitTypeExceptComponenet;
 
-        if(filteredFhirExceptComponentsList.size() == 1){
+        if (filteredFhirExceptComponentsList.size() == 1) {
             fhirPermitTypeExceptComponenet = filteredFhirExceptComponentsList.get(0);
-        }else{
+        } else {
             throw new ConsentGenException("FHIR consent 'except' list contains no except components with type='permit', or it contains more than 1");
         }
 
-        if(fhirPermitTypeExceptComponenet.hasSecurityLabel()){
+        if (fhirPermitTypeExceptComponenet.hasSecurityLabel()) {
             fhirShareSensitivityPolicyCodes = new HashSet<>(fhirPermitTypeExceptComponenet.getSecurityLabel());
-        }else{
+        } else {
             throw new ConsentGenException("FHIR consent 'except' component with type='permit' does not contain any 'securityLabel' codes");
         }
 
-        if(fhirShareSensitivityPolicyCodes.size() > 0){
+        if (fhirShareSensitivityPolicyCodes.size() > 0) {
             fhirShareSensitivityPolicyCodes.forEach(sensitivityPolicyCode -> {
                 TypeCodesDto sensitivityPolicyCodeDto = new TypeCodesDto();
 
                 sensitivityPolicyCodeDto.setCodeSystem(sensitivityPolicyCode.getSystem());
                 sensitivityPolicyCodeDto.setCode(sensitivityPolicyCode.getCode());
 
-                if(sensitivityPolicyCode.hasDisplay()){
+                if (sensitivityPolicyCode.hasDisplay()) {
                     sensitivityPolicyCodeDto.setDisplayName(sensitivityPolicyCode.getDisplay());
                 }
 
                 consentDtoShareSensitivityPolicyCodes.add(sensitivityPolicyCodeDto);
             });
-        }else{
+        } else {
             throw new ConsentGenException("Sensitivity policy codes set extracted from FHIR consent is an empty set");
         }
 
