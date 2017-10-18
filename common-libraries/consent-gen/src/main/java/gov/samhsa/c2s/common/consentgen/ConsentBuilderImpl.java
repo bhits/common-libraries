@@ -15,7 +15,6 @@ import org.hl7.fhir.dstu3.model.ResourceType;
 import org.hl7.fhir.r4.model.codesystems.V3ParticipationType;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -359,16 +358,15 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
      */
     private ConsentDto mapProvidersPermittedToDisclose(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
-        List<Consent.ConsentActorComponent> fhirFromProviderList = new ArrayList<>();
-
         if(fhirConsent == null || fhirConsent.getActor() == null || fhirConsent.getActor().size() < 2){
             throw new ConsentGenException("The FHIR consent does not have minimum number of Actors specified");
         }
-        for (Consent.ConsentActorComponent actor : fhirConsent.getActor()) {
-            if (actor.hasRole()) {
-                actor.getRole().getCoding().stream().filter(coding -> coding.getCode().equalsIgnoreCase(V3ParticipationType.INF.toCode())).map(coding -> actor).forEach(fhirFromProviderList::add);
-            }
-        }
+        List<Consent.ConsentActorComponent> fhirFromProviderList = fhirConsent.getActor().stream()
+                .filter(Consent.ConsentActorComponent::hasRole)
+                .filter(actor -> actor.getRole().getCoding().stream()
+                        .anyMatch(coding -> coding.getCode().equalsIgnoreCase(V3ParticipationType.INF.toCode())))
+                .collect(Collectors.toList());
+
         if (fhirFromProviderList == null || fhirFromProviderList.size() < 1) {
             throw new ConsentGenException("The FHIR consent does not have any FROM provider(s) specified");
         }
@@ -411,17 +409,15 @@ public class ConsentBuilderImpl implements ConsentBuilder {
      * @throws ConsentGenException - Thrown when the ResourceType of providerResource is not 'Organization' or 'Practitioner'
      */
     private ConsentDto mapProvidersDisclosureIsMadeTo(ConsentDto consentDto, Consent fhirConsent) throws ConsentGenException {
-        List<Consent.ConsentActorComponent> fhirToProviderList = new ArrayList<>();
-
         if(fhirConsent == null || fhirConsent.getActor() == null || fhirConsent.getActor().size() < 2){
             throw new ConsentGenException("The FHIR consent does not have minimum number of Actors specified");
         }
 
-        for (Consent.ConsentActorComponent actor : fhirConsent.getActor()) {
-            if (actor.hasRole()) {
-                actor.getRole().getCoding().stream().filter(coding -> coding.getCode().equalsIgnoreCase(V3ParticipationType.IRCP.toCode())).map(coding -> actor).forEach(fhirToProviderList::add);
-            }
-        }
+        List<Consent.ConsentActorComponent> fhirToProviderList = fhirConsent.getActor().stream()
+                .filter(Consent.ConsentActorComponent::hasRole)
+                .filter(actor -> actor.getRole().getCoding().stream()
+                        .anyMatch(coding -> coding.getCode().equalsIgnoreCase(V3ParticipationType.IRCP.toCode())))
+                .collect(Collectors.toList());
 
         if (fhirToProviderList == null || fhirToProviderList.size() < 1) {
             throw new ConsentGenException("The FHIR consent does not have any TO provider(s) specified");
