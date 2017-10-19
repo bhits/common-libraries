@@ -34,6 +34,7 @@
         <module>xdsb-client</module>
         <module>i18n-jpa-support</module>
         <module>common-cxf</module>
+        <module>pdfbox-enhance</module>
     </modules>
 
     <properties>
