@@ -3351,7 +3351,7 @@ SOCIAL HISTORY
                      moodCode="EVN">
                      <!-- Smoking status observation template -->
                      <templateId
-                        root="2.16.840.1.113883.10.22.4.78"/>
+                        root="2.16.840.1.113883.10.20.22.4.78"/>
                      <id
                         extension="123456789"
                         root="2.16.840.1.113883.19"/>

@@ -20,8 +20,8 @@
     <realmCode code="US"/>
     <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
     <!-- CCD template ID-->
+    <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01"/>
     <templateId root="2.16.840.1.113883.10.20.22.1.2" extension="2015-08-01"/>
-    <templateId root="2.16.840.1.113883.10.20.22.1.2"/>
     <!-- Globally unique identifier for the document  -->
     <id extension="TT988" root="2.16.840.1.113883.19.5.99999.1"/>
     <code code="34133-9" displayName="Summarization of Episode Note" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
@@ -3084,11 +3084,6 @@
                                     <td>September 10, 2012</td>
                                 </tr>
                                 <tr>
-                                    <td>Tobacco Use</td>
-                                    <td>Moderate cigarette smoker, 10-19/day</td>
-                                    <td>February, 2009 - February, 2011</td>
-                                </tr>
-                                <tr>
                                     <td>Alcoholic drinks per day</td>
                                     <td>12</td>
                                     <td>Since February, 2012</td>
@@ -3120,31 +3115,6 @@
                     </entry>
                     <entry typeCode="DRIV">
                         <observation classCode="OBS" moodCode="EVN">
-                            <!-- ** Tobacco use (V2) ** -->
-                            <templateId root="2.16.840.1.113883.10.20.22.4.85" extension="2014-06-09"/>
-                            <templateId root="2.16.840.1.113883.10.20.22.4.85"/>
-                            <id root="45efb604-7049-4a2e-ad33-d38556c9636c"/>
-                            <code code="11367-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of tobacco use"/>
-                            <statusCode code="completed"/>
-                            <effectiveTime>
-                                <!-- The low value reflects the start date of the observation/value (moderate smoker) -->
-                                <low value="20090214"/>
-                                <!-- The high value reflects the end date of the observation/value (moderate smoker) -->
-                                <high value="20110215"/>
-                            </effectiveTime>
-                            <value xsi:type="CD" code="160604004" displayName="Moderate cigarette smoker, 10-19/day" codeSystem="2.16.840.1.113883.6.96"/>
-                            <author typeCode="AUT">
-                                <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
-                                <time value="201209101145-0800"/>
-                                <assignedAuthor>
-                                    <id extension="555555555" root="2.16.840.1.113883.4.6"/>
-                                    <code code="207QA0505X" displayName="Adult Medicine" codeSystem="2.16.840.1.113883.6.101" codeSystemName="Healthcare Provider Taxonomy (HIPAA)"/>
-                                </assignedAuthor>
-                            </author>
-                        </observation>
-                    </entry>
-                    <entry typeCode="DRIV">
-                        <observation classCode="OBS" moodCode="EVN">
                             <!-- ** Social history observation (V3) ** -->
                             <templateId root="2.16.840.1.113883.10.20.22.4.38" extension="2015-08-01"/>
                             <templateId root="2.16.840.1.113883.10.20.22.4.38"/>
@@ -3154,7 +3124,7 @@
                             <effectiveTime>
                                 <low value="20120215"/>
                             </effectiveTime>
-                            <value xsi:type="PQ" value="12"/>
+                            <value xsi:type="ST" value="12"/>
                             <author typeCode="AUT">
                                 <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
                                 <time value="201209101145-0800"/>
