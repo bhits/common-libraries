@@ -34,7 +34,7 @@ public class ConsentBuilderImplManyToManySupportTest {
 
     // real instances
     private XacmlXslUrlProviderImpl xacmlXslUrlProvider;
-    private MockConsentDtoFactory consentDtoFactory;
+    private ConsentDtoFactoryStub consentDtoFactory;
     private SimpleMarshallerImpl marshaller;
     private XmlTransformerImpl xmlTransformer;
 
@@ -51,7 +51,7 @@ public class ConsentBuilderImplManyToManySupportTest {
         documentXmlConverter = new DocumentXmlConverterImpl();
         // sut init
         xacmlXslUrlProvider = new XacmlXslUrlProviderImpl();
-        consentDtoFactory = new MockConsentDtoFactory();
+        consentDtoFactory = new ConsentDtoFactoryStub();
         marshaller = new SimpleMarshallerImpl();
         xmlTransformer = new XmlTransformerImpl(marshaller);
         sut = new ConsentBuilderImpl(PCM_ORG, xacmlXslUrlProvider, consentDtoFactory, xmlTransformer);
@@ -60,7 +60,7 @@ public class ConsentBuilderImplManyToManySupportTest {
     @Test
     public void buildConsent2Xacml_Many_To_Many_Support() throws Exception {
         // Act
-        final String s = sut.buildConsent2Xacml(MockConsentDtoFactory.MOCK_REQUEST_OBJECT);
+        final String s = sut.buildConsent2Xacml(ConsentDtoFactoryStub.MOCK_REQUEST_OBJECT);
 
         // Assert
         final Document document = documentXmlConverter.loadDocument(s);
@@ -70,14 +70,14 @@ public class ConsentBuilderImplManyToManySupportTest {
         final Set<String> purposes = documentAccessor.getNodeListAsStream(document, XACML2_ATTRIBUTE_VALUE_XPATH_TEMPLATE, PURPOSE_OF_USE_ATTRIBUTE_ID).map(Node::getNodeValue).collect(toSet());
         final Set<String> obligations = documentAccessor.getNodeListAsStream(document, XACML2_OBLIGATION_ATTRIBUTE_ASSIGNMENT_XPATH_TEMPLATE).map(Node::getNodeValue).collect(toSet());
 
-        assertEquals("consent reference id doesn't match", MockConsentDtoFactory.MOCK_CONSENT_REFERENCE_ID, consentReferenceId);
-        assertTrue("extra intermediary NPIs that are not supposed to exist", MockConsentDtoFactory.INTERMEDIARY_NPIS.containsAll(intermediaryNpis));
-        assertTrue("missing intermediary NPIs", intermediaryNpis.containsAll(MockConsentDtoFactory.INTERMEDIARY_NPIS));
-        assertTrue("extra recipient NPIs that are not supposed to exist", MockConsentDtoFactory.RECIPIENT_NPIS.containsAll(recipientNpis));
-        assertTrue("missing recipient NPIs", recipientNpis.containsAll(MockConsentDtoFactory.RECIPIENT_NPIS));
-        assertTrue("extra purpose of use codes that are not supposed to exist", MockConsentDtoFactory.PURPOSES.containsAll(purposes));
-        assertTrue("missing purpose of use codes", purposes.containsAll(MockConsentDtoFactory.PURPOSES));
-        assertTrue("extra obligations that are not supposed to exist", MockConsentDtoFactory.OBLIGATIONS.containsAll(obligations));
-        assertTrue("missing obligations", obligations.containsAll(MockConsentDtoFactory.OBLIGATIONS));
+        assertEquals("consent reference id doesn't match", ConsentDtoFactoryStub.MOCK_CONSENT_REFERENCE_ID, consentReferenceId);
+        assertTrue("extra intermediary NPIs that are not supposed to exist", ConsentDtoFactoryStub.INTERMEDIARY_NPIS.containsAll(intermediaryNpis));
+        assertTrue("missing intermediary NPIs", intermediaryNpis.containsAll(ConsentDtoFactoryStub.INTERMEDIARY_NPIS));
+        assertTrue("extra recipient NPIs that are not supposed to exist", ConsentDtoFactoryStub.RECIPIENT_NPIS.containsAll(recipientNpis));
+        assertTrue("missing recipient NPIs", recipientNpis.containsAll(ConsentDtoFactoryStub.RECIPIENT_NPIS));
+        assertTrue("extra purpose of use codes that are not supposed to exist", ConsentDtoFactoryStub.PURPOSES.containsAll(purposes));
+        assertTrue("missing purpose of use codes", purposes.containsAll(ConsentDtoFactoryStub.PURPOSES));
+        assertTrue("extra obligations that are not supposed to exist", ConsentDtoFactoryStub.OBLIGATIONS.containsAll(obligations));
+        assertTrue("missing obligations", obligations.containsAll(ConsentDtoFactoryStub.OBLIGATIONS));
     }
 }
