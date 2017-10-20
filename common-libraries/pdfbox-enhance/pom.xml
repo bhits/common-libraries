@@ -13,15 +13,10 @@
     <name>PdfBox Enhance</name>
     <packaging>jar</packaging>
 
-    <properties>
-         <pdfbox.version>2.0.4</pdfbox.version>
-    </properties>
-
-<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>${pdfbox.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

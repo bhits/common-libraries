@@ -4,9 +4,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<groupId>gov.samhsa.c2s</groupId>
-	<artifactId>common-libraries</artifactId>
-	<version>1.17.0-SNAPSHOT</version>
+    <groupId>gov.samhsa.c2s</groupId>
+    <artifactId>common-libraries</artifactId>
+    <version>1.17.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>Common Libraries</name>
@@ -72,6 +72,7 @@
         <logger-wrapper.version>1.14.0</logger-wrapper.version>
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <asm.version>5.0.4</asm.version>
+        <pdfbox.version>2.0.4</pdfbox.version>
 
         <!-- Test -->
         <xmlunit.version>1.5</xmlunit.version>
@@ -217,6 +218,12 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>audit-client</artifactId>
                 <version>${logback-audit.version}</version>
+            </dependency>
+            <!-- PDF Box -->
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
             </dependency>
 
             <!-- C2S Common Libraries -->
