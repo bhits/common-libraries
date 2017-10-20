@@ -45,9 +45,12 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
- *  TODO Don't forget to give credit  to https://github.com/heksemann/HexPDF
+ * HexPdf
+ *
+ * https://github.com/heksemann/HexPDF
+ *
+ *
  */
 
 /**
