@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
 
-public class MockConsentDtoFactory implements ConsentDtoFactory {
+public class ConsentDtoFactoryStub implements ConsentDtoFactory {
 
     public static final Object MOCK_REQUEST_OBJECT = new Object();
     public static final String MOCK_CONSENT_REFERENCE_ID = "consentReferenceId";
